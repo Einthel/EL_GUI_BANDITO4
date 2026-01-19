@@ -1,0 +1,71 @@
+{
+    "QMainWindow": {
+        "background-color": "#2b2b2b",
+        "color": "#ffffff"
+    },
+    "QWidget": {
+        "background-color": "#2b2b2b",
+        "color": "#ffffff"
+    },
+    "QFrame": {
+        "background-color": "#333333",
+        "border": "1px solid #444444",
+        "border-radius": "5px"
+    },
+    "QGroupBox": {
+        "background-color": "#333333",
+        "border": "1px solid #555555",
+        "border-radius": "5px",
+        "margin-top": "10px",
+        "color": "#ffffff",
+        "font-weight": "bold"
+    },
+    "QGroupBox::title": {
+        "subcontrol-origin": "margin",
+        "subcontrol-position": "top center",
+        "padding": "0 3px",
+        "color": "#aaaaaa"
+    },
+    "QToolButton": {
+        "background-color": "#444444",
+        "border": "1px solid #555555",
+        "border-radius": "4px",
+        "color": "#ffffff",
+        "padding": "5px"
+    },
+    "QToolButton:hover": {
+        "background-color": "#555555",
+        "border": "1px solid #666666"
+    },
+    "QToolButton:pressed": {
+        "background-color": "#666666",
+        "border": "1px solid #777777"
+    },
+    "QLineEdit": {
+        "background-color": "#222222",
+        "border": "1px solid #555555",
+        "border-radius": "4px",
+        "color": "#ffffff",
+        "padding": "2px"
+    },
+    "QLineEdit#network_stat_line": {
+        "background-color": "#222222",
+        "color": "#ffffff"
+    },
+    "QLCDNumber": {
+        "background-color": "#222222",
+        "border": "1px solid #555555",
+        "border-radius": "4px",
+        "color": "#00ff00"
+    },
+    "status_connected": {
+        "background-color": "#4caf50",
+        "color": "#000000",
+        "border": "1px solid #388e3c"
+    },
+    "status_disconnected": {
+        "background-color": "#f44336",
+        "color": "#ffffff",
+        "border": "1px solid #d32f2f"
+    }
+}

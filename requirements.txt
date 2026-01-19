@@ -1,0 +1,6 @@
+PySide6
+fastapi
+uvicorn
+websockets
+# Optional (but good for requests)
+requests

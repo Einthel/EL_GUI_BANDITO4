@@ -1,0 +1,23 @@
+{
+    "status_connected": {
+        "background-color": "#a5d6a7",
+        "color": "#1b5e20",
+        "border": "1px solid #66bb6a",
+        "border-radius": "4px",
+        "padding": "2px"
+    },
+    "status_disconnected": {
+        "background-color": "#ef9a9a",
+        "color": "#b71c1c",
+        "border": "1px solid #ef5350",
+        "border-radius": "4px",
+        "padding": "2px"
+    },
+    "status_default": {
+        "background-color": "#eeeeee",
+        "color": "#616161",
+        "border": "1px solid #bdbdbd",
+        "border-radius": "4px",
+        "padding": "2px"
+    }
+}
