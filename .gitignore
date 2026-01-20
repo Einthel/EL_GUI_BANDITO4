@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Виртуальные окружения (ОБЯЗАТЕЛЬНО к исключению)
+venv/
+env/
+.env/
+ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Конфиденциальные данные (ключи API, пароли, токены)
+.env
+.flaskenv
+*.secret
+
+# Настройки IDE (PyCharm, VS Code)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Файлы логов и базы данных
+*.log
+*.sqlite3
+db.sqlite3
+
+# Результаты сборки и дистрибутивы
+dist/
+build/
+*.egg-info/

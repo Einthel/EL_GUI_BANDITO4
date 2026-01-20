@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>1140</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,17 +19,23 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1280</width>
-      <height>720</height>
+      <width>1130</width>
+      <height>690</height>
      </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>700</height>
+     </size>
     </property>
     <widget class="QFrame" name="left_frame">
      <property name="geometry">
       <rect>
-       <x>5</x>
+       <x>10</x>
        <y>10</y>
        <width>210</width>
-       <height>700</height>
+       <height>680</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -41,13 +47,13 @@
      <property name="minimumSize">
       <size>
        <width>210</width>
-       <height>700</height>
+       <height>680</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>210</width>
-       <height>700</height>
+       <height>680</height>
       </size>
      </property>
      <property name="frameShape">
@@ -83,7 +89,7 @@
         <property name="maximumSize">
          <size>
           <width>190</width>
-          <height>16777215</height>
+          <height>450</height>
          </size>
         </property>
         <property name="title">
@@ -210,7 +216,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QToolButton" name="null_toolB_2">
+          <widget class="QToolButton" name="plugin_toolB">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -230,7 +236,7 @@
             </size>
            </property>
            <property name="text">
-            <string>null_button</string>
+            <string>Plugin Manager</string>
            </property>
           </widget>
          </item>
@@ -295,10 +301,10 @@
     <widget class="QFrame" name="right_frame">
      <property name="geometry">
       <rect>
-       <x>224</x>
+       <x>230</x>
        <y>10</y>
-       <width>1040</width>
-       <height>700</height>
+       <width>900</width>
+       <height>680</height>
       </rect>
      </property>
      <property name="sizePolicy">

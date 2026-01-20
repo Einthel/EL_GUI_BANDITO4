@@ -38,15 +38,18 @@ try:
     from resources.ui_done.ui_bandito.ui_el_gui_bandito import Ui_El_GUI_BANDITO
     # Импортируем наш новый класс настроек (напрямую, так как мы в одной папке)
     from el_bandito_setting import BanditoSettings
+    from src.manager_plugin import PluginManagerWindow
 except ImportError:
     Ui_El_GUI_BANDITO = object 
     BanditoSettings = object
+    PluginManagerWindow = object
 
 # --- Класс главного окна ---
 class BanMainWindow(QMainWindow):
     def __init__(self):
         super(BanMainWindow, self).__init__()
         self.settings_window = None
+        self.plugin_manager_window = None
         self.server_thread = None
         self.config_manager = ConfigManager(os.path.join(project_root, "configs", "el_bandito_config.json"))
 
@@ -144,6 +147,12 @@ class BanMainWindow(QMainWindow):
         else:
             print("Внимание: Кнопка 'settings_toolB' не найдена в UI")
 
+        # Кнопка менеджера плагинов (plugin_toolB)
+        if hasattr(self.ui, 'plugin_toolB'):
+            self.ui.plugin_toolB.clicked.connect(self.open_plugin_manager)
+        else:
+            print("Внимание: Кнопка 'plugin_toolB' не найдена в UI")
+
     def open_settings(self):
         """Открывает окно настроек"""
         if self.settings_window is None:
@@ -152,6 +161,15 @@ class BanMainWindow(QMainWindow):
         self.settings_window.show()
         self.settings_window.raise_()
         self.settings_window.activateWindow()
+
+    def open_plugin_manager(self):
+        """Открывает окно менеджера плагинов"""
+        if self.plugin_manager_window is None:
+            self.plugin_manager_window = PluginManagerWindow(self)
+        
+        self.plugin_manager_window.show()
+
+        
 
 def main():
     print("Запуск Server (Bandito)...")
@@ -175,9 +193,10 @@ def main():
             del sys.modules[mod]
     
     try:
-        global Ui_El_GUI_BANDITO, BanditoSettings
+        global Ui_El_GUI_BANDITO, BanditoSettings, PluginManagerWindow
         from resources.ui_done.ui_bandito.ui_el_gui_bandito import Ui_El_GUI_BANDITO
         from el_bandito_setting import BanditoSettings
+        from src.manager_plugin import PluginManagerWindow
     except ImportError as e:
         print(f"Критическая ошибка импорта UI или модулей: {e}")
         sys.exit(1)
