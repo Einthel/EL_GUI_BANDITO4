@@ -56,27 +56,27 @@ class Ui_El_GUI_CLIENTO(object):
         self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(5, 5, 5, 5)
-        self.time_gBox = QGroupBox(self.left_frame)
-        self.time_gBox.setObjectName(u"time_gBox")
-        self.time_gBox.setMinimumSize(QSize(190, 370))
-        self.time_gBox.setMaximumSize(QSize(190, 370))
-        self.time_gBox.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.verticalLayout_3 = QVBoxLayout(self.time_gBox)
+        self.main_groupB = QGroupBox(self.left_frame)
+        self.main_groupB.setObjectName(u"main_groupB")
+        self.main_groupB.setMinimumSize(QSize(190, 370))
+        self.main_groupB.setMaximumSize(QSize(190, 370))
+        self.main_groupB.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.verticalLayout_3 = QVBoxLayout(self.main_groupB)
         self.verticalLayout_3.setSpacing(5)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(5, 5, 5, 5)
-        self.Time_gBox = QGroupBox(self.time_gBox)
-        self.Time_gBox.setObjectName(u"Time_gBox")
-        self.Time_gBox.setMinimumSize(QSize(170, 0))
-        self.Time_gBox.setMaximumSize(QSize(170, 90))
-        self.Time_gBox.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.horizontalLayout_10 = QHBoxLayout(self.Time_gBox)
+        self.verticalLayout_3.setContentsMargins(5, 0, 5, 5)
+        self.time_groupB = QGroupBox(self.main_groupB)
+        self.time_groupB.setObjectName(u"time_groupB")
+        self.time_groupB.setMinimumSize(QSize(170, 0))
+        self.time_groupB.setMaximumSize(QSize(170, 90))
+        self.time_groupB.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.horizontalLayout_10 = QHBoxLayout(self.time_groupB)
         self.horizontalLayout_10.setSpacing(5)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.horizontalLayout_10.setContentsMargins(5, 5, 5, 5)
         self.HH = QHBoxLayout()
         self.HH.setObjectName(u"HH")
-        self.HH_lcdN = QLCDNumber(self.Time_gBox)
+        self.HH_lcdN = QLCDNumber(self.time_groupB)
         self.HH_lcdN.setObjectName(u"HH_lcdN")
         self.HH_lcdN.setMinimumSize(QSize(75, 75))
         self.HH_lcdN.setMaximumSize(QSize(75, 75))
@@ -94,7 +94,7 @@ class Ui_El_GUI_CLIENTO(object):
 
         self.MM = QHBoxLayout()
         self.MM.setObjectName(u"MM")
-        self.MM_lcdN = QLCDNumber(self.Time_gBox)
+        self.MM_lcdN = QLCDNumber(self.time_groupB)
         self.MM_lcdN.setObjectName(u"MM_lcdN")
         self.MM_lcdN.setMinimumSize(QSize(75, 75))
         self.MM_lcdN.setMaximumSize(QSize(75, 75))
@@ -111,44 +111,141 @@ class Ui_El_GUI_CLIENTO(object):
         self.horizontalLayout_10.addLayout(self.MM)
 
 
-        self.verticalLayout_3.addWidget(self.Time_gBox, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_3.addWidget(self.time_groupB, 0, Qt.AlignmentFlag.AlignHCenter)
 
-        self.settings_toolB_3 = QToolButton(self.time_gBox)
-        self.settings_toolB_3.setObjectName(u"settings_toolB_3")
+        self.plugin_layout_1 = QHBoxLayout()
+        self.plugin_layout_1.setSpacing(5)
+        self.plugin_layout_1.setObjectName(u"plugin_layout_1")
+        self.plugin_led_lineE_1 = QLineEdit(self.main_groupB)
+        self.plugin_led_lineE_1.setObjectName(u"plugin_led_lineE_1")
+        self.plugin_led_lineE_1.setMinimumSize(QSize(25, 25))
+        self.plugin_led_lineE_1.setMaximumSize(QSize(25, 25))
+        self.plugin_led_lineE_1.setReadOnly(True)
+
+        self.plugin_layout_1.addWidget(self.plugin_led_lineE_1)
+
+        self.plugin_toolB_1 = QToolButton(self.main_groupB)
+        self.plugin_toolB_1.setObjectName(u"plugin_toolB_1")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.settings_toolB_3.sizePolicy().hasHeightForWidth())
-        self.settings_toolB_3.setSizePolicy(sizePolicy1)
-        self.settings_toolB_3.setMinimumSize(QSize(170, 35))
-        self.settings_toolB_3.setMaximumSize(QSize(170, 35))
+        sizePolicy1.setHeightForWidth(self.plugin_toolB_1.sizePolicy().hasHeightForWidth())
+        self.plugin_toolB_1.setSizePolicy(sizePolicy1)
+        self.plugin_toolB_1.setMinimumSize(QSize(140, 35))
+        self.plugin_toolB_1.setMaximumSize(QSize(140, 35))
 
-        self.verticalLayout_3.addWidget(self.settings_toolB_3, 0, Qt.AlignmentFlag.AlignHCenter)
-
-        self.settings_toolB_1 = QToolButton(self.time_gBox)
-        self.settings_toolB_1.setObjectName(u"settings_toolB_1")
-        sizePolicy1.setHeightForWidth(self.settings_toolB_1.sizePolicy().hasHeightForWidth())
-        self.settings_toolB_1.setSizePolicy(sizePolicy1)
-        self.settings_toolB_1.setMinimumSize(QSize(170, 35))
-        self.settings_toolB_1.setMaximumSize(QSize(170, 35))
-
-        self.verticalLayout_3.addWidget(self.settings_toolB_1, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.plugin_layout_1.addWidget(self.plugin_toolB_1)
 
 
-        self.verticalLayout.addWidget(self.time_gBox, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_3.addLayout(self.plugin_layout_1)
 
-        self.stat_sett_gBox = QGroupBox(self.left_frame)
-        self.stat_sett_gBox.setObjectName(u"stat_sett_gBox")
-        self.stat_sett_gBox.setMinimumSize(QSize(190, 190))
-        self.stat_sett_gBox.setMaximumSize(QSize(190, 190))
-        self.stat_sett_gBox.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.stat_sett_gBox.setFlat(False)
-        self.stat_sett_gBox.setCheckable(False)
-        self.gridLayout = QGridLayout(self.stat_sett_gBox)
+        self.plugin_layout_2 = QHBoxLayout()
+        self.plugin_layout_2.setSpacing(5)
+        self.plugin_layout_2.setObjectName(u"plugin_layout_2")
+        self.plugin_led_lineE_2 = QLineEdit(self.main_groupB)
+        self.plugin_led_lineE_2.setObjectName(u"plugin_led_lineE_2")
+        self.plugin_led_lineE_2.setMinimumSize(QSize(25, 25))
+        self.plugin_led_lineE_2.setMaximumSize(QSize(25, 25))
+        self.plugin_led_lineE_2.setReadOnly(True)
+
+        self.plugin_layout_2.addWidget(self.plugin_led_lineE_2)
+
+        self.plugin_toolB_2 = QToolButton(self.main_groupB)
+        self.plugin_toolB_2.setObjectName(u"plugin_toolB_2")
+        sizePolicy1.setHeightForWidth(self.plugin_toolB_2.sizePolicy().hasHeightForWidth())
+        self.plugin_toolB_2.setSizePolicy(sizePolicy1)
+        self.plugin_toolB_2.setMinimumSize(QSize(140, 35))
+        self.plugin_toolB_2.setMaximumSize(QSize(140, 35))
+
+        self.plugin_layout_2.addWidget(self.plugin_toolB_2)
+
+
+        self.verticalLayout_3.addLayout(self.plugin_layout_2)
+
+        self.plugin_layout_3 = QHBoxLayout()
+        self.plugin_layout_3.setSpacing(5)
+        self.plugin_layout_3.setObjectName(u"plugin_layout_3")
+        self.plugin_led_lineE_3 = QLineEdit(self.main_groupB)
+        self.plugin_led_lineE_3.setObjectName(u"plugin_led_lineE_3")
+        self.plugin_led_lineE_3.setMinimumSize(QSize(25, 25))
+        self.plugin_led_lineE_3.setMaximumSize(QSize(25, 25))
+        self.plugin_led_lineE_3.setReadOnly(True)
+
+        self.plugin_layout_3.addWidget(self.plugin_led_lineE_3)
+
+        self.plugin_toolB_3 = QToolButton(self.main_groupB)
+        self.plugin_toolB_3.setObjectName(u"plugin_toolB_3")
+        sizePolicy1.setHeightForWidth(self.plugin_toolB_3.sizePolicy().hasHeightForWidth())
+        self.plugin_toolB_3.setSizePolicy(sizePolicy1)
+        self.plugin_toolB_3.setMinimumSize(QSize(140, 35))
+        self.plugin_toolB_3.setMaximumSize(QSize(140, 35))
+
+        self.plugin_layout_3.addWidget(self.plugin_toolB_3)
+
+
+        self.verticalLayout_3.addLayout(self.plugin_layout_3)
+
+        self.plugin_layout_4 = QHBoxLayout()
+        self.plugin_layout_4.setSpacing(5)
+        self.plugin_layout_4.setObjectName(u"plugin_layout_4")
+        self.plugin_led_lineE_4 = QLineEdit(self.main_groupB)
+        self.plugin_led_lineE_4.setObjectName(u"plugin_led_lineE_4")
+        self.plugin_led_lineE_4.setMinimumSize(QSize(25, 25))
+        self.plugin_led_lineE_4.setMaximumSize(QSize(25, 25))
+        self.plugin_led_lineE_4.setReadOnly(True)
+
+        self.plugin_layout_4.addWidget(self.plugin_led_lineE_4)
+
+        self.plugin_toolB_4 = QToolButton(self.main_groupB)
+        self.plugin_toolB_4.setObjectName(u"plugin_toolB_4")
+        sizePolicy1.setHeightForWidth(self.plugin_toolB_4.sizePolicy().hasHeightForWidth())
+        self.plugin_toolB_4.setSizePolicy(sizePolicy1)
+        self.plugin_toolB_4.setMinimumSize(QSize(140, 35))
+        self.plugin_toolB_4.setMaximumSize(QSize(140, 35))
+
+        self.plugin_layout_4.addWidget(self.plugin_toolB_4)
+
+
+        self.verticalLayout_3.addLayout(self.plugin_layout_4)
+
+        self.plugin_layout_5 = QHBoxLayout()
+        self.plugin_layout_5.setSpacing(5)
+        self.plugin_layout_5.setObjectName(u"plugin_layout_5")
+        self.plugin_led_lineE_5 = QLineEdit(self.main_groupB)
+        self.plugin_led_lineE_5.setObjectName(u"plugin_led_lineE_5")
+        self.plugin_led_lineE_5.setMinimumSize(QSize(25, 25))
+        self.plugin_led_lineE_5.setMaximumSize(QSize(25, 25))
+        self.plugin_led_lineE_5.setReadOnly(True)
+
+        self.plugin_layout_5.addWidget(self.plugin_led_lineE_5)
+
+        self.plugin_toolB_5 = QToolButton(self.main_groupB)
+        self.plugin_toolB_5.setObjectName(u"plugin_toolB_5")
+        sizePolicy1.setHeightForWidth(self.plugin_toolB_5.sizePolicy().hasHeightForWidth())
+        self.plugin_toolB_5.setSizePolicy(sizePolicy1)
+        self.plugin_toolB_5.setMinimumSize(QSize(140, 35))
+        self.plugin_toolB_5.setMaximumSize(QSize(140, 35))
+
+        self.plugin_layout_5.addWidget(self.plugin_toolB_5)
+
+
+        self.verticalLayout_3.addLayout(self.plugin_layout_5)
+
+
+        self.verticalLayout.addWidget(self.main_groupB, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.options_groupB = QGroupBox(self.left_frame)
+        self.options_groupB.setObjectName(u"options_groupB")
+        self.options_groupB.setMinimumSize(QSize(190, 190))
+        self.options_groupB.setMaximumSize(QSize(190, 190))
+        self.options_groupB.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.options_groupB.setFlat(False)
+        self.options_groupB.setCheckable(False)
+        self.gridLayout = QGridLayout(self.options_groupB)
         self.gridLayout.setSpacing(5)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(5, 5, 5, 5)
-        self.network_stat_line = QLineEdit(self.stat_sett_gBox)
+        self.network_stat_line = QLineEdit(self.options_groupB)
         self.network_stat_line.setObjectName(u"network_stat_line")
         sizePolicy1.setHeightForWidth(self.network_stat_line.sizePolicy().hasHeightForWidth())
         self.network_stat_line.setSizePolicy(sizePolicy1)
@@ -159,7 +256,7 @@ class Ui_El_GUI_CLIENTO(object):
 
         self.gridLayout.addWidget(self.network_stat_line, 1, 0, 1, 1)
 
-        self.settings_toolB = QToolButton(self.stat_sett_gBox)
+        self.settings_toolB = QToolButton(self.options_groupB)
         self.settings_toolB.setObjectName(u"settings_toolB")
         sizePolicy1.setHeightForWidth(self.settings_toolB.sizePolicy().hasHeightForWidth())
         self.settings_toolB.setSizePolicy(sizePolicy1)
@@ -169,7 +266,7 @@ class Ui_El_GUI_CLIENTO(object):
         self.gridLayout.addWidget(self.settings_toolB, 0, 0, 1, 1)
 
 
-        self.verticalLayout.addWidget(self.stat_sett_gBox, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout.addWidget(self.options_groupB, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
         self.horizontalLayout.addWidget(self.left_frame)
@@ -185,46 +282,6 @@ class Ui_El_GUI_CLIENTO(object):
         self.verticalLayout_2.setSpacing(5)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(5, 5, 5, 5)
-        self.toolB_null_5 = QToolButton(self.right_frame)
-        self.toolB_null_5.setObjectName(u"toolB_null_5")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_5)
-
-        self.toolB_null_6 = QToolButton(self.right_frame)
-        self.toolB_null_6.setObjectName(u"toolB_null_6")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_6)
-
-        self.toolB_null_7 = QToolButton(self.right_frame)
-        self.toolB_null_7.setObjectName(u"toolB_null_7")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_7)
-
-        self.toolB_null_8 = QToolButton(self.right_frame)
-        self.toolB_null_8.setObjectName(u"toolB_null_8")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_8)
-
-        self.toolB_null_4 = QToolButton(self.right_frame)
-        self.toolB_null_4.setObjectName(u"toolB_null_4")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_4)
-
-        self.toolB_null_3 = QToolButton(self.right_frame)
-        self.toolB_null_3.setObjectName(u"toolB_null_3")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_3)
-
-        self.toolB_null_2 = QToolButton(self.right_frame)
-        self.toolB_null_2.setObjectName(u"toolB_null_2")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_2)
-
-        self.toolB_null_1 = QToolButton(self.right_frame)
-        self.toolB_null_1.setObjectName(u"toolB_null_1")
-
-        self.verticalLayout_2.addWidget(self.toolB_null_1)
-
 
         self.horizontalLayout.addWidget(self.right_frame)
 
@@ -236,20 +293,15 @@ class Ui_El_GUI_CLIENTO(object):
     # setupUi
 
     def retranslateUi(self, El_GUI_CLIENTO):
-        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento v.0.0.1", None))
-        self.time_gBox.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento", None))
-        self.Time_gBox.setTitle("")
-        self.settings_toolB_3.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Settings", None))
-        self.settings_toolB_1.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Settings", None))
-        self.stat_sett_gBox.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"Status", None))
+        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento v.0.0.3", None))
+        self.main_groupB.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento", None))
+        self.time_groupB.setTitle("")
+        self.plugin_toolB_1.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
+        self.plugin_toolB_2.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
+        self.plugin_toolB_3.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
+        self.plugin_toolB_4.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
+        self.plugin_toolB_5.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
+        self.options_groupB.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"Status", None))
         self.settings_toolB.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Settings", None))
-        self.toolB_null_5.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
-        self.toolB_null_6.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
-        self.toolB_null_7.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
-        self.toolB_null_8.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
-        self.toolB_null_4.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
-        self.toolB_null_3.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
-        self.toolB_null_2.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
-        self.toolB_null_1.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"...", None))
     # retranslateUi
 

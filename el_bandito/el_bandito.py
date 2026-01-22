@@ -17,7 +17,7 @@ if project_root not in sys.path:
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-from src.utilts import compile_ui_files
+from src.manager_compile import compile_ui_files, compile_plugin_ui_files
 
 # --- Импорты логики сохранения (Config) ---
 try:
@@ -181,6 +181,10 @@ def main():
     # Компиляция UI
     print("Проверка UI файлов...")
     compile_ui_files(ui_raw_dir, ui_done_dir)
+
+    # Компиляция Плагинов
+    plugins_dir = os.path.join(project_root, "plugins")
+    compile_plugin_ui_files(plugins_dir)
     
     # Переимпортируем модули после компиляции
     modules_to_reload = [

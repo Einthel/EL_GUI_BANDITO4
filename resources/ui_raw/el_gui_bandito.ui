@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>el_gui_bandito v.0.0.1</string>
+   <string>el_gui_bandito v.0.0.3</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="Main_widget" native="true">
@@ -63,9 +63,6 @@
       <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>5</number>
-      </property>
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -78,90 +75,786 @@
       <property name="bottomMargin">
        <number>5</number>
       </property>
-      <item alignment="Qt::AlignmentFlag::AlignHCenter">
-       <widget class="QGroupBox" name="null_gBox">
+      <item>
+       <widget class="QGroupBox" name="main_gBox">
         <property name="minimumSize">
          <size>
-          <width>190</width>
-          <height>0</height>
+          <width>200</width>
+          <height>470</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>190</width>
-          <height>450</height>
+          <height>470</height>
          </size>
         </property>
         <property name="title">
-         <string>el_gui_comrado</string>
+         <string>el_gui_bandito</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QToolButton" name="null_toolB_4">
-           <property name="maximumSize">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item alignment="Qt::AlignmentFlag::AlignHCenter">
+          <widget class="QFrame" name="plugin_frame_1">
+           <property name="minimumSize">
             <size>
-             <width>170</width>
-             <height>30</height>
+             <width>180</width>
+             <height>84</height>
             </size>
            </property>
-           <property name="text">
-            <string>Settings</string>
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>84</height>
+            </size>
            </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_2">
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <item row="0" column="0" colspan="4" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QLineEdit" name="plugin_led_1">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>160</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QPushButton" name="switch_push_1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_add_toolB_1">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_reload_toolB_1">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_delete_toolB_1">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
-         <item>
-          <widget class="QToolButton" name="null_toolB_3">
-           <property name="maximumSize">
+         <item alignment="Qt::AlignmentFlag::AlignHCenter">
+          <widget class="QFrame" name="plugin_frame_2">
+           <property name="minimumSize">
             <size>
-             <width>170</width>
-             <height>30</height>
+             <width>180</width>
+             <height>84</height>
             </size>
            </property>
-           <property name="text">
-            <string>null_button</string>
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>84</height>
+            </size>
            </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <item row="0" column="0" colspan="4" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QLineEdit" name="plugin_led_2">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>160</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QPushButton" name="switch_push_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_add_toolB_2">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_reload_toolB_2">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_delete_toolB_2">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
-         <item>
-          <widget class="QToolButton" name="setting_toolB">
-           <property name="maximumSize">
+         <item alignment="Qt::AlignmentFlag::AlignHCenter">
+          <widget class="QFrame" name="plugin_frame_3">
+           <property name="minimumSize">
             <size>
-             <width>170</width>
-             <height>30</height>
+             <width>180</width>
+             <height>84</height>
             </size>
            </property>
-           <property name="text">
-            <string>Settings</string>
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>84</height>
+            </size>
            </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <item row="0" column="0" colspan="4" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QLineEdit" name="plugin_led_3">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>160</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QPushButton" name="switch_push_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_add_toolB_3">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_reload_toolB_3">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_delete_toolB_3">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
-         <item>
-          <widget class="QLineEdit" name="line_status_2">
-           <property name="maximumSize">
+         <item alignment="Qt::AlignmentFlag::AlignHCenter">
+          <widget class="QFrame" name="plugin_frame_4">
+           <property name="minimumSize">
             <size>
-             <width>170</width>
-             <height>30</height>
+             <width>180</width>
+             <height>84</height>
             </size>
            </property>
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>84</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <item row="0" column="0" colspan="4" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QLineEdit" name="plugin_led_4">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>160</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QPushButton" name="switch_push_4">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_add_toolB_4">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_reload_toolB_4">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_delete_toolB_4">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignmentFlag::AlignHCenter">
+          <widget class="QFrame" name="plugin_frame_5">
+           <property name="minimumSize">
+            <size>
+             <width>180</width>
+             <height>84</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>84</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_6">
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <item row="0" column="0" colspan="4" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QLineEdit" name="plugin_led_5">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>160</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QPushButton" name="switch_push_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_add_toolB_5">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_reload_toolB_5">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+             <widget class="QToolButton" name="plugin_delete_toolB_5">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
        </widget>
       </item>
-      <item alignment="Qt::AlignmentFlag::AlignHCenter">
+      <item>
        <widget class="QGroupBox" name="settings_gBox">
         <property name="minimumSize">
          <size>
-          <width>190</width>
+          <width>200</width>
           <height>200</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>190</width>
+          <width>200</width>
           <height>200</height>
          </size>
         </property>
@@ -190,32 +883,10 @@
          <property name="bottomMargin">
           <number>5</number>
          </property>
-         <item row="0" column="0">
-          <widget class="QToolButton" name="null_toolB_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>170</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>170</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>null_button</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item row="2" column="0">
           <widget class="QToolButton" name="plugin_toolB">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -225,7 +896,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>170</width>
+             <width>180</width>
              <height>35</height>
             </size>
            </property>
@@ -240,32 +911,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QToolButton" name="settings_toolB">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>170</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>170</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Settings</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
+         <item row="0" column="0">
           <widget class="QLineEdit" name="network_stat_line">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -275,7 +921,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>170</width>
+             <width>180</width>
              <height>35</height>
             </size>
            </property>
@@ -292,6 +938,88 @@
             <bool>true</bool>
            </property>
           </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QToolButton" name="settings_toolB">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>180</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>170</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Settings</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <layout class="QHBoxLayout" name="null_Layout">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <item>
+            <widget class="QToolButton" name="null_toolB_1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>85</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>80</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>null_button</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="null_toolB_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>85</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>80</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>null_button</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -319,110 +1047,6 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Raised</enum>
      </property>
-     <widget class="QToolButton" name="toolButton_8">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>303</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="toolButton_5">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>60</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="toolButton_7">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>222</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="toolButton_6">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>141</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="toolButton">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>627</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="toolButton_2">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>546</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="toolButton_3">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>465</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="toolButton_4">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>384</y>
-        <width>21</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
     </widget>
    </widget>
   </widget>

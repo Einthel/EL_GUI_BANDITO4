@@ -7,6 +7,27 @@
 1.  **Client (RPi):** Python + PySide6 приложение с сенсорным интерфейсом. Выступает в роли пульта управления.
 2.  **Server (PC):** FastAPI приложение на Windows. Принимает команды от RPi по WebSocket и управляет системой (звук, запуск программ, эмуляция нажатий).
 
+### 📸 Интерфейс / UI Screenshots
+
+<table>
+  <tr>
+    <td align="center"><b>Server Side (PC)</b></td>
+    <td align="center"><b>Client Side (RPi)</b></td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/c65f116d-4375-4ed0-b0ce-0ea1d86ca6cb" width="450" alt="Server UI" />
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/bbf5ecfe-0fe6-4fe2-ac39-840f4edbe6e1" width="450" alt="Client UI" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><i>Интерфейс сервера для управления системой</i></td>
+    <td align="center"><i>Сенсорный интерфейс пульта управления</i></td>
+  </tr>
+</table>
+
 ## 🏗 Архитектура
 *   **Связь:** WebSocket (двусторонняя).
     *   Server: `FastAPI` (Python)
