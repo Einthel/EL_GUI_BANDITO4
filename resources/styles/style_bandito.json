@@ -67,5 +67,14 @@
         "background-color": "#f44336",
         "color": "#ffffff",
         "border": "1px solid #d32f2f"
+    },
+    "QToolButton#plugin_add_toolB_1, QToolButton#plugin_add_toolB_2, QToolButton#plugin_add_toolB_3, QToolButton#plugin_add_toolB_4, QToolButton#plugin_add_toolB_5": {
+        "qproperty-icon": "url(resources/ico/ico_add.png)"
+    },
+    "QToolButton#plugin_delete_toolB_1, QToolButton#plugin_delete_toolB_2, QToolButton#plugin_delete_toolB_3, QToolButton#plugin_delete_toolB_4, QToolButton#plugin_delete_toolB_5": {
+        "qproperty-icon": "url(resources/ico/ico_delete.png)"
+    },
+    "QToolButton#plugin_reload_toolB_1, QToolButton#plugin_reload_toolB_2, QToolButton#plugin_reload_toolB_3, QToolButton#plugin_reload_toolB_4, QToolButton#plugin_reload_toolB_5": {
+        "qproperty-icon": "url(resources/ico/ico_reload.png)"
     }
 }

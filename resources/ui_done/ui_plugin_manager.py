@@ -166,7 +166,7 @@ class Ui_plugin_manager_qW(object):
     # setupUi
 
     def retranslateUi(self, plugin_manager_qW):
-        plugin_manager_qW.setWindowTitle(QCoreApplication.translate("plugin_manager_qW", u"Form", None))
+        plugin_manager_qW.setWindowTitle(QCoreApplication.translate("plugin_manager_qW", u"Plugin Manager", None))
         self.groupBox.setTitle(QCoreApplication.translate("plugin_manager_qW", u"Manager Plugins", None))
         self.browser_toolB.setText(QCoreApplication.translate("plugin_manager_qW", u"Browse", None))
         self.upload_plug_toolB.setText(QCoreApplication.translate("plugin_manager_qW", u"Upload", None))

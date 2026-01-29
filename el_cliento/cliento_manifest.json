@@ -1,0 +1,64 @@
+{
+  "project_name": "EL_GUI_CLIENTO",
+  "author": "einthel",
+  "version_file": "el_cliento/ver",
+  "directories_to_ensure": [
+    "el_cliento",
+    "src",
+    "plugins",
+    "plugins/shortcut",
+    "resources/styles",
+    "resources/ui_done/ui_cliento",
+    "resources/icons"
+  ],
+  "files_map": [
+    {
+      "remote_path": "el_cliento/el_cliento.py",
+      "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "el_cliento/cliento_socket.py",
+      "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "el_cliento/cliento_setting.py",
+      "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "el_cliento/cliento_updater.py",
+      "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "el_cliento/cliento_plugin_updater.py",
+      "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "el_cliento/ver",
+      "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "plugins/shortcut/ver",
+      "local_dir": "plugins/shortcut"
+    },
+    {
+      "remote_path": "src/utilts.py",
+      "local_dir": "src"
+    },
+    {
+      "remote_path": "src/manager_save_load.py",
+      "local_dir": "src"
+    },
+    {
+      "remote_path": "resources/ui_done/ui_cliento/ui_el_gui_cliento.py",
+      "local_dir": "resources/ui_done/ui_cliento"
+    },
+    {
+      "remote_path": "resources/ui_done/ui_cliento/ui_cliento_settings.py",
+      "local_dir": "resources/ui_done/ui_cliento"
+    },
+    {
+      "remote_path": "resources/styles/style_cliento.json",
+      "local_dir": "resources/styles"
+    }
+  ]
+}

@@ -245,6 +245,15 @@ class Ui_El_GUI_CLIENTO(object):
         self.gridLayout.setSpacing(5)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(5, 5, 5, 5)
+        self.settings_toolB = QToolButton(self.options_groupB)
+        self.settings_toolB.setObjectName(u"settings_toolB")
+        sizePolicy1.setHeightForWidth(self.settings_toolB.sizePolicy().hasHeightForWidth())
+        self.settings_toolB.setSizePolicy(sizePolicy1)
+        self.settings_toolB.setMinimumSize(QSize(170, 35))
+        self.settings_toolB.setMaximumSize(QSize(170, 35))
+
+        self.gridLayout.addWidget(self.settings_toolB, 2, 0, 1, 1)
+
         self.network_stat_line = QLineEdit(self.options_groupB)
         self.network_stat_line.setObjectName(u"network_stat_line")
         sizePolicy1.setHeightForWidth(self.network_stat_line.sizePolicy().hasHeightForWidth())
@@ -254,16 +263,27 @@ class Ui_El_GUI_CLIENTO(object):
         self.network_stat_line.setFrame(True)
         self.network_stat_line.setReadOnly(True)
 
-        self.gridLayout.addWidget(self.network_stat_line, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.network_stat_line, 3, 0, 1, 1)
 
-        self.settings_toolB = QToolButton(self.options_groupB)
-        self.settings_toolB.setObjectName(u"settings_toolB")
-        sizePolicy1.setHeightForWidth(self.settings_toolB.sizePolicy().hasHeightForWidth())
-        self.settings_toolB.setSizePolicy(sizePolicy1)
-        self.settings_toolB.setMinimumSize(QSize(170, 35))
-        self.settings_toolB.setMaximumSize(QSize(170, 35))
+        self.null_toolB = QToolButton(self.options_groupB)
+        self.null_toolB.setObjectName(u"null_toolB")
+        self.null_toolB.setEnabled(True)
+        sizePolicy1.setHeightForWidth(self.null_toolB.sizePolicy().hasHeightForWidth())
+        self.null_toolB.setSizePolicy(sizePolicy1)
+        self.null_toolB.setMinimumSize(QSize(170, 35))
+        self.null_toolB.setMaximumSize(QSize(170, 35))
 
-        self.gridLayout.addWidget(self.settings_toolB, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.null_toolB, 1, 0, 1, 1)
+
+        self.null_toolB_2 = QToolButton(self.options_groupB)
+        self.null_toolB_2.setObjectName(u"null_toolB_2")
+        self.null_toolB_2.setEnabled(True)
+        sizePolicy1.setHeightForWidth(self.null_toolB_2.sizePolicy().hasHeightForWidth())
+        self.null_toolB_2.setSizePolicy(sizePolicy1)
+        self.null_toolB_2.setMinimumSize(QSize(170, 25))
+        self.null_toolB_2.setMaximumSize(QSize(170, 25))
+
+        self.gridLayout.addWidget(self.null_toolB_2, 0, 0, 1, 1)
 
 
         self.verticalLayout.addWidget(self.options_groupB, 0, Qt.AlignmentFlag.AlignHCenter)
@@ -293,7 +313,7 @@ class Ui_El_GUI_CLIENTO(object):
     # setupUi
 
     def retranslateUi(self, El_GUI_CLIENTO):
-        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento v.0.0.3", None))
+        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento v.0.0.4", None))
         self.main_groupB.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento", None))
         self.time_groupB.setTitle("")
         self.plugin_toolB_1.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
@@ -303,5 +323,7 @@ class Ui_El_GUI_CLIENTO(object):
         self.plugin_toolB_5.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
         self.options_groupB.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"Status", None))
         self.settings_toolB.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Settings", None))
+        self.null_toolB.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Bull", None))
+        self.null_toolB_2.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Bull", None))
     # retranslateUi
 

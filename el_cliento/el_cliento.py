@@ -1,7 +1,9 @@
 import sys
 import os
+import json
+import importlib.util
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout
 from PySide6.QtCore import Qt
 
 # Определяем путь к корню проекта
@@ -16,7 +18,8 @@ if project_root not in sys.path:
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-from src.manager_compile import compile_ui_files, compile_plugin_ui_files
+# Импорт апдейтера
+import cliento_updater
 
 # --- Импорты логики ---
 try:
@@ -31,7 +34,7 @@ except ImportError as e:
 try:
     from resources.ui_done.ui_cliento.ui_el_gui_cliento import Ui_El_GUI_CLIENTO
     # Импортируем наш новый класс настроек
-    from el_cliento_setting import ClientoSettings
+    from cliento_setting import ClientoSettings
 except ImportError:
     Ui_El_GUI_CLIENTO = object
     ClientoSettings = object
@@ -48,6 +51,10 @@ class CliMainWindow(QMainWindow):
         self.socket_client.log_message.connect(self.on_log)
         self.socket_client.connected.connect(self.on_connected)
         self.socket_client.disconnected.connect(self.on_disconnected)
+        self.socket_client.message_received.connect(self.on_message_received)
+        
+        self.current_plugin_config = {}
+        self.current_active_slot = None
         
         # Пробуем подключиться при старте
         self.init_connection()
@@ -67,6 +74,191 @@ class CliMainWindow(QMainWindow):
     def on_log(self, msg):
         print(f"[Client] {msg}")
     
+    def on_message_received(self, data):
+        """Обработка команд от сервера."""
+        command = data.get("command")
+        
+        if command == "UPDATE_PLUGIN_SLOTS":
+            print("[Client] Received plugin config update")
+            self.update_plugin_slots(data.get("data", {}))
+            
+        elif command == "SET_ACTIVE_SLOT":
+            slot_index = data.get("data", {}).get("index")
+            print(f"[Client] Server requested switch to slot {slot_index}")
+            
+            if slot_index is None:
+                # Disable all
+                self.clear_right_frame()
+                self.current_active_slot = None
+            else:
+                # Switch to slot if available
+                self.load_plugin_ui(slot_index)
+                
+        elif command == "CLIENT_SWITCH_PLUGIN":
+             # This command is received from THIS client (echoed back) or another client?
+             # Actually, if client switches plugin, it should tell server, and server tells everyone including this client.
+             # But here we are listening to server.
+             pass
+
+    def update_plugin_slots(self, slots_data):
+        """Обновляет UI кнопок плагинов и сохраняет конфигурацию."""
+        self.current_plugin_config = slots_data
+        
+        first_occupied_slot = None
+
+        for i in range(1, 6):
+            slot_key = f"slot_{i}"
+            plugin_data = slots_data.get(slot_key)
+            
+            btn_name = f"plugin_toolB_{i}"
+            if hasattr(self.ui, btn_name):
+                btn = getattr(self.ui, btn_name)
+                
+                # Disconnect previous connections to avoid duplicates
+                try:
+                    btn.clicked.disconnect()
+                except:
+                    pass
+                
+                if plugin_data:
+                    name = plugin_data.get("name", "Unknown")
+                    btn.setText(name)
+                    btn.setEnabled(True)
+                    # Connect click
+                    # When client clicks, we just load UI locally AND tell server
+                    btn.clicked.connect(lambda checked=False, idx=i: self.on_plugin_btn_clicked(idx))
+                    
+                    if first_occupied_slot is None:
+                        first_occupied_slot = i
+                else:
+                    btn.setText("Empty")
+                    btn.setEnabled(False)
+                    # If this slot was active, clear it
+                    if self.current_active_slot == i:
+                        self.clear_right_frame()
+                        self.current_active_slot = None
+
+        # Auto-select the first occupied slot if no slot is active
+        if first_occupied_slot is not None and self.current_active_slot is None:
+            print(f"[Client] Auto-selecting slot {first_occupied_slot}")
+            self.load_plugin_ui(first_occupied_slot)
+
+    def on_plugin_btn_clicked(self, index):
+        """Called when user clicks a plugin button on client."""
+        # 1. Load locally (optimistic update)
+        self.load_plugin_ui(index)
+        
+        # 2. Tell server to switch active slot
+        self.socket_client.send_command("CLIENT_SET_ACTIVE_SLOT", {"index": index})
+
+    def update_led_indicators(self, active_index):
+        """Updates style for plugin LED indicators."""
+        for i in range(1, 6):
+            led_name = f"plugin_led_lineE_{i}"
+            if hasattr(self.ui, led_name):
+                led = getattr(self.ui, led_name)
+                
+                # Check if this slot has a plugin assigned
+                slot_key = f"slot_{i}"
+                has_plugin = bool(self.current_plugin_config.get(slot_key))
+                
+                if i == active_index and has_plugin:
+                    led.setStyleSheet(self.load_style("plugin_active"))
+                else:
+                    # You can set different styles for empty vs inactive but populated
+                    if has_plugin:
+                        led.setStyleSheet(self.load_style("plugin_inactive"))
+                    else:
+                        led.setStyleSheet("") # Default style
+
+    def load_plugin_ui(self, index):
+        """Загружает UI плагина в right_frame."""
+        print(f"[Client] Loading plugin for slot {index}...")
+        
+        slot_key = f"slot_{index}"
+        plugin_data = self.current_plugin_config.get(slot_key)
+        
+        if not plugin_data:
+            print("No data for slot")
+            # Clear selection in LEDs
+            self.update_led_indicators(None)
+            return
+
+        plugin_dir_name = plugin_data.get("path") or plugin_data.get("id")
+        plugins_dir = os.path.join(project_root, "plugins")
+        plugin_path = os.path.join(plugins_dir, plugin_dir_name)
+        
+        # Find UI file: ui_*_cliento.py
+        ui_module_path = None
+        try:
+            if os.path.exists(plugin_path):
+                for f in os.listdir(plugin_path):
+                    if f.startswith("ui_") and f.endswith("_cliento.py"):
+                        ui_module_path = os.path.join(plugin_path, f)
+                        break
+        except Exception as e:
+            print(f"Error searching UI file: {e}")
+            return
+            
+        if not ui_module_path:
+            print(f"UI module not found in {plugin_path}")
+            return
+            
+        # Dynamic Import
+        try:
+            module_name = f"client_plugin_ui_{plugin_dir_name}"
+            spec = importlib.util.spec_from_file_location(module_name, ui_module_path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[module_name] = module
+            spec.loader.exec_module(module)
+            
+            # Find UI class
+            ui_class = None
+            for attr_name in dir(module):
+                attr = getattr(module, attr_name)
+                if isinstance(attr, type) and hasattr(attr, 'setupUi'):
+                     if attr_name.startswith("Ui_"):
+                         ui_class = attr
+                         break
+            
+            if not ui_class:
+                print("UI class not found in module.")
+                return
+                
+            # Load into right_frame
+            self.clear_right_frame()
+            
+            self.current_plugin_widget = QWidget()
+            self.ui_plugin = ui_class()
+            self.ui_plugin.setupUi(self.current_plugin_widget)
+            
+            if not self.ui.right_frame.layout():
+                layout = QVBoxLayout(self.ui.right_frame)
+                layout.setContentsMargins(0, 0, 0, 0)
+                self.ui.right_frame.setLayout(layout)
+            
+            self.ui.right_frame.layout().addWidget(self.current_plugin_widget)
+            print(f"Loaded Plugin UI from {ui_module_path}")
+            self.current_active_slot = index
+            
+            # Update LEDs
+            self.update_led_indicators(index)
+
+        except Exception as e:
+            print(f"Error loading plugin UI: {e}")
+
+    def clear_right_frame(self):
+        """Очищает содержимое right_frame."""
+        # Also clear LED selection
+        self.update_led_indicators(None)
+        
+        if self.ui.right_frame.layout():
+            while self.ui.right_frame.layout().count():
+                item = self.ui.right_frame.layout().takeAt(0)
+                widget = item.widget()
+                if widget:
+                    widget.deleteLater()
+
     def load_style(self, style_key):
         """Загружает стиль из JSON файла."""
         try:
@@ -156,34 +348,35 @@ class CliMainWindow(QMainWindow):
 def main():
     print("Запуск Client (Cliento)...")
     
-    # Настройка путей к ресурсам
-    ui_raw_dir = os.path.join(project_root, "resources", "ui_raw")
-    ui_done_dir = os.path.join(project_root, "resources", "ui_done")
+    # --- БЛОК ОБНОВЛЕНИЯ ---
+    print("Проверка обновлений ядра...")
+    core_updated = cliento_updater.check_and_update()
     
-    # Компиляция UI
-    print("Проверка UI файлов...")
-    compile_ui_files(ui_raw_dir, ui_done_dir)
+    print("Проверка обновлений плагинов...")
+    try:
+        import cliento_plugin_updater
+        plugins_updated = cliento_plugin_updater.check_and_update_plugins()
+    except Exception as e:
+        print(f"Ошибка обновления плагинов: {e}")
+        plugins_updated = False
 
-    # Компиляция Плагинов
-    plugins_dir = os.path.join(project_root, "plugins")
-    compile_plugin_ui_files(plugins_dir)
-    
-    # Переимпортируем модули после компиляции
-    modules_to_reload = [
-        'resources.ui_done.ui_cliento.ui_el_gui_cliento',
-        'resources.ui_done.ui_cliento.ui_cliento_settings',
-        'el_cliento_setting'
-    ]
-    for mod in modules_to_reload:
-        if mod in sys.modules:
-            del sys.modules[mod]
-        
+    if core_updated or plugins_updated:
+        print("Обновление завершено. Перезапуск...")
+        # Перезапускаем текущий скрипт
+        python = sys.executable
+        os.execl(python, python, *sys.argv)
+    # -----------------------
+
+    # Настройка путей к ресурсам
+    # (Компиляция удалена, используем готовые файлы с сервера)
+
     try:
         global Ui_El_GUI_CLIENTO, ClientoSettings
         from resources.ui_done.ui_cliento.ui_el_gui_cliento import Ui_El_GUI_CLIENTO
-        from el_cliento_setting import ClientoSettings
+        from cliento_setting import ClientoSettings
     except ImportError as e:
         print(f"Критическая ошибка импорта UI: {e}")
+        print("Возможно, файлы UI не были загружены апдейтером.")
         sys.exit(1)
     
     # Запуск приложения

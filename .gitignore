@@ -31,3 +31,8 @@ db.sqlite3
 dist/
 build/
 *.egg-info/
+
+#файлы git и курсора
+.gitignore
+.gitattributes
+.cursorrules

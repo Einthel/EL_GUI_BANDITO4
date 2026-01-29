@@ -67,5 +67,13 @@
         "background-color": "#f44336",
         "color": "#ffffff",
         "border": "1px solid #d32f2f"
+    },
+    "plugin_active": {
+        "background-color": "#4caf50",
+        "border": "1px solid #388e3c"
+    },
+    "plugin_inactive": {
+        "background-color": "#222222",
+        "border": "1px solid #555555"
     }
 }

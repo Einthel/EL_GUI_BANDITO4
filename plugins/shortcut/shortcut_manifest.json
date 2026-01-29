@@ -1,0 +1,41 @@
+{
+  "id": "shortcut",
+  "name": "Shortcuts Panel",
+  "version_file": "plugins/shortcut/ver",
+  "description": "Панель быстрых команд для ускорения рабочего процесса",
+  "icon": "plugins/shortcut/resources/ico/ico_shortcut.png",
+  "author": "einthel",
+  "license": "MIT",
+  "min_app_version": "0.0.1",
+  "directories_to_ensure": [
+    "plugins/shortcut",
+    "plugins/shortcut/resources",
+    "plugins/shortcut/resources/ico"
+  ],
+  "files_map": [
+    {
+      "remote_path": "plugins/shortcut/shortcut_cliento.py",
+      "local_dir": "plugins/shortcut"
+    },
+    {
+      "remote_path": "plugins/shortcut/ui_shortcut_cliento.py",
+      "local_dir": "plugins/shortcut"
+    },
+    {
+      "remote_path": "plugins/shortcut/ver",
+      "local_dir": "plugins/shortcut"
+    },
+    {
+      "remote_path": "plugins/shortcut/resources/ico/ico_shortcut.png",
+      "local_dir": "plugins/shortcut/resources/ico"
+    },
+    {
+      "remote_path": "plugins/shortcut/resources/style_shortcut.json",
+      "local_dir": "plugins/shortcut/resources"
+    },
+    {
+      "remote_path": "plugins/shortcut/resources/config_shortcut.json",
+      "local_dir": "plugins/shortcut/resources"
+    }
+  ]
+}

@@ -70,6 +70,8 @@ class BanditoClient(QObject):
         self.log_message.emit("Connected!")
         self.reconnect_timer.stop()
         self.connected.emit()
+        # Request initial state
+        self.send_command("GET_PLUGIN_SLOTS")
 
     def _on_disconnected(self):
         self.log_message.emit("Disconnected.")

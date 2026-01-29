@@ -195,7 +195,7 @@ class Ui_Setting_cliento_widget(object):
         self.ip_destination_label.setText(QCoreApplication.translate("Setting_cliento_widget", u"IP Destination:", None))
         self.port_label.setText(QCoreApplication.translate("Setting_cliento_widget", u"Port:", None))
         self.connect_toolB.setText(QCoreApplication.translate("Setting_cliento_widget", u"Connect", None))
-        self.disconnect_toolB.setText(QCoreApplication.translate("Setting_cliento_widget", u"Disconnect", None))
+        self.disconnect_toolB.setText(QCoreApplication.translate("Setting_cliento_widget", u"Updaaate", None))
         self.save_toolB.setText(QCoreApplication.translate("Setting_cliento_widget", u"Save", None))
         self.ping_toolB.setText(QCoreApplication.translate("Setting_cliento_widget", u"Ping", None))
     # retranslateUi

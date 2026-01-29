@@ -26,7 +26,7 @@
    <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Plugin Manager</string>
   </property>
   <widget class="QFrame" name="main_frame">
    <property name="geometry">

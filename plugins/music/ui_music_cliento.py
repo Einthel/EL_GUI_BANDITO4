@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'example_bandito.ui'
+## Form generated from reading UI file 'music_cliento.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -15,20 +15,24 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QSizePolicy, QWidget)
 
-class Ui_shortcut_bandito_qWidget(object):
-    def setupUi(self, shortcut_bandito_qWidget):
-        if not shortcut_bandito_qWidget.objectName():
-            shortcut_bandito_qWidget.setObjectName(u"shortcut_bandito_qWidget")
-        shortcut_bandito_qWidget.resize(900, 680)
+class Ui_Form(object):
+    def setupUi(self, Form):
+        if not Form.objectName():
+            Form.setObjectName(u"Form")
+        Form.resize(800, 580)
+        self.label = QLabel(Form)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(230, 120, 49, 16))
 
-        self.retranslateUi(shortcut_bandito_qWidget)
+        self.retranslateUi(Form)
 
-        QMetaObject.connectSlotsByName(shortcut_bandito_qWidget)
+        QMetaObject.connectSlotsByName(Form)
     # setupUi
 
-    def retranslateUi(self, shortcut_bandito_qWidget):
-        shortcut_bandito_qWidget.setWindowTitle(QCoreApplication.translate("shortcut_bandito_qWidget", u"Form", None))
+    def retranslateUi(self, Form):
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Music", None))
     # retranslateUi
 

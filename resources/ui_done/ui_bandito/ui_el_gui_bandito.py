@@ -87,6 +87,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_add_toolB_1.setObjectName(u"plugin_add_toolB_1")
         self.plugin_add_toolB_1.setMinimumSize(QSize(30, 30))
         self.plugin_add_toolB_1.setMaximumSize(QSize(30, 30))
+        self.plugin_add_toolB_1.setIconSize(QSize(128, 128))
 
         self.gridLayout_2.addWidget(self.plugin_add_toolB_1, 1, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -94,6 +95,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_reload_toolB_1.setObjectName(u"plugin_reload_toolB_1")
         self.plugin_reload_toolB_1.setMinimumSize(QSize(30, 30))
         self.plugin_reload_toolB_1.setMaximumSize(QSize(30, 30))
+        self.plugin_reload_toolB_1.setIconSize(QSize(128, 128))
 
         self.gridLayout_2.addWidget(self.plugin_reload_toolB_1, 1, 2, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -101,6 +103,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_delete_toolB_1.setObjectName(u"plugin_delete_toolB_1")
         self.plugin_delete_toolB_1.setMinimumSize(QSize(30, 30))
         self.plugin_delete_toolB_1.setMaximumSize(QSize(30, 30))
+        self.plugin_delete_toolB_1.setIconSize(QSize(128, 128))
 
         self.gridLayout_2.addWidget(self.plugin_delete_toolB_1, 1, 3, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -140,6 +143,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_add_toolB_2.setObjectName(u"plugin_add_toolB_2")
         self.plugin_add_toolB_2.setMinimumSize(QSize(30, 30))
         self.plugin_add_toolB_2.setMaximumSize(QSize(30, 30))
+        self.plugin_add_toolB_2.setIconSize(QSize(128, 128))
 
         self.gridLayout_3.addWidget(self.plugin_add_toolB_2, 1, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -147,6 +151,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_reload_toolB_2.setObjectName(u"plugin_reload_toolB_2")
         self.plugin_reload_toolB_2.setMinimumSize(QSize(30, 30))
         self.plugin_reload_toolB_2.setMaximumSize(QSize(30, 30))
+        self.plugin_reload_toolB_2.setIconSize(QSize(128, 128))
 
         self.gridLayout_3.addWidget(self.plugin_reload_toolB_2, 1, 2, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -154,6 +159,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_delete_toolB_2.setObjectName(u"plugin_delete_toolB_2")
         self.plugin_delete_toolB_2.setMinimumSize(QSize(30, 30))
         self.plugin_delete_toolB_2.setMaximumSize(QSize(30, 30))
+        self.plugin_delete_toolB_2.setIconSize(QSize(128, 128))
 
         self.gridLayout_3.addWidget(self.plugin_delete_toolB_2, 1, 3, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -193,6 +199,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_add_toolB_3.setObjectName(u"plugin_add_toolB_3")
         self.plugin_add_toolB_3.setMinimumSize(QSize(30, 30))
         self.plugin_add_toolB_3.setMaximumSize(QSize(30, 30))
+        self.plugin_add_toolB_3.setIconSize(QSize(128, 128))
 
         self.gridLayout_4.addWidget(self.plugin_add_toolB_3, 1, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -200,6 +207,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_reload_toolB_3.setObjectName(u"plugin_reload_toolB_3")
         self.plugin_reload_toolB_3.setMinimumSize(QSize(30, 30))
         self.plugin_reload_toolB_3.setMaximumSize(QSize(30, 30))
+        self.plugin_reload_toolB_3.setIconSize(QSize(128, 128))
 
         self.gridLayout_4.addWidget(self.plugin_reload_toolB_3, 1, 2, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -207,6 +215,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_delete_toolB_3.setObjectName(u"plugin_delete_toolB_3")
         self.plugin_delete_toolB_3.setMinimumSize(QSize(30, 30))
         self.plugin_delete_toolB_3.setMaximumSize(QSize(30, 30))
+        self.plugin_delete_toolB_3.setIconSize(QSize(128, 128))
 
         self.gridLayout_4.addWidget(self.plugin_delete_toolB_3, 1, 3, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -246,6 +255,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_add_toolB_4.setObjectName(u"plugin_add_toolB_4")
         self.plugin_add_toolB_4.setMinimumSize(QSize(30, 30))
         self.plugin_add_toolB_4.setMaximumSize(QSize(30, 30))
+        self.plugin_add_toolB_4.setIconSize(QSize(128, 128))
 
         self.gridLayout_5.addWidget(self.plugin_add_toolB_4, 1, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -253,6 +263,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_reload_toolB_4.setObjectName(u"plugin_reload_toolB_4")
         self.plugin_reload_toolB_4.setMinimumSize(QSize(30, 30))
         self.plugin_reload_toolB_4.setMaximumSize(QSize(30, 30))
+        self.plugin_reload_toolB_4.setIconSize(QSize(128, 128))
 
         self.gridLayout_5.addWidget(self.plugin_reload_toolB_4, 1, 2, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -260,6 +271,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_delete_toolB_4.setObjectName(u"plugin_delete_toolB_4")
         self.plugin_delete_toolB_4.setMinimumSize(QSize(30, 30))
         self.plugin_delete_toolB_4.setMaximumSize(QSize(30, 30))
+        self.plugin_delete_toolB_4.setIconSize(QSize(128, 128))
 
         self.gridLayout_5.addWidget(self.plugin_delete_toolB_4, 1, 3, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -299,6 +311,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_add_toolB_5.setObjectName(u"plugin_add_toolB_5")
         self.plugin_add_toolB_5.setMinimumSize(QSize(30, 30))
         self.plugin_add_toolB_5.setMaximumSize(QSize(30, 30))
+        self.plugin_add_toolB_5.setIconSize(QSize(128, 128))
 
         self.gridLayout_6.addWidget(self.plugin_add_toolB_5, 1, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -306,6 +319,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_reload_toolB_5.setObjectName(u"plugin_reload_toolB_5")
         self.plugin_reload_toolB_5.setMinimumSize(QSize(30, 30))
         self.plugin_reload_toolB_5.setMaximumSize(QSize(30, 30))
+        self.plugin_reload_toolB_5.setIconSize(QSize(128, 128))
 
         self.gridLayout_6.addWidget(self.plugin_reload_toolB_5, 1, 2, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -313,6 +327,7 @@ class Ui_El_GUI_BANDITO(object):
         self.plugin_delete_toolB_5.setObjectName(u"plugin_delete_toolB_5")
         self.plugin_delete_toolB_5.setMinimumSize(QSize(30, 30))
         self.plugin_delete_toolB_5.setMaximumSize(QSize(30, 30))
+        self.plugin_delete_toolB_5.setIconSize(QSize(128, 128))
 
         self.gridLayout_6.addWidget(self.plugin_delete_toolB_5, 1, 3, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -407,27 +422,72 @@ class Ui_El_GUI_BANDITO(object):
     # setupUi
 
     def retranslateUi(self, El_GUI_BANDITO):
-        El_GUI_BANDITO.setWindowTitle(QCoreApplication.translate("El_GUI_BANDITO", u"el_gui_bandito v.0.0.3", None))
+        El_GUI_BANDITO.setWindowTitle(QCoreApplication.translate("El_GUI_BANDITO", u"el_gui_bandito v.0.0.5", None))
         self.main_gBox.setTitle(QCoreApplication.translate("El_GUI_BANDITO", u"el_gui_bandito", None))
         self.switch_push_1.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_add_toolB_1.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Add Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_add_toolB_1.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_reload_toolB_1.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Reload Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_reload_toolB_1.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_delete_toolB_1.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Delete plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_delete_toolB_1.setText("")
         self.switch_push_2.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_add_toolB_2.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Add Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_add_toolB_2.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_reload_toolB_2.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Reload Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_reload_toolB_2.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_delete_toolB_2.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Delete plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_delete_toolB_2.setText("")
         self.switch_push_3.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_add_toolB_3.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Add Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_add_toolB_3.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_reload_toolB_3.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Reload Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_reload_toolB_3.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_delete_toolB_3.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Delete plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_delete_toolB_3.setText("")
         self.switch_push_4.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_add_toolB_4.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Add Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_add_toolB_4.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_reload_toolB_4.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Reload Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_reload_toolB_4.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_delete_toolB_4.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Delete plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_delete_toolB_4.setText("")
         self.switch_push_5.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_add_toolB_5.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Add Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_add_toolB_5.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_reload_toolB_5.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Reload Plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_reload_toolB_5.setText("")
+#if QT_CONFIG(tooltip)
+        self.plugin_delete_toolB_5.setToolTip(QCoreApplication.translate("El_GUI_BANDITO", u"Delete plugin", None))
+#endif // QT_CONFIG(tooltip)
         self.plugin_delete_toolB_5.setText("")
         self.settings_gBox.setTitle(QCoreApplication.translate("El_GUI_BANDITO", u"Status", None))
         self.plugin_toolB.setText(QCoreApplication.translate("El_GUI_BANDITO", u"Plugin Manager", None))
