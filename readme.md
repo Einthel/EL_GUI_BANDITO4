@@ -60,7 +60,7 @@
 *   `el_cliento/` - Исходный код клиента (запускается на Raspberry Pi).
     *   `cliento_updater.py` - Модуль автообновления.
     *   `cliento_manifest.json` - Список файлов для синхронизации.
-    *   `ver` - Файл версии клиента.
+    *   `ver_cliento` - Файл версии клиента.
 *   `el_bandito/` - Исходный код сервера (запускается на Windows).
 *   `src/manager_plugin.py` - Логика управления плагинами (UI: `plugin_manager.ui`).
 *   `resources/ui_raw/` - Исходные файлы дизайна (.ui). Сюда сохранять из Qt Designer.
