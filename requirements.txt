@@ -3,4 +3,3 @@ fastapi
 uvicorn
 websockets>=10.4
 requests
-keyboard

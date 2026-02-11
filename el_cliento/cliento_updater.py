@@ -13,7 +13,7 @@ logger = logging.getLogger("Updater")
 # Пути
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) # папка el_cliento
 ROOT_DIR = os.path.dirname(BASE_DIR) # Корневая папка проекта (где лежит el_cliento/)
-VER_FILE = os.path.join(BASE_DIR, "ver_cliento")
+VER_FILE = os.path.join(BASE_DIR, "ver")
 CONFIG_FILE = os.path.join(ROOT_DIR, "configs", "el_cliento_config.json")
 
 # Fallback для конфига, если структура папок отличается (например на RPi)

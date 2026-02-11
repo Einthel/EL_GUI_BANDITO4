@@ -86,28 +86,9 @@ class BanditoClient(QObject):
         try:
             data = json.loads(message)
             self.message_received.emit(data)
-            
-            # Логирование с защитой от больших бинарных данных
-            log_data = data.copy()
-            command = data.get("command", "")
-            
-            # Если это обновление файла, не выводим content/data
-            if command == "SHORTCUT_ICON_UPDATE" and "data" in log_data:
-                # Создаем копию вложенного словаря, чтобы не испортить оригинал
-                log_data["data"] = log_data["data"].copy()
-                if "content" in log_data["data"]:
-                    path = log_data["data"].get("path", "unknown")
-                    log_data["data"]["content"] = f"<Binary Data for {path}>"
-            
-            # Общая защита от длинных строк (на случай других команд)
-            msg_str = str(log_data)
-            if len(msg_str) > 500:
-                msg_str = msg_str[:500] + "... [truncated]"
-                
-            self.log_message.emit(f"Received: {msg_str}")
-            
+            self.log_message.emit(f"Received: {data}")
         except json.JSONDecodeError:
-            self.log_message.emit(f"Received raw: {message[:100]}...")
+            self.log_message.emit(f"Received raw: {message}")
 
     def _on_error(self, error_code):
         error_msg = self.client.errorString()

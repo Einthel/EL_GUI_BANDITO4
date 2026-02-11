@@ -180,6 +180,7 @@ class CliMainWindow(QMainWindow):
         
         if not plugin_data:
             print("No data for slot")
+            # Clear selection in LEDs
             self.update_led_indicators(None)
             return
 
@@ -187,71 +188,6 @@ class CliMainWindow(QMainWindow):
         plugins_dir = os.path.join(project_root, "plugins")
         plugin_path = os.path.join(plugins_dir, plugin_dir_name)
         
-        # --- NEW LOGIC: Try to load Plugin Logic Class first ---
-        # Ищем файл логики: <plugin_dir_name>_cliento.py
-        logic_file_name = f"{plugin_dir_name}_cliento.py"
-        logic_module_path = os.path.join(plugin_path, logic_file_name)
-        
-        if os.path.exists(logic_module_path):
-            print(f"[Client] Found logic module: {logic_module_path}")
-            try:
-                # ВАЖНО: Добавляем путь плагина в sys.path, чтобы импорты внутри него работали
-                # Мы делаем это временно или постоянно? Постоянно не страшно.
-                if plugin_path not in sys.path:
-                    sys.path.insert(0, plugin_path)
-
-                module_name = f"client_plugin_logic_{plugin_dir_name}"
-                spec = importlib.util.spec_from_file_location(module_name, logic_module_path)
-                module = importlib.util.module_from_spec(spec)
-                sys.modules[module_name] = module
-                spec.loader.exec_module(module)
-                
-                # Ищем класс, который наследуется от QWidget (но не Ui_...)
-                # Обычно мы договоримся называть его MainClass или как-то похоже
-                # Или просто искать класс с __init__, принимающий socket_client
-                
-                # Эвристика: ищем класс, имя которого заканчивается на "Plugin" или "Client"
-                # И который НЕ начинается на Ui_
-                plugin_class = None
-                for attr_name in dir(module):
-                    attr = getattr(module, attr_name)
-                    # Check if it is a class
-                    if isinstance(attr, type):
-                        # Check inheritance and name
-                        if issubclass(attr, QWidget) and not attr_name.startswith("Ui_"):
-                             # CRITICAL: Check if the class is defined IN THIS MODULE
-                             # Imports like QToolButton will have __module__ like 'PySide6.QtWidgets'
-                             # We only want classes defined in the loaded module
-                             if attr.__module__ == module.__name__:
-                                 plugin_class = attr
-                                 break
-                
-                if plugin_class:
-                    print(f"[Client] Instantiating plugin logic class: {plugin_class.__name__}")
-                    self.clear_right_frame()
-                    
-                    # Инстанцируем класс, передавая socket_client и путь
-                    # Важно: класс должен принимать эти аргументы
-                    self.ui_plugin = plugin_class(self.socket_client, plugin_path)
-                    
-                    # Добавляем в UI
-                    if not self.ui.right_frame.layout():
-                        layout = QVBoxLayout(self.ui.right_frame)
-                        layout.setContentsMargins(0, 0, 0, 0)
-                        self.ui.right_frame.setLayout(layout)
-                    
-                    self.ui.right_frame.layout().addWidget(self.ui_plugin)
-                    
-                    self.current_active_slot = index
-                    self.update_led_indicators(index)
-                    return # Успех, выходим
-                    
-            except Exception as e:
-                print(f"[Client] Error loading plugin logic: {e}")
-                # Если ошибка - пробуем фоллбэк на старый метод (только UI)
-
-        # --- OLD LOGIC (Fallback): Load pure UI ---
-        print("[Client] Fallback to pure UI loading...")
         # Find UI file: ui_*_cliento.py
         ui_module_path = None
         try:

@@ -1,7 +1,7 @@
 {
   "project_name": "EL_GUI_CLIENTO",
   "author": "einthel",
-  "version_file": "el_cliento/ver_cliento",
+  "version_file": "el_cliento/ver",
   "directories_to_ensure": [
     "el_cliento",
     "src",
@@ -33,8 +33,12 @@
       "local_dir": "el_cliento"
     },
     {
-      "remote_path": "el_cliento/ver_cliento",
+      "remote_path": "el_cliento/ver",
       "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "plugins/shortcut/ver",
+      "local_dir": "plugins/shortcut"
     },
     {
       "remote_path": "src/utilts.py",

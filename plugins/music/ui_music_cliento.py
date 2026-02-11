@@ -24,7 +24,7 @@ class Ui_Form(object):
         Form.resize(800, 580)
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(330, 80, 121, 16))
+        self.label.setGeometry(QRect(230, 120, 49, 16))
 
         self.retranslateUi(Form)
 
@@ -33,6 +33,6 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Form", u"MusicCliento", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Music", None))
     # retranslateUi
 

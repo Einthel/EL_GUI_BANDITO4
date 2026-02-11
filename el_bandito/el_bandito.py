@@ -89,55 +89,6 @@ class BanMainWindow(QMainWindow):
         if hasattr(self.ui, 'network_stat_line'):
              self.ui.network_stat_line.setText(f"CMD: {cmd_data.get('command', '?')}")
 
-        if cmd_data.get("command") == "PLUGIN_BUTTON_PRESS":
-            # Payload: {"id": "1:butt_toolB_01"}
-            payload = cmd_data.get("payload", {})
-            btn_id_full = payload.get("id")
-            
-            # Мы знаем текущий активный слот self.current_active_slot
-            # Можем делегировать обработку активному плагину
-            if self.current_active_slot:
-                self.handle_plugin_action(self.current_active_slot, btn_id_full)
-
-    def handle_plugin_action(self, slot_index, btn_id_full):
-        """Делегирует выполнение действия плагину."""
-        config = self.plugin_config_manager.load_config()
-        slot_key = f"slot_{slot_index}"
-        plugin_data = config.get(slot_key)
-        
-        if not plugin_data:
-            return
-
-        plugin_dir_name = plugin_data.get("path") or plugin_data.get("id")
-        
-        # Здесь мы можем попытаться загрузить модуль логики СЕРВЕРА для плагина
-        # Аналогично клиенту: shortcut_bandito.py
-        plugins_dir = os.path.join(project_root, "plugins")
-        plugin_path = os.path.join(plugins_dir, plugin_dir_name)
-        logic_file_name = f"{plugin_dir_name}_bandito.py"
-        logic_module_path = os.path.join(plugin_path, logic_file_name)
-        
-        if os.path.exists(logic_module_path):
-             try:
-                # ВАЖНО: Добавляем путь плагина в sys.path
-                if plugin_path not in sys.path:
-                    sys.path.insert(0, plugin_path)
-
-                module_name = f"server_plugin_logic_{plugin_dir_name}"
-                spec = importlib.util.spec_from_file_location(module_name, logic_module_path)
-                module = importlib.util.module_from_spec(spec)
-                sys.modules[module_name] = module
-                spec.loader.exec_module(module)
-                
-                # Ищем функцию handle_button_press(btn_id_full) или класс Plugin
-                if hasattr(module, 'handle_button_press'):
-                    print(f"Delegating to {module_name}.handle_button_press")
-                    module.handle_button_press(btn_id_full, plugin_path)
-                else:
-                    print(f"Module {module_name} has no handle_button_press function")
-             except Exception as e:
-                 print(f"Error executing server plugin logic: {e}")
-
     def on_server_log(self, type_msg, data):
         """Обработка логов от сервера."""
         prefix = f"[{type_msg.upper()}] Server:"
@@ -530,61 +481,25 @@ class BanMainWindow(QMainWindow):
             sys.modules[module_name] = module
             spec.loader.exec_module(module)
             
-            # --- NEW LOGIC for Server Plugin Class ---
-            # Try to load logic file first to find a custom widget class
-            logic_file_name = f"{plugin_dir_name}_bandito.py"
-            logic_module_path = os.path.join(plugin_path, logic_file_name)
+            # 4. Instantiate UI class
+            ui_class = None
+            for attr_name in dir(module):
+                attr = getattr(module, attr_name)
+                if isinstance(attr, type) and hasattr(attr, 'setupUi'):
+                     if attr_name.startswith("Ui_"):
+                         ui_class = attr
+                         break
             
-            plugin_class = None
-            
-            if os.path.exists(logic_module_path):
-                try:
-                    # Ensure plugin dir is in sys.path
-                    if plugin_path not in sys.path:
-                        sys.path.insert(0, plugin_path)
-                        
-                    logic_mod_name = f"server_plugin_class_{plugin_dir_name}"
-                    spec_logic = importlib.util.spec_from_file_location(logic_mod_name, logic_module_path)
-                    mod_logic = importlib.util.module_from_spec(spec_logic)
-                    sys.modules[logic_mod_name] = mod_logic
-                    spec_logic.loader.exec_module(mod_logic)
-                    
-                    # Search for class inheriting from QWidget
-                    for attr_name in dir(mod_logic):
-                        attr = getattr(mod_logic, attr_name)
-                        if isinstance(attr, type) and issubclass(attr, QWidget) and attr.__module__ == mod_logic.__name__:
-                            # Found it! e.g. ShortcutBanditoPlugin
-                            plugin_class = attr
-                            print(f"Found Server Plugin Class: {plugin_class.__name__}")
-                            break
-                except Exception as e:
-                    print(f"Error loading server plugin logic class: {e}")
-
+            if not ui_class:
+                print("UI class not found in module.")
+                return
+                
             # 5. Load into right_frame
             self.clear_right_frame()
             
-            if plugin_class:
-                # Instantiate custom class with plugin_path
-                # Assuming constructor is __init__(self, plugin_path)
-                try:
-                    self.current_plugin_widget = plugin_class(plugin_path)
-                except TypeError:
-                     # Fallback if no argument expected
-                     self.current_plugin_widget = plugin_class()
-            else:
-                # Fallback to old "pure UI" method
-                ui_class = None
-                for attr_name in dir(module):
-                    attr = getattr(module, attr_name)
-                    if isinstance(attr, type) and hasattr(attr, 'setupUi') and attr_name.startswith("Ui_"):
-                         ui_class = attr
-                         break
-                
-                if not ui_class: return
-                
-                self.current_plugin_widget = QWidget()
-                self.ui_plugin = ui_class()
-                self.ui_plugin.setupUi(self.current_plugin_widget)
+            self.current_plugin_widget = QWidget()
+            self.ui_plugin = ui_class()
+            self.ui_plugin.setupUi(self.current_plugin_widget)
             
             if not self.ui.right_frame.layout():
                 layout = QVBoxLayout(self.ui.right_frame)
@@ -592,7 +507,7 @@ class BanMainWindow(QMainWindow):
                 self.ui.right_frame.setLayout(layout)
             
             self.ui.right_frame.layout().addWidget(self.current_plugin_widget)
-            print(f"Loaded Plugin UI from {plugin_dir_name}")
+            print(f"Loaded UI from {ui_module_path}")
 
         except Exception as e:
             print(f"Error loading plugin UI: {e}")

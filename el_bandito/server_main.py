@@ -99,7 +99,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 command = json_data.get("command")
                 
                 if command == "UPDATE_GET_VER":
-                    ver_path = os.path.join("el_cliento", "ver_cliento")
+                    ver_path = os.path.join("el_cliento", "ver")
                     if os.path.exists(ver_path):
                         with open(ver_path, "r", encoding="utf-8") as f:
                             version = f.read().strip()
@@ -168,11 +168,7 @@ async def websocket_endpoint(websocket: WebSocket):
                         }), websocket)
                         continue
 
-                    # Try ver_<plugin_id> first, then fallback to ver
-                    ver_path = os.path.join("plugins", plugin_id, f"ver_{plugin_id}")
-                    if not os.path.exists(ver_path):
-                        ver_path = os.path.join("plugins", plugin_id, "ver")
-
+                    ver_path = os.path.join("plugins", plugin_id, "ver")
                     if os.path.exists(ver_path):
                         with open(ver_path, "r", encoding="utf-8") as f:
                             version = f.read().strip()
@@ -209,54 +205,13 @@ async def websocket_endpoint(websocket: WebSocket):
                             
                             # Динамический расчет MD5 для файлов плагина
                             if "files_map" in manifest:
-                                new_files_map = []
                                 for file_info in manifest["files_map"]:
+                                    remote_path = file_info.get("remote_path")
+                                    # Важно: remote_path должен быть относительным от корня проекта
+                                    full_path = os.path.join(os.getcwd(), remote_path)
                                     
-                                    # Обработка директорий (is_directory=true)
-                                    if file_info.get("is_directory"):
-                                        remote_dir = file_info.get("remote_path")
-                                        local_dir_base = file_info.get("local_dir")
-                                        
-                                        full_dir_path = os.path.join(os.getcwd(), remote_dir)
-                                        
-                                        if os.path.exists(full_dir_path) and os.path.isdir(full_dir_path):
-                                            # Сканируем директорию
-                                            for root, dirs, files in os.walk(full_dir_path):
-                                                for filename in files:
-                                                    # Полный путь к файлу на диске
-                                                    abs_file_path = os.path.join(root, filename)
-                                                    
-                                                    # Относительный путь от корня директории (remote_dir)
-                                                    rel_path_from_dir = os.path.relpath(abs_file_path, full_dir_path)
-                                                    
-                                                    # Формируем пути для манифеста
-                                                    # remote_path: plugins/shortcut/resources/ico/file.png
-                                                    # local_dir: plugins/shortcut/resources/ico (базовая папка назначения)
-                                                    
-                                                    # ВАЖНО: Client expects remote_path to download, and local_dir as destination FOLDER
-                                                    # But if we have nested folders, we need to adjust local_dir?
-                                                    # Let's keep it simple: flatten or maintain structure?
-                                                    
-                                                    final_remote_path = os.path.join(remote_dir, rel_path_from_dir).replace("\\", "/")
-                                                    
-                                                    # Для MD5 используем абсолютный путь
-                                                    md5 = calculate_file_md5(abs_file_path)
-                                                    
-                                                    new_files_map.append({
-                                                        "remote_path": final_remote_path,
-                                                        "local_dir": local_dir_base, # Client appends basename(remote_path) to this
-                                                        "md5": md5
-                                                    })
-                                    else:
-                                        # Обычный файл
-                                        remote_path = file_info.get("remote_path")
-                                        full_path = os.path.join(os.getcwd(), remote_path)
-                                        md5 = calculate_file_md5(full_path)
-                                        file_info["md5"] = md5
-                                        new_files_map.append(file_info)
-
-                                # Заменяем files_map на развернутый список
-                                manifest["files_map"] = new_files_map
+                                    md5 = calculate_file_md5(full_path)
+                                    file_info["md5"] = md5
 
                             await manager.send_personal_message(json.dumps({
                                 "type": "UPDATE_RESPONSE_MANIFEST",
