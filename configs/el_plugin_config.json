@@ -1,15 +1,15 @@
 {
     "slot_1": {
+        "id": "shortcut",
+        "name": "Shortcuts Panel",
+        "path": "shortcut",
+        "version": "0.0.1.9"
+    },
+    "slot_2": {
         "id": "music",
         "name": "Music Panel",
         "path": "music",
         "version": "0.0.1"
-    },
-    "slot_2": {
-        "id": "shortcut",
-        "name": "Shortcuts Panel",
-        "path": "shortcut",
-        "version": "0.0.1.2"
     },
     "slot_3": null,
     "slot_4": null,

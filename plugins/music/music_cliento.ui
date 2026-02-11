@@ -16,14 +16,14 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>120</y>
-     <width>49</width>
+     <x>330</x>
+     <y>80</y>
+     <width>121</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Music</string>
+    <string>MusicCliento</string>
    </property>
   </widget>
  </widget>

@@ -24,7 +24,7 @@ class Ui_shortcut_bandito_qWidget(object):
         shortcut_bandito_qWidget.resize(900, 680)
         self.label = QLabel(shortcut_bandito_qWidget)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(500, 50, 49, 16))
+        self.label.setGeometry(QRect(390, 50, 121, 16))
 
         self.retranslateUi(shortcut_bandito_qWidget)
 
@@ -33,6 +33,6 @@ class Ui_shortcut_bandito_qWidget(object):
 
     def retranslateUi(self, shortcut_bandito_qWidget):
         shortcut_bandito_qWidget.setWindowTitle(QCoreApplication.translate("shortcut_bandito_qWidget", u"Form", None))
-        self.label.setText(QCoreApplication.translate("shortcut_bandito_qWidget", u"Music", None))
+        self.label.setText(QCoreApplication.translate("shortcut_bandito_qWidget", u"MusicBandito", None))
     # retranslateUi
 
