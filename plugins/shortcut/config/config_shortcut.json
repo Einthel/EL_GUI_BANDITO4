@@ -1,0 +1,16 @@
+{
+    "actions": [
+        {
+            "name": "Page Prev",
+            "type": "system",
+            "value": "page_prev",
+            "description": "Switch to previous page"
+        },
+        {
+            "name": "Page Next",
+            "type": "system",
+            "value": "page_next",
+            "description": "Switch to next page"
+        }
+    ]
+}

@@ -2,5 +2,5 @@
     "ip_source": "192.168.0.20",
     "ip_destination": "192.168.0.6",
     "port": "8000",
-    "dev_mode": true
+    "dev_mode": false
 }

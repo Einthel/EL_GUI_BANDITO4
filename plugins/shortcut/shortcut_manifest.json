@@ -1,7 +1,7 @@
 {
   "id": "shortcut",
   "name": "Shortcuts Panel",
-  "version_file": "plugins/shortcut/ver",
+  "version_file": "plugins/shortcut/ver_shortcut",
   "description": "Панель быстрых команд для ускорения рабочего процесса",
   "icon": "plugins/shortcut/resources/ico/ico_shortcut.png",
   "author": "einthel",
@@ -10,7 +10,8 @@
   "directories_to_ensure": [
     "plugins/shortcut",
     "plugins/shortcut/resources",
-    "plugins/shortcut/resources/ico"
+    "plugins/shortcut/resources/ico",
+    "plugins/shortcut/config"
   ],
   "files_map": [
     {
@@ -22,20 +23,25 @@
       "local_dir": "plugins/shortcut"
     },
     {
-      "remote_path": "plugins/shortcut/ver",
+      "remote_path": "plugins/shortcut/ver_shortcut",
       "local_dir": "plugins/shortcut"
     },
     {
-      "remote_path": "plugins/shortcut/resources/ico/ico_shortcut.png",
-      "local_dir": "plugins/shortcut/resources/ico"
+      "remote_path": "plugins/shortcut/resources/ico",
+      "local_dir": "plugins/shortcut/resources/ico",
+      "is_directory": true
     },
     {
-      "remote_path": "plugins/shortcut/resources/style_shortcut.json",
-      "local_dir": "plugins/shortcut/resources"
+      "remote_path": "plugins/shortcut/config/style_shortcut.json",
+      "local_dir": "plugins/shortcut/config"
     },
     {
-      "remote_path": "plugins/shortcut/resources/config_shortcut.json",
-      "local_dir": "plugins/shortcut/resources"
+      "remote_path": "plugins/shortcut/config/button_shortcut.json",
+      "local_dir": "plugins/shortcut/config"
+    },
+    {
+      "remote_path": "plugins/shortcut/config/config_shortcut.json",
+      "local_dir": "plugins/shortcut/config"
     }
   ]
 }

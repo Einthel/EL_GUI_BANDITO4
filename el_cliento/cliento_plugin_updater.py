@@ -43,7 +43,17 @@ class PluginUpdater(Updater):
             return []
 
     def get_local_plugin_version(self, plugin_id):
-        """Читает версию конкретного плагина."""
+        """Читает версию конкретного плагина. Ищет ver_<plugin_id> или fallback на ver."""
+        # 1. Try ver_<plugin_id>
+        ver_file_specific = os.path.join(self.plugins_dir, plugin_id, f"ver_{plugin_id}")
+        if os.path.exists(ver_file_specific):
+            try:
+                with open(ver_file_specific, 'r', encoding='utf-8') as f:
+                    return f.read().strip()
+            except:
+                pass
+        
+        # 2. Fallback to 'ver'
         ver_file = os.path.join(self.plugins_dir, plugin_id, "ver")
         if os.path.exists(ver_file):
             try:
@@ -54,8 +64,8 @@ class PluginUpdater(Updater):
         return "0.0.0"
 
     def update_local_plugin_version(self, plugin_id, version):
-        """Обновляет файл версии плагина."""
-        ver_file = os.path.join(self.plugins_dir, plugin_id, "ver")
+        """Обновляет файл версии плагина (ver_<plugin_id>)."""
+        ver_file = os.path.join(self.plugins_dir, plugin_id, f"ver_{plugin_id}")
         try:
             with open(ver_file, 'w', encoding='utf-8') as f:
                 f.write(version)

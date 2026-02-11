@@ -23,16 +23,19 @@ class Ui_El_GUI_BANDITO(object):
     def setupUi(self, El_GUI_BANDITO):
         if not El_GUI_BANDITO.objectName():
             El_GUI_BANDITO.setObjectName(u"El_GUI_BANDITO")
-        El_GUI_BANDITO.resize(1140, 700)
+        El_GUI_BANDITO.resize(1144, 708)
         self.centralwidget = QWidget(El_GUI_BANDITO)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.Main_widget = QWidget(self.centralwidget)
         self.Main_widget.setObjectName(u"Main_widget")
-        self.Main_widget.setGeometry(QRect(0, 0, 1130, 690))
         self.Main_widget.setMaximumSize(QSize(16777215, 700))
+        self.horizontalLayout = QHBoxLayout(self.Main_widget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(5, 5, 5, 5)
         self.left_frame = QFrame(self.Main_widget)
         self.left_frame.setObjectName(u"left_frame")
-        self.left_frame.setGeometry(QRect(10, 10, 210, 680))
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -407,13 +410,22 @@ class Ui_El_GUI_BANDITO(object):
 
         self.verticalLayout.addWidget(self.settings_gBox)
 
+
+        self.horizontalLayout.addWidget(self.left_frame)
+
         self.right_frame = QFrame(self.Main_widget)
         self.right_frame.setObjectName(u"right_frame")
-        self.right_frame.setGeometry(QRect(230, 10, 900, 680))
         sizePolicy.setHeightForWidth(self.right_frame.sizePolicy().hasHeightForWidth())
         self.right_frame.setSizePolicy(sizePolicy)
+        self.right_frame.setMinimumSize(QSize(900, 680))
         self.right_frame.setFrameShape(QFrame.Shape.StyledPanel)
         self.right_frame.setFrameShadow(QFrame.Shadow.Raised)
+
+        self.horizontalLayout.addWidget(self.right_frame, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+
+
+        self.horizontalLayout_2.addWidget(self.Main_widget)
+
         El_GUI_BANDITO.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(El_GUI_BANDITO)
