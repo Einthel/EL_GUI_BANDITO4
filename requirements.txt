@@ -4,3 +4,5 @@ uvicorn
 websockets>=10.4
 requests
 keyboard
+pycaw
+bleak

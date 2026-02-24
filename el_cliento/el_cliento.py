@@ -51,11 +51,12 @@ class CliMainWindow(QMainWindow):
         self.socket_client.log_message.connect(self.on_log)
         self.socket_client.connected.connect(self.on_connected)
         self.socket_client.disconnected.connect(self.on_disconnected)
-        self.socket_client.message_received.connect(self.on_message_received)
+        self.socket_client.message_received.connect(self._handle_message_received)
         
         self.current_plugin_config = {}
         self.current_active_slot = None
-        
+        self._plugin_btn_connections = {}  # slot_index -> QMetaObject.Connection
+
         # Пробуем подключиться при старте
         self.init_connection()
 
@@ -74,7 +75,7 @@ class CliMainWindow(QMainWindow):
     def on_log(self, msg):
         print(f"[Client] {msg}")
     
-    def on_message_received(self, data):
+    def _handle_message_received(self, data):
         """Обработка команд от сервера."""
         command = data.get("command")
         
@@ -113,20 +114,16 @@ class CliMainWindow(QMainWindow):
             btn_name = f"plugin_toolB_{i}"
             if hasattr(self.ui, btn_name):
                 btn = getattr(self.ui, btn_name)
-                
-                # Disconnect previous connections to avoid duplicates
-                try:
-                    btn.clicked.disconnect()
-                except:
-                    pass
-                
+                if i in self._plugin_btn_connections:
+                    self._plugin_btn_connections[i].disconnect()
+                    del self._plugin_btn_connections[i]
+
                 if plugin_data:
                     name = plugin_data.get("name", "Unknown")
                     btn.setText(name)
                     btn.setEnabled(True)
-                    # Connect click
-                    # When client clicks, we just load UI locally AND tell server
-                    btn.clicked.connect(lambda checked=False, idx=i: self.on_plugin_btn_clicked(idx))
+                    conn = btn.clicked.connect(lambda checked=False, idx=i: self.on_plugin_btn_clicked(idx))
+                    self._plugin_btn_connections[i] = conn
                     
                     if first_occupied_slot is None:
                         first_occupied_slot = i
@@ -252,10 +249,16 @@ class CliMainWindow(QMainWindow):
 
         # --- OLD LOGIC (Fallback): Load pure UI ---
         print("[Client] Fallback to pure UI loading...")
-        # Find UI file: ui_*_cliento.py
+        # Find UI file: ui_*_cliento.py in resources/ui_done (then plugin root)
         ui_module_path = None
         try:
-            if os.path.exists(plugin_path):
+            ui_done_path = os.path.join(plugin_path, "resources", "ui_done")
+            if os.path.exists(ui_done_path):
+                for f in os.listdir(ui_done_path):
+                    if f.startswith("ui_") and f.endswith("_cliento.py"):
+                        ui_module_path = os.path.join(ui_done_path, f)
+                        break
+            if not ui_module_path and os.path.exists(plugin_path):
                 for f in os.listdir(plugin_path):
                     if f.startswith("ui_") and f.endswith("_cliento.py"):
                         ui_module_path = os.path.join(plugin_path, f)
@@ -263,7 +266,7 @@ class CliMainWindow(QMainWindow):
         except Exception as e:
             print(f"Error searching UI file: {e}")
             return
-            
+
         if not ui_module_path:
             print(f"UI module not found in {plugin_path}")
             return
@@ -376,6 +379,13 @@ class CliMainWindow(QMainWindow):
             self.ui.settings_toolB.clicked.connect(self.open_settings)
         else:
             print("Внимание: Кнопка 'settings_toolB' не найдена в UI клиента")
+
+        # Кнопка полноэкранного режима (full_screen_toolB)
+        if hasattr(self.ui, 'full_screen_toolB'):
+            self.ui.full_screen_toolB.clicked.connect(self.toggle_fullscreen)
+            self.is_fullscreen = False
+        else:
+            print("Внимание: Кнопка 'full_screen_toolB' не найдена в UI клиента")
             
         # Тестовая привязка всех кнопок (для примера)
         # Ищем все кнопки в UI, начинающиеся на 'btn_' или 'toolButton_'
@@ -404,10 +414,23 @@ class CliMainWindow(QMainWindow):
         """Открывает окно настроек"""
         if self.settings_window is None:
             self.settings_window = ClientoSettings()
-        
+
         self.settings_window.show()
         self.settings_window.raise_()
         self.settings_window.activateWindow()
+
+    def toggle_fullscreen(self):
+        """Включает/выключает полноэкранный режим"""
+        if self.is_fullscreen:
+            self.showNormal()
+            self.ui.full_screen_toolB.setText("Full Screen")
+            self.is_fullscreen = False
+            print("[Client] Exited fullscreen mode")
+        else:
+            self.showFullScreen()
+            self.ui.full_screen_toolB.setText("Exit Full Screen")
+            self.is_fullscreen = True
+            print("[Client] Entered fullscreen mode")
 
 def main():
     print("Запуск Client (Cliento)...")
@@ -456,7 +479,7 @@ def main():
     # Подключаем логику
     window.setup_logic()
     
-    # window.showFullScreen() 
+    #window.showFullScreen() 
     window.show()
     
     print("Клиент запущен.")

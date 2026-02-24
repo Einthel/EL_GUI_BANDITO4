@@ -8,7 +8,10 @@ from PySide6.QtCore import Qt
 # Импортируем сгенерированный UI файл
 # Важно: имя модуля зависит от того, как он называется в папке.
 # В данном случае предполагается, что он лежит рядом.
-from ui_shortcut_cliento import Ui_stream_cliento
+try:
+    from resources.ui_done.ui_shortcut_cliento import Ui_stream_cliento
+except ImportError:
+    from .resources.ui_done.ui_shortcut_cliento import Ui_stream_cliento
 
 class ShortcutClientPlugin(QWidget, Ui_stream_cliento):
     def __init__(self, socket_client, plugin_path):

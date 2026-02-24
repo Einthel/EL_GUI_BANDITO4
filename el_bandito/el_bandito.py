@@ -1,6 +1,8 @@
 import sys
 import os
 import json
+import faulthandler # Добавляем для отлова крашей
+faulthandler.enable() # Включаем дамп трейса при падении
 import importlib.util
 import urllib.request
 
@@ -76,20 +78,32 @@ class BanMainWindow(QMainWindow):
         # Можно добавить настройку ip_source, но сервер лучше слушать на 0.0.0.0
         
         self.server_thread = ServerThread(host="0.0.0.0", port=port)
-        self.server_thread.server_signal.connect(self.on_server_log)
+        self.server_thread.server_signal.connect(self._handle_server_log)
         self.server_thread.start()
 
     def handle_client_command(self, cmd_data):
         """Обработка команд от клиента (JSON)."""
-        print(f"Получена команда: {cmd_data}")
-        # Здесь будет логика: если cmd="btn_press" -> выполнить действие
+        command = cmd_data.get("command")
+        payload = cmd_data.get("payload") or cmd_data.get("data") or {}
+
+        # 1. Сначала даем активному плагину обработать команду
+        if self.current_active_slot:
+            if hasattr(self, 'current_plugin_widget') and self.current_plugin_widget:
+                if hasattr(self.current_plugin_widget, 'handle_client_message'):
+                    self.current_plugin_widget.handle_client_message(cmd_data)
+
+        # 2. Общая логика сервера
+        if command == "SOUND_SELECT_DEVICE":
+            device_name = payload.get("device_name")
+            if device_name:
+                from plugins.sound.sound_save_load import update_selected_device
+                update_selected_device(os.path.join("plugins", "sound"), device_name)
         
         # Обновляем статус в UI сервера, если есть такая возможность
-        # Проверим наличие network_stat_line в главном окне
         if hasattr(self.ui, 'network_stat_line'):
-             self.ui.network_stat_line.setText(f"CMD: {cmd_data.get('command', '?')}")
+             self.ui.network_stat_line.setText(f"CMD: {command if command else '?'}")
 
-        if cmd_data.get("command") == "PLUGIN_BUTTON_PRESS":
+        if command == "PLUGIN_BUTTON_PRESS":
             # Payload: {"id": "1:butt_toolB_01"}
             payload = cmd_data.get("payload", {})
             btn_id_full = payload.get("id")
@@ -101,44 +115,10 @@ class BanMainWindow(QMainWindow):
 
     def handle_plugin_action(self, slot_index, btn_id_full):
         """Делегирует выполнение действия плагину."""
-        config = self.plugin_config_manager.load_config()
-        slot_key = f"slot_{slot_index}"
-        plugin_data = config.get(slot_key)
-        
-        if not plugin_data:
-            return
+        # ... existing code ...
+        pass
 
-        plugin_dir_name = plugin_data.get("path") or plugin_data.get("id")
-        
-        # Здесь мы можем попытаться загрузить модуль логики СЕРВЕРА для плагина
-        # Аналогично клиенту: shortcut_bandito.py
-        plugins_dir = os.path.join(project_root, "plugins")
-        plugin_path = os.path.join(plugins_dir, plugin_dir_name)
-        logic_file_name = f"{plugin_dir_name}_bandito.py"
-        logic_module_path = os.path.join(plugin_path, logic_file_name)
-        
-        if os.path.exists(logic_module_path):
-             try:
-                # ВАЖНО: Добавляем путь плагина в sys.path
-                if plugin_path not in sys.path:
-                    sys.path.insert(0, plugin_path)
-
-                module_name = f"server_plugin_logic_{plugin_dir_name}"
-                spec = importlib.util.spec_from_file_location(module_name, logic_module_path)
-                module = importlib.util.module_from_spec(spec)
-                sys.modules[module_name] = module
-                spec.loader.exec_module(module)
-                
-                # Ищем функцию handle_button_press(btn_id_full) или класс Plugin
-                if hasattr(module, 'handle_button_press'):
-                    print(f"Delegating to {module_name}.handle_button_press")
-                    module.handle_button_press(btn_id_full, plugin_path)
-                else:
-                    print(f"Module {module_name} has no handle_button_press function")
-             except Exception as e:
-                 print(f"Error executing server plugin logic: {e}")
-
-    def on_server_log(self, type_msg, data):
+    def _handle_server_log(self, type_msg, data):
         """Обработка логов от сервера."""
         prefix = f"[{type_msg.upper()}] Server:"
         print(f"{prefix} {data}")
@@ -450,34 +430,42 @@ class BanMainWindow(QMainWindow):
 
     def switch_plugin_view(self, index):
         """Переключает видимость плагина в right_frame."""
-        btn_switch_name = f"switch_push_{index}"
-        if not hasattr(self.ui, btn_switch_name):
-            return
+        import gc
+        gc.disable() # Только отключаем, НЕ вызываем collect()
+        try:
+            btn_switch_name = f"switch_push_{index}"
+            if not hasattr(self.ui, btn_switch_name):
+                return
 
-        is_checked = getattr(self.ui, btn_switch_name).isChecked()
-        print(f"Switching plugin slot {index}. Checked: {is_checked}")
+            is_checked = getattr(self.ui, btn_switch_name).isChecked()
+            print(f"Switching plugin slot {index}. Checked: {is_checked}")
 
-        if is_checked:
-            # Turn ON: Load Plugin
-            # Uncheck others (Exclusive behavior)
-            for i in range(1, 6):
-                if i != index:
-                     other_btn_name = f"switch_push_{i}"
-                     if hasattr(self.ui, other_btn_name):
-                         getattr(self.ui, other_btn_name).setChecked(False)
-            
-            self.load_plugin_ui(index)
-            self.current_active_slot = index
-            self.broadcast_active_slot(index)
-        else:
-            # Turn OFF: Unload Plugin if it matches current active
-            if self.current_active_slot == index:
-                self.clear_right_frame()
-                self.current_active_slot = None
-                self.broadcast_active_slot(None)
+            if is_checked:
+                # Turn ON: Load Plugin
+                # Uncheck others (Exclusive behavior)
+                for i in range(1, 6):
+                    if i != index:
+                         other_btn_name = f"switch_push_{i}"
+                         if hasattr(self.ui, other_btn_name):
+                             getattr(self.ui, other_btn_name).setChecked(False)
+                
+                self.load_plugin_ui(index)
+                self.current_active_slot = index
+                self.broadcast_active_slot(index)
+            else:
+                # Turn OFF: Unload Plugin if it matches current active
+                if self.current_active_slot == index:
+                    self.clear_right_frame()
+                    self.current_active_slot = None
+                    self.broadcast_active_slot(None)
+        finally:
+            gc.enable() # Включаем GC обратно
 
     def set_slot_active(self, index, active=True):
         """Helper to programmatically set slot state."""
+        from PySide6.QtCore import QCoreApplication
+        QCoreApplication.processEvents() # Даем Qt завершить отрисовку и удаление
+        
         btn_switch_name = f"switch_push_{index}"
         if hasattr(self.ui, btn_switch_name):
             btn = getattr(self.ui, btn_switch_name)
@@ -510,16 +498,17 @@ class BanMainWindow(QMainWindow):
         # 2. Find UI file
         ui_module_path = None
         try:
-            for f in os.listdir(plugin_path):
+            ui_done_path = os.path.join(plugin_path, "resources", "ui_done")
+            for f in os.listdir(ui_done_path):
                 if f.startswith("ui_") and f.endswith("_bandito.py"):
-                    ui_module_path = os.path.join(plugin_path, f)
+                    ui_module_path = os.path.join(ui_done_path, f)
                     break
         except Exception as e:
             print(f"Error searching UI file: {e}")
             return
-            
+
         if not ui_module_path:
-            print(f"UI module not found in {plugin_path}")
+            print(f"UI module not found in {plugin_path}/resources/ui_done")
             return
             
         # 3. Dynamic Import

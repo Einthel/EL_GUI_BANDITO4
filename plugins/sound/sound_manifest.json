@@ -1,0 +1,57 @@
+{
+  "id": "sound",
+  "name": "Sound Panel",
+  "version_file": "plugins/sound/ver_sound",
+  "description": "Панель быстрых команд для управления звуком ПК",
+  "icon": "plugins/sound/resources/ico/ico_sound.png",
+  "author": "einthel",
+  "license": "MIT",
+  "min_app_version": "0.0.0.1",
+  "directories_to_ensure": [
+    "plugins/sound",
+    "plugins/sound/resources/ui_done/",
+    "plugins/sound/resources/ico",
+    "plugins/sound/resources/sys",
+    "plugins/sound/config"
+  ],
+  "files_map": [
+    {
+      "remote_path": "plugins/sound/sound_cliento.py",
+      "local_dir": "plugins/sound/"
+    },
+    {
+      "remote_path": "plugins/sound/sound_core.py",
+      "local_dir": "plugins/sound/"
+    },
+    {
+      "remote_path": "plugins/sound/sound_save_load.py",
+      "local_dir": "plugins/sound/"
+    },
+    {
+      "remote_path": "plugins/sound/resources/ui_done/ui_sound_cliento.py",
+      "local_dir": "plugins/sound/resources/ui_done/"
+    },
+    {
+      "remote_path": "plugins/sound/ver_sound",
+      "local_dir": "plugins/sound"
+    },
+    {
+      "remote_path": "plugins/sound/resources/ico",
+      "local_dir": "plugins/sound/resources/ico",
+      "is_directory": true
+    },
+    {
+      "remote_path": "plugins/sound/resources/sys",
+      "local_dir": "plugins/sound/resources/sys",
+      "is_directory": true
+    },
+    {
+      "remote_path": "plugins/sound/config/style_sound_cliento.json",
+      "local_dir": "plugins/sound/config"
+    },
+    {
+      "remote_path": "plugins/sound/config/config_sound.json",
+      "local_dir": "plugins/sound/config"
+    }
+  ]
+}

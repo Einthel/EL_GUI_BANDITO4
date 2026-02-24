@@ -434,7 +434,7 @@ class Ui_El_GUI_BANDITO(object):
     # setupUi
 
     def retranslateUi(self, El_GUI_BANDITO):
-        El_GUI_BANDITO.setWindowTitle(QCoreApplication.translate("El_GUI_BANDITO", u"el_gui_bandito v.0.0.5", None))
+        El_GUI_BANDITO.setWindowTitle(QCoreApplication.translate("El_GUI_BANDITO", u"el_gui_bandito v.0.0.6", None))
         self.main_gBox.setTitle(QCoreApplication.translate("El_GUI_BANDITO", u"el_gui_bandito", None))
         self.switch_push_1.setText("")
 #if QT_CONFIG(tooltip)

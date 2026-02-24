@@ -1,0 +1,43 @@
+{
+  "id": "example",
+  "name": "example Panel",
+  "version_file": "plugins/example/ver_example",
+  "description": "Панель быстрых команд для управления звуком ПК",
+  "icon": "plugins/example/resources/ico/ico_example.png",
+  "author": "einthel",
+  "license": "MIT",
+  "min_app_version": "0.0.0.1",
+  "directories_to_ensure": [
+    "plugins/example",
+    "plugins/example/resources/ui_done/",
+    "plugins/example/resources/ico",
+    "plugins/example/config"
+  ],
+  "files_map": [
+    {
+      "remote_path": "plugins/example/example_cliento.py",
+      "local_dir": "plugins/example/"
+    },
+    {
+      "remote_path": "plugins/example/resources/ui_done/ui_example_cliento.py",
+      "local_dir": "plugins/example/resources/ui_done/"
+    },
+    {
+      "remote_path": "plugins/example/ver_example",
+      "local_dir": "plugins/example"
+    },
+    {
+      "remote_path": "plugins/example/resources/ico",
+      "local_dir": "plugins/example/resources/ico",
+      "is_directory": true
+    },
+    {
+      "remote_path": "plugins/example/config/style_example_cliento.json",
+      "local_dir": "plugins/example/config"
+    },
+    {
+      "remote_path": "plugins/example/config/config_example.json",
+      "local_dir": "plugins/example/config"
+    }
+  ]
+}

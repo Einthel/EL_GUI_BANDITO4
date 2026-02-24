@@ -1,0 +1,12 @@
+{
+    "selected_device": "Headset Earphone (G435 Wireless Gaming Headset)",
+    "mute_state": false,
+    "mic_mute_state": false,
+    "volume": 0,
+    "mic_volume": 34,
+    "output_devices": [
+        "Динамики (Creative Stage SE)",
+        "Headset Earphone (G435 Wireless Gaming Headset)"
+    ],
+    "mic_device": "Microphone (G435 Wireless Gaming Headset)"
+}

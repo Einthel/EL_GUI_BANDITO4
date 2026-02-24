@@ -35,6 +35,159 @@
                 "type": "program",
                 "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Firefox.lnk"
             }
+        },
+        "Telegram": {
+            "name": "Telegram",
+            "icon_path": "resources/ico/telegramm.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\Users\\nexus\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Telegram Desktop\\Telegram.lnk"
+            }
+        },
+        "VPN": {
+            "name": "VPN",
+            "icon_path": "resources/ico/vpn.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\legiz-ru\\Prizrak-Box.lnk"
+            }
+        },
+        "Yandex": {
+            "name": "Yandex",
+            "icon_path": "resources/ico/internet.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\Users\\nexus\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Yandex.lnk"
+            }
+        },
+        "Fan3": {
+            "name": "Fan3",
+            "icon_path": "resources/ico/fan_slow.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "Ctrl+Shift+F3"
+            }
+        },
+        "Fan5": {
+            "name": "Fan5",
+            "icon_path": "resources/ico/fan_fast.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "Ctrl+Shift+F4"
+            }
+        },
+        "Firefox1": {
+            "name": "Firefox",
+            "icon_path": "resources/ico/internet.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Firefox.lnk"
+            }
+        },
+        "7-Zip": {
+            "name": "7-Zip File Manager",
+            "icon_path": "resources/ico/bell.svg",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\7-Zip\\7-Zip File Manager.lnk"
+            }
+        },
+        "Google Chrome": {
+            "name": "Google Chrome",
+            "icon_path": "resources/ico/calendar.svg",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Google Chrome.lnk"
+            }
+        },
+        "22": {
+            "name": "22",
+            "icon_path": "resources/ico/search.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "Shift+W"
+            }
+        },
+        "Administrative Tools": {
+            "name": "Administrative Tools",
+            "icon_path": "resources/ico/ico_shortcut.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\Users\\nexus\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools.lnk"
+            }
+        },
+        "vpn": {
+            "name": "Prizrak-Box",
+            "icon_path": "resources/ico/vpn.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\legiz-ru\\Prizrak-Box.lnk"
+            }
+        },
+        "PuTTY": {
+            "name": "PuTTY",
+            "icon_path": "resources/ico/putty.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PuTTY (64-bit)\\PuTTY.lnk"
+            }
+        },
+        "HDR": {
+            "name": "HDR",
+            "icon_path": "resources/ico/hdr.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "Ctrl+Shift+F9"
+            }
+        },
+        "Screenshot": {
+            "name": "Screenshot",
+            "icon_path": "resources/ico/screenshot.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "Ctrl+Shift+F11"
+            }
+        },
+        "Record": {
+            "name": "Record",
+            "icon_path": "resources/ico/rec.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "Ctrl+Shift+F12"
+            }
+        },
+        "FPS Monitor": {
+            "name": "FPS Monitor",
+            "icon_path": "resources/ico/fps.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "F8"
+            }
+        },
+        "The Finals": {
+            "name": "The Finals",
+            "icon_path": "resources/ico/bdclkvyoq7if1.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\Users\\nexus\\Desktop\\THE FINALS.url"
+            }
         }
     }
 }

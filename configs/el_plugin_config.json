@@ -3,7 +3,7 @@
         "id": "shortcut",
         "name": "Shortcuts Panel",
         "path": "shortcut",
-        "version": "0.0.1.9"
+        "version": "0.0.1.10"
     },
     "slot_2": {
         "id": "music",
@@ -11,7 +11,17 @@
         "path": "music",
         "version": "0.0.1"
     },
-    "slot_3": null,
-    "slot_4": null,
+    "slot_3": {
+        "id": "sound",
+        "name": "Sound Panel",
+        "path": "sound",
+        "version": "0.0.0.8"
+    },
+    "slot_4": {
+        "id": "example",
+        "name": "example Panel",
+        "path": "example",
+        "version": "0.0.0.1"
+    },
     "slot_5": null
 }

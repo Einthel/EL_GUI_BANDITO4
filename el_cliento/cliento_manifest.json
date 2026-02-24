@@ -6,7 +6,6 @@
     "el_cliento",
     "src",
     "plugins",
-    "plugins/shortcut",
     "resources/styles",
     "resources/ui_done/ui_cliento",
     "resources/icons"

@@ -1,0 +1,96 @@
+{
+  "QToolButton": {
+    "border": "2px solid #555",
+    "border-radius": "10px",
+    "background-color": "#333",
+    "color": "white",
+    "padding": "5px"
+  },
+  "QToolButton:checked": {
+    "background-color": "#4CAF50",
+    "border": "2px solid #81C784"
+  },
+  "QToolButton:hover": {
+    "background-color": "#444"
+  },
+  "QToolButton:pressed": {
+    "background-color": "#2E7D32"
+  },
+
+
+
+
+
+  "QToolButton#Browse_ico_lib_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/select_ico_b.png)",
+    "border": "0px solid #00000000",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#Browse_ico_diy_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/select_ico_f.png)",
+    "border": "0px solid #00000000",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#add_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_add.png)",
+    "border": "0px solid #00000000",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#add_page_toolB:hover": {
+    "background-color": "#404040",
+    "border-radius": "4px"
+  },
+  "QToolButton#add_page_toolB:pressed": {
+    "background-color": "#222222",
+    "padding-left": "2px",
+    "padding-top": "2px"
+  },
+  "QToolButton#remove_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_rem.png)",
+    "border": "0px solid #00000000",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#remove_page_toolB:hover": {
+    "background-color": "#404040",
+    "border-radius": "4px"
+  },
+  "QToolButton#remove_page_toolB:pressed": {
+    "background-color": "#222222",
+    "padding-left": "2px",
+    "padding-top": "2px"
+  },
+  "QToolButton#back_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_pageL.png)",
+    "border": "0px solid #00000000",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#back_page_toolB:hover": {
+    "background-color": "#404040",
+    "border-radius": "4px"
+  },
+  "QToolButton#back_page_toolB:pressed": {
+    "background-color": "#222222",
+    "padding-left": "2px",
+    "padding-top": "2px"
+  },
+  "QToolButton#next_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_pageR.png)",
+    "border": "0px solid #00000000",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#next_page_toolB:hover": {
+    "background-color": "#404040",
+    "border-radius": "4px"
+  },
+  "QToolButton#next_page_toolB:pressed": {
+    "background-color": "#222222",
+    "padding-left": "2px",
+    "padding-top": "2px"
+  }
+}

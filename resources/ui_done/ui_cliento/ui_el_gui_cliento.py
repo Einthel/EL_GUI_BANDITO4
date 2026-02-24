@@ -265,15 +265,15 @@ class Ui_El_GUI_CLIENTO(object):
 
         self.gridLayout.addWidget(self.network_stat_line, 3, 0, 1, 1)
 
-        self.null_toolB = QToolButton(self.options_groupB)
-        self.null_toolB.setObjectName(u"null_toolB")
-        self.null_toolB.setEnabled(True)
-        sizePolicy1.setHeightForWidth(self.null_toolB.sizePolicy().hasHeightForWidth())
-        self.null_toolB.setSizePolicy(sizePolicy1)
-        self.null_toolB.setMinimumSize(QSize(170, 35))
-        self.null_toolB.setMaximumSize(QSize(170, 35))
+        self.full_screen_toolB = QToolButton(self.options_groupB)
+        self.full_screen_toolB.setObjectName(u"full_screen_toolB")
+        self.full_screen_toolB.setEnabled(True)
+        sizePolicy1.setHeightForWidth(self.full_screen_toolB.sizePolicy().hasHeightForWidth())
+        self.full_screen_toolB.setSizePolicy(sizePolicy1)
+        self.full_screen_toolB.setMinimumSize(QSize(170, 35))
+        self.full_screen_toolB.setMaximumSize(QSize(170, 35))
 
-        self.gridLayout.addWidget(self.null_toolB, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.full_screen_toolB, 1, 0, 1, 1)
 
         self.null_toolB_2 = QToolButton(self.options_groupB)
         self.null_toolB_2.setObjectName(u"null_toolB_2")
@@ -313,7 +313,7 @@ class Ui_El_GUI_CLIENTO(object):
     # setupUi
 
     def retranslateUi(self, El_GUI_CLIENTO):
-        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento v.0.0.4", None))
+        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento v0.0.2.4", None))
         self.main_groupB.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento", None))
         self.time_groupB.setTitle("")
         self.plugin_toolB_1.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
@@ -323,7 +323,7 @@ class Ui_El_GUI_CLIENTO(object):
         self.plugin_toolB_5.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))
         self.options_groupB.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"Status", None))
         self.settings_toolB.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Settings", None))
-        self.null_toolB.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Bull", None))
+        self.full_screen_toolB.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Full Screen", None))
         self.null_toolB_2.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"Bull", None))
     # retranslateUi
 

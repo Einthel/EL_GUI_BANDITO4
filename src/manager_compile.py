@@ -87,27 +87,46 @@ def compile_ui_files(ui_dir, output_dir):
 def compile_plugin_ui_files(plugins_dir):
     """
     Компилятор плагинов: находит .ui файлы внутри папки плагинов
-    и компилирует их "In-Place" (рядом с исходником), добавляя префикс ui_.
+    и компилирует их "In-Place" или в специальную папку ui_done.
+
+    Структуры поддержки:
+    1. Простая структура: plugin_dir/name.ui -> plugin_dir/ui_name.py
+    2. Сложная структура: plugin_dir/resources/ui_raw/name.ui -> plugin_dir/resources/ui_done/ui_name.py
     """
     if not os.path.isdir(plugins_dir):
         # Если папки плагинов нет - это не критическая ошибка, просто нечего компилировать
-        # print(f"Директория плагинов не найдена: {plugins_dir}") 
+        # print(f"Директория плагинов не найдена: {plugins_dir}")
         return
 
     print(f"Проверка UI файлов плагинов в '{plugins_dir}'...")
-    
+
     for root, _, files in os.walk(plugins_dir):
         for ui_file in files:
             if not ui_file.endswith(".ui"):
                 continue
 
             ui_path = os.path.join(root, ui_file)
-            
+
             # Формируем имя целевого файла: shortcut.ui -> ui_shortcut.py
             base_name = os.path.splitext(ui_file)[0]
             py_file_name = f"ui_{base_name}.py"
-            
-            # Целевой путь - ТАМ ЖЕ, где и ui файл
-            py_path = os.path.join(root, py_file_name)
+
+            # Определение целевой директории
+            # Если это ui_raw/, ищем ui_done/ в родительской директории
+            if "ui_raw" in root:
+                # Заменяем ui_raw на ui_done в пути
+                py_path = os.path.join(root.replace("ui_raw", "ui_done"), py_file_name)
+                # Убедимся что ui_done существует
+                ui_done_dir = os.path.dirname(py_path)
+                if not os.path.exists(ui_done_dir):
+                    try:
+                        os.makedirs(ui_done_dir, exist_ok=True)
+                    except OSError as e:
+                        print(f"ОШИБКА: Не удалось создать директорию {ui_done_dir}: {e}")
+                        continue
+            else:
+                # Целевой путь - ТАМ ЖЕ, где и ui файл (для простой структуры)
+                py_path = os.path.join(root, py_file_name)
 
             _compile_if_needed(ui_path, py_path)
+

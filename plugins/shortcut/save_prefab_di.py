@@ -3,9 +3,9 @@ from PySide6.QtCore import Qt
 
 # Импорт сгенерированного UI
 try:
-    from ui_save_prefab_di import Ui_save_prefab_di
+    from resources.ui_done.ui_save_prefab_di import Ui_save_prefab_di
 except ImportError:
-    from .ui_save_prefab_di import Ui_save_prefab_di
+    from .resources.ui_done.ui_save_prefab_di import Ui_save_prefab_di
 
 class SavePrefabDialog(QDialog, Ui_save_prefab_di):
     """

@@ -9,18 +9,18 @@
   "min_app_version": "0.0.1",
   "directories_to_ensure": [
     "plugins/shortcut",
-    "plugins/shortcut/resources",
+    "plugins/shortcut/resources/ui_done/",
     "plugins/shortcut/resources/ico",
     "plugins/shortcut/config"
   ],
   "files_map": [
     {
       "remote_path": "plugins/shortcut/shortcut_cliento.py",
-      "local_dir": "plugins/shortcut"
+      "local_dir": "plugins/shortcut/"
     },
     {
-      "remote_path": "plugins/shortcut/ui_shortcut_cliento.py",
-      "local_dir": "plugins/shortcut"
+      "remote_path": "plugins/shortcut/resources/ui_done/ui_shortcut_cliento.py",
+      "local_dir": "plugins/shortcut/resources/ui_done/"
     },
     {
       "remote_path": "plugins/shortcut/ver_shortcut",
@@ -32,7 +32,7 @@
       "is_directory": true
     },
     {
-      "remote_path": "plugins/shortcut/config/style_shortcut.json",
+      "remote_path": "plugins/shortcut/config/style_shortcut_cliento.json",
       "local_dir": "plugins/shortcut/config"
     },
     {

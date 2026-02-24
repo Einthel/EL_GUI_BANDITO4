@@ -1,7 +1,7 @@
 {
   "id": "music",
   "name": "Music Panel",
-  "version_file": "plugins/music/ver",
+  "version_file": "plugins/music/ver_music",
   "description": "Панель для управления яндекс музыкой",
   "icon": "plugins/music/resources/ico/ico_music.png",
   "author": "einthel",
@@ -10,6 +10,8 @@
   "directories_to_ensure": [
     "plugins/music",
     "plugins/music/resources",
+	  "plugins/music/resources/ui_done",
+	  "plugins/music/config",
     "plugins/music/resources/ico"
   ],
   "files_map": [
@@ -18,11 +20,11 @@
       "local_dir": "plugins/music"
     },
     {
-      "remote_path": "plugins/music/ui_music_cliento.py",
-      "local_dir": "plugins/music"
+      "remote_path": "plugins/music/resources/ui_done/ui_music_cliento.py",
+      "local_dir": "plugins/music/resources/ui_done"
     },
     {
-      "remote_path": "plugins/music/ver",
+      "remote_path": "plugins/music/ver_music",
       "local_dir": "plugins/music"
     },
     {
@@ -30,12 +32,12 @@
       "local_dir": "plugins/music/resources/ico"
     },
     {
-      "remote_path": "plugins/music/resources/style_music.json",
-      "local_dir": "plugins/music/resources"
+      "remote_path": "plugins/music/config/style_music.json",
+      "local_dir": "plugins/music/config/"
     },
     {
-      "remote_path": "plugins/music/resources/config_music.json",
-      "local_dir": "plugins/music/resources"
+      "remote_path": "plugins/music/config/config_music.json",
+      "local_dir": "plugins/music/config/"
     }
   ]
 }

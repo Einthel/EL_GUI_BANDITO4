@@ -26,7 +26,7 @@
    <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>el_gui_cliento v.0.0.4</string>
+   <string>el_gui_cliento v0.0.2.4</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
@@ -628,7 +628,7 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QToolButton" name="null_toolB">
+            <widget class="QToolButton" name="full_screen_toolB">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -651,7 +651,7 @@
               </size>
              </property>
              <property name="text">
-              <string>Bull</string>
+              <string>Full Screen</string>
              </property>
             </widget>
            </item>

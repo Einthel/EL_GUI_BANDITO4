@@ -33,11 +33,17 @@ try:
 except ImportError:
     from .app_list_di import AppListDialog
 
+# Импорт диалога библиотеки иконок
+try:
+    from ico_list_di import IcoListDialog
+except ImportError:
+    from .ico_list_di import IcoListDialog
+
 # Импорт UI (предполагаем, что он лежит рядом)
 try:
-    from ui_shortcut_bandito import Ui_stream_bandito
+    from resources.ui_done.ui_shortcut_bandito import Ui_stream_bandito
 except ImportError:
-    from .ui_shortcut_bandito import Ui_stream_bandito
+    from .resources.ui_done.ui_shortcut_bandito import Ui_stream_bandito
 
 class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
     """
@@ -66,11 +72,12 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
         # Подключение сигналов управления страницами
         self.add_page_toolB.clicked.connect(self.add_page)
         self.remove_page_toolB.clicked.connect(self.remove_page)
-        self.next_page_pushB.clicked.connect(self.next_page)
-        self.back_page_pushB.clicked.connect(self.prev_page)
+        self.next_page_toolB.clicked.connect(self.next_page)
+        self.back_page_toolB.clicked.connect(self.prev_page)
         
         # Подключение кнопки выбора иконки
         self.Browse_ico_diy_toolB.clicked.connect(self.browse_icon_handler)
+        self.Browse_ico_lib_toolB.clicked.connect(self.open_ico_library)
         
         # Подключение кнопки выбора приложения
         self.app_choice_toolB.clicked.connect(self.open_app_selector)
@@ -118,8 +125,8 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
                     self.app_title_lineE.setText(name)
 
     def load_stylesheet(self):
-        """Загружает стиль из style_shortcut.json."""
-        style_path = os.path.join(self.plugin_path, "config", "style_shortcut.json")
+        """Загружает стиль из style_shortcut_bandito.json."""
+        style_path = os.path.join(self.plugin_path, "config", "style_shortcut_bandito.json")
         if os.path.exists(style_path):
             try:
                 with open(style_path, 'r', encoding='utf-8') as f:
@@ -666,11 +673,11 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
         self.Example_toolB.setIcon(QIcon())
         
         # Управление кнопками навигации
-        self.back_page_pushB.setEnabled(self.current_page_index > 1)
+        self.back_page_toolB.setEnabled(self.current_page_index > 1)
         
         # Проверяем наличие следующей страницы для активации кнопки Next
         next_page_key = f"page_{self.current_page_index + 1}"
-        self.next_page_pushB.setEnabled(next_page_key in self.config_data)
+        self.next_page_toolB.setEnabled(next_page_key in self.config_data)
         
         # Обновляем дерево кнопок
         self.update_tree_view()
@@ -858,6 +865,21 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
             
         except Exception as e:
             print(f"[ShortcutEditor] Error copying icon: {e}")
+
+    def open_ico_library(self):
+        """Открывает диалог библиотеки иконок."""
+        ico_dir = os.path.join(self.plugin_path, "resources", "ico")
+        dialog = IcoListDialog(self, icon_dir=ico_dir)
+        if dialog.exec():
+            rel_path = dialog.get_selected_icon()
+            if rel_path:
+                self.current_icon_path = rel_path
+                # Обновляем превью
+                full_path = os.path.join(self.plugin_path, rel_path)
+                if os.path.exists(full_path):
+                    self.Example_toolB.setIcon(QIcon(full_path))
+                    self.Example_toolB.setIconSize(api_qt_size(70, 70))
+                print(f"[ShortcutEditor] Selected icon from library: {rel_path}")
 
     def load_button_settings(self, btn_name):
         """Заполняет поля справа данными выбранной кнопки."""
