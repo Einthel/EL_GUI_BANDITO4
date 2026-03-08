@@ -24,9 +24,9 @@ class Ui_Setting_bandito_widget(object):
         if not Setting_bandito_widget.objectName():
             Setting_bandito_widget.setObjectName(u"Setting_bandito_widget")
         Setting_bandito_widget.setWindowModality(Qt.WindowModality.NonModal)
-        Setting_bandito_widget.resize(370, 320)
-        Setting_bandito_widget.setMinimumSize(QSize(370, 320))
-        Setting_bandito_widget.setMaximumSize(QSize(372, 320))
+        Setting_bandito_widget.resize(370, 400)
+        Setting_bandito_widget.setMinimumSize(QSize(370, 400))
+        Setting_bandito_widget.setMaximumSize(QSize(372, 400))
         Setting_bandito_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
         self.gridLayout = QGridLayout(Setting_bandito_widget)
         self.gridLayout.setSpacing(5)
@@ -34,8 +34,11 @@ class Ui_Setting_bandito_widget(object):
         self.gridLayout.setContentsMargins(5, 5, 5, 5)
         self.settings_qFrame = QFrame(Setting_bandito_widget)
         self.settings_qFrame.setObjectName(u"settings_qFrame")
-        self.settings_qFrame.setMinimumSize(QSize(0, 310))
-        self.settings_qFrame.setMaximumSize(QSize(16777215, 310))
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.settings_qFrame.sizePolicy().hasHeightForWidth())
+        self.settings_qFrame.setSizePolicy(sizePolicy)
         self.settings_qFrame.setFrameShape(QFrame.Shape.StyledPanel)
         self.settings_qFrame.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout = QVBoxLayout(self.settings_qFrame)
@@ -52,11 +55,11 @@ class Ui_Setting_bandito_widget(object):
 
         self.ip_source_lineE = QLineEdit(self.settings_qFrame)
         self.ip_source_lineE.setObjectName(u"ip_source_lineE")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.ip_source_lineE.sizePolicy().hasHeightForWidth())
-        self.ip_source_lineE.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.ip_source_lineE.sizePolicy().hasHeightForWidth())
+        self.ip_source_lineE.setSizePolicy(sizePolicy1)
         self.ip_source_lineE.setMinimumSize(QSize(230, 30))
         self.ip_source_lineE.setMaximumSize(QSize(230, 30))
         self.ip_source_lineE.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
@@ -79,8 +82,8 @@ class Ui_Setting_bandito_widget(object):
 
         self.ip_destination_lineE = QLineEdit(self.settings_qFrame)
         self.ip_destination_lineE.setObjectName(u"ip_destination_lineE")
-        sizePolicy.setHeightForWidth(self.ip_destination_lineE.sizePolicy().hasHeightForWidth())
-        self.ip_destination_lineE.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.ip_destination_lineE.sizePolicy().hasHeightForWidth())
+        self.ip_destination_lineE.setSizePolicy(sizePolicy1)
         self.ip_destination_lineE.setMinimumSize(QSize(230, 30))
         self.ip_destination_lineE.setMaximumSize(QSize(230, 30))
 
@@ -101,8 +104,8 @@ class Ui_Setting_bandito_widget(object):
 
         self.port_lineE = QLineEdit(self.settings_qFrame)
         self.port_lineE.setObjectName(u"port_lineE")
-        sizePolicy.setHeightForWidth(self.port_lineE.sizePolicy().hasHeightForWidth())
-        self.port_lineE.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.port_lineE.sizePolicy().hasHeightForWidth())
+        self.port_lineE.setSizePolicy(sizePolicy1)
         self.port_lineE.setMinimumSize(QSize(230, 30))
         self.port_lineE.setMaximumSize(QSize(230, 30))
 
@@ -123,8 +126,8 @@ class Ui_Setting_bandito_widget(object):
 
         self.login_lineE = QLineEdit(self.settings_qFrame)
         self.login_lineE.setObjectName(u"login_lineE")
-        sizePolicy.setHeightForWidth(self.login_lineE.sizePolicy().hasHeightForWidth())
-        self.login_lineE.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.login_lineE.sizePolicy().hasHeightForWidth())
+        self.login_lineE.setSizePolicy(sizePolicy1)
         self.login_lineE.setMinimumSize(QSize(230, 30))
         self.login_lineE.setMaximumSize(QSize(230, 30))
 
@@ -148,8 +151,8 @@ class Ui_Setting_bandito_widget(object):
         self.pass_lay.setObjectName(u"pass_lay")
         self.pass_lineE = QLineEdit(self.settings_qFrame)
         self.pass_lineE.setObjectName(u"pass_lineE")
-        sizePolicy.setHeightForWidth(self.pass_lineE.sizePolicy().hasHeightForWidth())
-        self.pass_lineE.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.pass_lineE.sizePolicy().hasHeightForWidth())
+        self.pass_lineE.setSizePolicy(sizePolicy1)
         self.pass_lineE.setMinimumSize(QSize(170, 30))
         self.pass_lineE.setMaximumSize(QSize(170, 30))
 
@@ -173,34 +176,89 @@ class Ui_Setting_bandito_widget(object):
         self.button_layout.setContentsMargins(0, 0, 0, 0)
         self.connect_toolB = QToolButton(self.settings_qFrame)
         self.connect_toolB.setObjectName(u"connect_toolB")
-        self.connect_toolB.setMinimumSize(QSize(80, 30))
-        self.connect_toolB.setMaximumSize(QSize(80, 30))
+        self.connect_toolB.setMinimumSize(QSize(60, 30))
+        self.connect_toolB.setMaximumSize(QSize(60, 30))
 
         self.button_layout.addWidget(self.connect_toolB)
 
         self.disconnect_toolB = QToolButton(self.settings_qFrame)
         self.disconnect_toolB.setObjectName(u"disconnect_toolB")
-        self.disconnect_toolB.setMinimumSize(QSize(80, 30))
-        self.disconnect_toolB.setMaximumSize(QSize(80, 30))
+        self.disconnect_toolB.setMinimumSize(QSize(60, 30))
+        self.disconnect_toolB.setMaximumSize(QSize(60, 30))
 
         self.button_layout.addWidget(self.disconnect_toolB)
 
-        self.save_toolB = QToolButton(self.settings_qFrame)
-        self.save_toolB.setObjectName(u"save_toolB")
-        self.save_toolB.setMinimumSize(QSize(80, 30))
-        self.save_toolB.setMaximumSize(QSize(80, 30))
-
-        self.button_layout.addWidget(self.save_toolB)
-
         self.ping_toolB = QToolButton(self.settings_qFrame)
         self.ping_toolB.setObjectName(u"ping_toolB")
-        self.ping_toolB.setMinimumSize(QSize(80, 30))
-        self.ping_toolB.setMaximumSize(QSize(80, 30))
+        self.ping_toolB.setMinimumSize(QSize(60, 30))
+        self.ping_toolB.setMaximumSize(QSize(60, 30))
 
         self.button_layout.addWidget(self.ping_toolB)
 
+        self.save_toolB = QToolButton(self.settings_qFrame)
+        self.save_toolB.setObjectName(u"save_toolB")
+        self.save_toolB.setMinimumSize(QSize(60, 30))
+        self.save_toolB.setMaximumSize(QSize(60, 30))
+
+        self.button_layout.addWidget(self.save_toolB)
+
+        self.cancel_toolB = QToolButton(self.settings_qFrame)
+        self.cancel_toolB.setObjectName(u"cancel_toolB")
+        self.cancel_toolB.setMinimumSize(QSize(60, 30))
+        self.cancel_toolB.setMaximumSize(QSize(60, 30))
+
+        self.button_layout.addWidget(self.cancel_toolB)
+
 
         self.verticalLayout.addLayout(self.button_layout)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(5)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.sound = QHBoxLayout()
+        self.sound.setSpacing(10)
+        self.sound.setObjectName(u"sound")
+        self.sound.setContentsMargins(25, -1, 25, -1)
+        self.sound_label = QLabel(self.settings_qFrame)
+        self.sound_label.setObjectName(u"sound_label")
+        self.sound_label.setMinimumSize(QSize(60, 30))
+        self.sound_label.setMaximumSize(QSize(110, 30))
+
+        self.sound.addWidget(self.sound_label, 0, Qt.AlignmentFlag.AlignLeft)
+
+        self.sound_checkB = QCheckBox(self.settings_qFrame)
+        self.sound_checkB.setObjectName(u"sound_checkB")
+        self.sound_checkB.setMinimumSize(QSize(20, 20))
+        self.sound_checkB.setMaximumSize(QSize(20, 20))
+
+        self.sound.addWidget(self.sound_checkB)
+
+
+        self.horizontalLayout.addLayout(self.sound)
+
+        self.sound_bandito = QHBoxLayout()
+        self.sound_bandito.setSpacing(10)
+        self.sound_bandito.setObjectName(u"sound_bandito")
+        self.sound_bandito.setContentsMargins(25, -1, 25, -1)
+        self.sound_bandito_label = QLabel(self.settings_qFrame)
+        self.sound_bandito_label.setObjectName(u"sound_bandito_label")
+        self.sound_bandito_label.setMinimumSize(QSize(60, 30))
+        self.sound_bandito_label.setMaximumSize(QSize(110, 30))
+
+        self.sound_bandito.addWidget(self.sound_bandito_label, 0, Qt.AlignmentFlag.AlignLeft)
+
+        self.sound_bandito_checkB = QCheckBox(self.settings_qFrame)
+        self.sound_bandito_checkB.setObjectName(u"sound_bandito_checkB")
+        self.sound_bandito_checkB.setMinimumSize(QSize(20, 20))
+        self.sound_bandito_checkB.setMaximumSize(QSize(20, 20))
+
+        self.sound_bandito.addWidget(self.sound_bandito_checkB)
+
+
+        self.horizontalLayout.addLayout(self.sound_bandito)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.status_light = QHBoxLayout()
         self.status_light.setSpacing(5)
@@ -216,8 +274,8 @@ class Ui_Setting_bandito_widget(object):
 
         self.status_lineE = QLineEdit(self.settings_qFrame)
         self.status_lineE.setObjectName(u"status_lineE")
-        sizePolicy.setHeightForWidth(self.status_lineE.sizePolicy().hasHeightForWidth())
-        self.status_lineE.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.status_lineE.sizePolicy().hasHeightForWidth())
+        self.status_lineE.setSizePolicy(sizePolicy1)
         self.status_lineE.setMinimumSize(QSize(300, 35))
         self.status_lineE.setMaximumSize(QSize(300, 35))
         self.status_lineE.setReadOnly(True)
@@ -228,7 +286,7 @@ class Ui_Setting_bandito_widget(object):
         self.verticalLayout.addLayout(self.status_light)
 
 
-        self.gridLayout.addWidget(self.settings_qFrame, 0, 0, 1, 1, Qt.AlignmentFlag.AlignTop)
+        self.gridLayout.addWidget(self.settings_qFrame, 0, 0, 1, 1)
 
 
         self.retranslateUi(Setting_bandito_widget)
@@ -246,8 +304,13 @@ class Ui_Setting_bandito_widget(object):
         self.pass_label.setText(QCoreApplication.translate("Setting_bandito_widget", u"Password:", None))
         self.show_pass_checkB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Show", None))
         self.connect_toolB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Connect", None))
-        self.disconnect_toolB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Disconnect", None))
-        self.save_toolB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Save", None))
+        self.disconnect_toolB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Discon", None))
         self.ping_toolB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Ping", None))
+        self.save_toolB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Save", None))
+        self.cancel_toolB.setText(QCoreApplication.translate("Setting_bandito_widget", u"Cancel", None))
+        self.sound_label.setText(QCoreApplication.translate("Setting_bandito_widget", u"Sound Cliento:", None))
+        self.sound_checkB.setText("")
+        self.sound_bandito_label.setText(QCoreApplication.translate("Setting_bandito_widget", u"Sound Bandito:", None))
+        self.sound_bandito_checkB.setText("")
     # retranslateUi
 

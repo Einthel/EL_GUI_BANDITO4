@@ -188,6 +188,15 @@
                 "type": "program",
                 "value": "C:\\Users\\nexus\\Desktop\\THE FINALS.url"
             }
+        },
+        "SecureCRT": {
+            "name": "SecureCRT 9.3",
+            "icon_path": "resources/ico/images.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\SecureCRT 9.3\\SecureCRT 9.3.lnk"
+            }
         }
     }
 }

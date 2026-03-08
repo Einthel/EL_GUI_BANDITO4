@@ -1,14 +1,5 @@
 {
     "page_1": {
-        "butt_toolB_01": {
-            "name": "Telegram",
-            "icon_path": "resources/ico/telegramm.png",
-            "icon_size": 70,
-            "action": {
-                "type": "program",
-                "value": "C:\\Users\\nexus\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Telegram Desktop\\Telegram.lnk"
-            }
-        },
         "butt_toolB_09": {
             "name": "Prev page",
             "icon_path": "resources/ico/arrow-left-circle.svg",
@@ -107,6 +98,15 @@
                 "type": "program",
                 "value": "C:\\Users\\nexus\\Desktop\\THE FINALS.url"
             }
+        },
+        "butt_toolB_01": {
+            "name": "Telegram",
+            "icon_path": "resources/ico/telegramm.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\Users\\nexus\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Telegram Desktop\\Telegram.lnk"
+            }
         }
     },
     "page_2": {
@@ -126,33 +126,6 @@
             "action": {
                 "type": "system",
                 "value": "page_next"
-            }
-        },
-        "butt_toolB_04": {
-            "name": "Yandex",
-            "icon_path": "resources/ico/internet.png",
-            "icon_size": 70,
-            "action": {
-                "type": "program",
-                "value": "C:\\Users\\nexus\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Yandex.lnk"
-            }
-        },
-        "butt_toolB_10": {
-            "name": "22",
-            "icon_path": "resources/ico/search.png",
-            "icon_size": 70,
-            "action": {
-                "type": "shortcut",
-                "value": "Shift+W"
-            }
-        },
-        "butt_toolB_06": {
-            "name": "22",
-            "icon_path": "resources/ico/search.png",
-            "icon_size": 70,
-            "action": {
-                "type": "shortcut",
-                "value": "Shift+W"
             }
         }
     }

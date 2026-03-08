@@ -3,25 +3,20 @@
         "id": "shortcut",
         "name": "Shortcuts Panel",
         "path": "shortcut",
-        "version": "0.0.1.10"
+        "version": "0.0.1.18"
     },
     "slot_2": {
-        "id": "music",
-        "name": "Music Panel",
-        "path": "music",
-        "version": "0.0.1"
+        "id": "tune",
+        "name": "Tune Panel",
+        "path": "tune",
+        "version": "0.0.0.6"
     },
     "slot_3": {
-        "id": "sound",
-        "name": "Sound Panel",
-        "path": "sound",
-        "version": "0.0.0.8"
-    },
-    "slot_4": {
         "id": "example",
         "name": "example Panel",
         "path": "example",
-        "version": "0.0.0.1"
+        "version": "0.0.0.2"
     },
+    "slot_4": null,
     "slot_5": null
 }

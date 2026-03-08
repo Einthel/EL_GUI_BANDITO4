@@ -1,14 +1,15 @@
 {
   "id": "shortcut",
   "name": "Shortcuts Panel",
-  "version_file": "plugins/shortcut/ver_shortcut",
+  "version_file": "plugins/shortcut/shortcut_manifest.json",
   "description": "Панель быстрых команд для ускорения рабочего процесса",
   "icon": "plugins/shortcut/resources/ico/ico_shortcut.png",
   "author": "einthel",
   "license": "MIT",
-  "min_app_version": "0.0.1",
+  "min_app_version": "0.0.1.18",
   "directories_to_ensure": [
     "plugins/shortcut",
+    "plugins/shortcut/src",
     "plugins/shortcut/resources/ui_done/",
     "plugins/shortcut/resources/ico",
     "plugins/shortcut/config"
@@ -16,14 +17,22 @@
   "files_map": [
     {
       "remote_path": "plugins/shortcut/shortcut_cliento.py",
-      "local_dir": "plugins/shortcut/"
+      "local_dir": "plugins/shortcut"
+    },
+    {
+      "remote_path": "plugins/shortcut/src/sh_cliento_manager.py",
+      "local_dir": "plugins/shortcut/src"
+    },
+    {
+      "remote_path": "plugins/shortcut/src/sh_cliento_service.py",
+      "local_dir": "plugins/shortcut/src"
     },
     {
       "remote_path": "plugins/shortcut/resources/ui_done/ui_shortcut_cliento.py",
-      "local_dir": "plugins/shortcut/resources/ui_done/"
+      "local_dir": "plugins/shortcut/resources/ui_done"
     },
     {
-      "remote_path": "plugins/shortcut/ver_shortcut",
+      "remote_path": "plugins/shortcut/shortcut_manifest.json",
       "local_dir": "plugins/shortcut"
     },
     {

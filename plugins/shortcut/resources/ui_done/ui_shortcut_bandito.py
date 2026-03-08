@@ -15,11 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QGroupBox, QHBoxLayout, QHeaderView, QKeySequenceEdit,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QStackedWidget, QTabWidget, QToolButton, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+    QGridLayout, QGroupBox, QHBoxLayout, QHeaderView,
+    QKeySequenceEdit, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QStackedWidget, QTabWidget, QToolButton,
+    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_stream_bandito(object):
     def setupUi(self, stream_bandito):
@@ -516,16 +516,12 @@ class Ui_stream_bandito(object):
         self.funcrion_widget.addTab(self.app_tab, "")
         self.shortcut_tab = QWidget()
         self.shortcut_tab.setObjectName(u"shortcut_tab")
-        self.layoutWidget1 = QWidget(self.shortcut_tab)
-        self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(0, 0, 261, 171))
-        self.verticalLayout_3 = QVBoxLayout(self.layoutWidget1)
+        self.verticalLayout_3 = QVBoxLayout(self.shortcut_tab)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.sh_title_layout = QHBoxLayout()
         self.sh_title_layout.setSpacing(5)
         self.sh_title_layout.setObjectName(u"sh_title_layout")
-        self.sh_title_lable = QLabel(self.layoutWidget1)
+        self.sh_title_lable = QLabel(self.shortcut_tab)
         self.sh_title_lable.setObjectName(u"sh_title_lable")
         self.sh_title_lable.setMaximumSize(QSize(40, 50))
         self.sh_title_lable.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
@@ -534,7 +530,7 @@ class Ui_stream_bandito(object):
 
         self.sh_title_layout.addWidget(self.sh_title_lable, 0, Qt.AlignmentFlag.AlignRight)
 
-        self.sh_title_lineE = QLineEdit(self.layoutWidget1)
+        self.sh_title_lineE = QLineEdit(self.shortcut_tab)
         self.sh_title_lineE.setObjectName(u"sh_title_lineE")
         self.sh_title_lineE.setMinimumSize(QSize(140, 30))
         self.sh_title_lineE.setMaximumSize(QSize(140, 30))
@@ -547,7 +543,7 @@ class Ui_stream_bandito(object):
         self.sh_hc1_layout = QHBoxLayout()
         self.sh_hc1_layout.setSpacing(5)
         self.sh_hc1_layout.setObjectName(u"sh_hc1_layout")
-        self.sh_hotckey1_lable = QLabel(self.layoutWidget1)
+        self.sh_hotckey1_lable = QLabel(self.shortcut_tab)
         self.sh_hotckey1_lable.setObjectName(u"sh_hotckey1_lable")
         self.sh_hotckey1_lable.setMaximumSize(QSize(60, 50))
         self.sh_hotckey1_lable.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
@@ -556,7 +552,7 @@ class Ui_stream_bandito(object):
 
         self.sh_hc1_layout.addWidget(self.sh_hotckey1_lable, 0, Qt.AlignmentFlag.AlignRight)
 
-        self.sh_hc1_keyEdit = QKeySequenceEdit(self.layoutWidget1)
+        self.sh_hc1_keyEdit = QKeySequenceEdit(self.shortcut_tab)
         self.sh_hc1_keyEdit.setObjectName(u"sh_hc1_keyEdit")
         self.sh_hc1_keyEdit.setMinimumSize(QSize(140, 30))
         self.sh_hc1_keyEdit.setMaximumSize(QSize(140, 30))
@@ -566,42 +562,37 @@ class Ui_stream_bandito(object):
 
         self.verticalLayout_3.addLayout(self.sh_hc1_layout)
 
-        self.sh_hc2_layout = QHBoxLayout()
-        self.sh_hc2_layout.setSpacing(5)
-        self.sh_hc2_layout.setObjectName(u"sh_hc2_layout")
-        self.sh_hotckey2_lable = QLabel(self.layoutWidget1)
-        self.sh_hotckey2_lable.setObjectName(u"sh_hotckey2_lable")
-        self.sh_hotckey2_lable.setMaximumSize(QSize(60, 50))
-        self.sh_hotckey2_lable.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.sh_hotckey2_lable.setLineWidth(0)
-        self.sh_hotckey2_lable.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
+        self.sh_chek_layout = QHBoxLayout()
+        self.sh_chek_layout.setSpacing(15)
+        self.sh_chek_layout.setObjectName(u"sh_chek_layout")
+        self.sh_chek_layout.setContentsMargins(15, -1, 15, -1)
+        self.sh_check = QLabel(self.shortcut_tab)
+        self.sh_check.setObjectName(u"sh_check")
+        self.sh_check.setMaximumSize(QSize(90, 40))
+        self.sh_check.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.sh_check.setLineWidth(0)
+        self.sh_check.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
-        self.sh_hc2_layout.addWidget(self.sh_hotckey2_lable, 0, Qt.AlignmentFlag.AlignRight)
+        self.sh_chek_layout.addWidget(self.sh_check, 0, Qt.AlignmentFlag.AlignRight)
 
-        self.sh_hc2_keyEdit = QKeySequenceEdit(self.layoutWidget1)
-        self.sh_hc2_keyEdit.setObjectName(u"sh_hc2_keyEdit")
-        self.sh_hc2_keyEdit.setMinimumSize(QSize(140, 30))
-        self.sh_hc2_keyEdit.setMaximumSize(QSize(140, 30))
+        self.sh__checkB = QCheckBox(self.shortcut_tab)
+        self.sh__checkB.setObjectName(u"sh__checkB")
+        self.sh__checkB.setMaximumSize(QSize(16, 16))
 
-        self.sh_hc2_layout.addWidget(self.sh_hc2_keyEdit, 0, Qt.AlignmentFlag.AlignRight)
+        self.sh_chek_layout.addWidget(self.sh__checkB)
 
 
-        self.verticalLayout_3.addLayout(self.sh_hc2_layout)
+        self.verticalLayout_3.addLayout(self.sh_chek_layout)
 
         self.funcrion_widget.addTab(self.shortcut_tab, "")
         self.action_tab = QWidget()
         self.action_tab.setObjectName(u"action_tab")
-        self.layoutWidget2 = QWidget(self.action_tab)
-        self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(0, 0, 261, 171))
-        self.action_layout = QVBoxLayout(self.layoutWidget2)
-        self.action_layout.setSpacing(5)
-        self.action_layout.setObjectName(u"action_layout")
-        self.action_layout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_4 = QVBoxLayout(self.action_tab)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.action_title_layout = QHBoxLayout()
         self.action_title_layout.setSpacing(5)
         self.action_title_layout.setObjectName(u"action_title_layout")
-        self.action_title_lable = QLabel(self.layoutWidget2)
+        self.action_title_lable = QLabel(self.action_tab)
         self.action_title_lable.setObjectName(u"action_title_lable")
         self.action_title_lable.setMaximumSize(QSize(50, 40))
         self.action_title_lable.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
@@ -610,7 +601,7 @@ class Ui_stream_bandito(object):
 
         self.action_title_layout.addWidget(self.action_title_lable, 0, Qt.AlignmentFlag.AlignRight)
 
-        self.action_title_lineE = QLineEdit(self.layoutWidget2)
+        self.action_title_lineE = QLineEdit(self.action_tab)
         self.action_title_lineE.setObjectName(u"action_title_lineE")
         self.action_title_lineE.setMinimumSize(QSize(140, 30))
         self.action_title_lineE.setMaximumSize(QSize(140, 16777215))
@@ -618,19 +609,41 @@ class Ui_stream_bandito(object):
         self.action_title_layout.addWidget(self.action_title_lineE, 0, Qt.AlignmentFlag.AlignRight)
 
 
-        self.action_layout.addLayout(self.action_title_layout)
+        self.verticalLayout_4.addLayout(self.action_title_layout)
+
+        self.action_chek_layout = QHBoxLayout()
+        self.action_chek_layout.setSpacing(15)
+        self.action_chek_layout.setObjectName(u"action_chek_layout")
+        self.action_chek_layout.setContentsMargins(15, -1, 15, -1)
+        self.action_check_lable = QLabel(self.action_tab)
+        self.action_check_lable.setObjectName(u"action_check_lable")
+        self.action_check_lable.setMaximumSize(QSize(90, 40))
+        self.action_check_lable.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.action_check_lable.setLineWidth(0)
+        self.action_check_lable.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
+
+        self.action_chek_layout.addWidget(self.action_check_lable, 0, Qt.AlignmentFlag.AlignRight)
+
+        self.acrion_checkB = QCheckBox(self.action_tab)
+        self.acrion_checkB.setObjectName(u"acrion_checkB")
+        self.acrion_checkB.setMaximumSize(QSize(16, 16))
+
+        self.action_chek_layout.addWidget(self.acrion_checkB)
+
+
+        self.verticalLayout_4.addLayout(self.action_chek_layout)
 
         self.action_choice_layout = QHBoxLayout()
         self.action_choice_layout.setSpacing(5)
         self.action_choice_layout.setObjectName(u"action_choice_layout")
-        self.action__lable = QLabel(self.layoutWidget2)
+        self.action__lable = QLabel(self.action_tab)
         self.action__lable.setObjectName(u"action__lable")
         self.action__lable.setMaximumSize(QSize(40, 50))
         self.action__lable.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
         self.action_choice_layout.addWidget(self.action__lable, 0, Qt.AlignmentFlag.AlignRight)
 
-        self.action_comboB = QComboBox(self.layoutWidget2)
+        self.action_comboB = QComboBox(self.action_tab)
         self.action_comboB.setObjectName(u"action_comboB")
         sizePolicy1.setHeightForWidth(self.action_comboB.sizePolicy().hasHeightForWidth())
         self.action_comboB.setSizePolicy(sizePolicy1)
@@ -640,7 +653,7 @@ class Ui_stream_bandito(object):
         self.action_choice_layout.addWidget(self.action_comboB, 0, Qt.AlignmentFlag.AlignRight)
 
 
-        self.action_layout.addLayout(self.action_choice_layout)
+        self.verticalLayout_4.addLayout(self.action_choice_layout)
 
         self.funcrion_widget.addTab(self.action_tab, "")
 
@@ -770,6 +783,16 @@ class Ui_stream_bandito(object):
 
         self.verticalLayout.addWidget(self.save_new_pushB, 0, Qt.AlignmentFlag.AlignHCenter)
 
+        self.sound_toolB = QToolButton(self.save_frame)
+        self.sound_toolB.setObjectName(u"sound_toolB")
+        sizePolicy1.setHeightForWidth(self.sound_toolB.sizePolicy().hasHeightForWidth())
+        self.sound_toolB.setSizePolicy(sizePolicy1)
+        self.sound_toolB.setMinimumSize(QSize(130, 30))
+        self.sound_toolB.setMaximumSize(QSize(130, 30))
+        self.sound_toolB.setCheckable(True)
+
+        self.verticalLayout.addWidget(self.sound_toolB, 0, Qt.AlignmentFlag.AlignHCenter)
+
 
         self.right_layout.addWidget(self.save_frame)
 
@@ -780,7 +803,7 @@ class Ui_stream_bandito(object):
         self.retranslateUi(stream_bandito)
 
         self.Button_stackedWidget.setCurrentIndex(0)
-        self.funcrion_widget.setCurrentIndex(2)
+        self.funcrion_widget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(stream_bandito)
@@ -813,15 +836,19 @@ class Ui_stream_bandito(object):
         self.funcrion_widget.setTabText(self.funcrion_widget.indexOf(self.app_tab), QCoreApplication.translate("stream_bandito", u"Application", None))
         self.sh_title_lable.setText(QCoreApplication.translate("stream_bandito", u"Title:", None))
         self.sh_hotckey1_lable.setText(QCoreApplication.translate("stream_bandito", u"Hotkey 1:", None))
-        self.sh_hotckey2_lable.setText(QCoreApplication.translate("stream_bandito", u"Hotkey 2:", None))
+        self.sh_check.setText(QCoreApplication.translate("stream_bandito", u"Checkable:", None))
+        self.sh__checkB.setText("")
         self.funcrion_widget.setTabText(self.funcrion_widget.indexOf(self.shortcut_tab), QCoreApplication.translate("stream_bandito", u"Shortcuts", None))
         self.action_title_lable.setText(QCoreApplication.translate("stream_bandito", u"Title:", None))
+        self.action_check_lable.setText(QCoreApplication.translate("stream_bandito", u"Checkable:", None))
+        self.acrion_checkB.setText("")
         self.action__lable.setText(QCoreApplication.translate("stream_bandito", u"Action:", None))
         self.funcrion_widget.setTabText(self.funcrion_widget.indexOf(self.action_tab), QCoreApplication.translate("stream_bandito", u"Action", None))
         self.manager_gBox.setTitle(QCoreApplication.translate("stream_bandito", u"Manager page", None))
         self.current_page_lable.setText("")
         self.save_pushB.setText(QCoreApplication.translate("stream_bandito", u"Save Change", None))
         self.save_new_pushB.setText(QCoreApplication.translate("stream_bandito", u"Save Preset", None))
+        self.sound_toolB.setText(QCoreApplication.translate("stream_bandito", u"Sound", None))
         pass
     # retranslateUi
 

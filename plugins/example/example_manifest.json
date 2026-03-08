@@ -1,12 +1,12 @@
 {
   "id": "example",
   "name": "example Panel",
-  "version_file": "plugins/example/ver_example",
+  "version_file": "plugins/example/example_manifest.json",
   "description": "Панель быстрых команд для управления звуком ПК",
   "icon": "plugins/example/resources/ico/ico_example.png",
   "author": "einthel",
   "license": "MIT",
-  "min_app_version": "0.0.0.1",
+  "min_app_version": "0.0.0.2",
   "directories_to_ensure": [
     "plugins/example",
     "plugins/example/resources/ui_done/",
@@ -23,7 +23,7 @@
       "local_dir": "plugins/example/resources/ui_done/"
     },
     {
-      "remote_path": "plugins/example/ver_example",
+      "remote_path": "plugins/example/example_manifest.json",
       "local_dir": "plugins/example"
     },
     {

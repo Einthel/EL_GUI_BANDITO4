@@ -89,8 +89,16 @@ class PluginListWindow(QWidget):
                             if version_file_rel:
                                 version_path = os.path.join(self.project_root, version_file_rel)
                                 if os.path.exists(version_path):
-                                    with open(version_path, 'r', encoding='utf-8') as vf:
-                                        plugin_version = vf.read().strip()
+                                    try:
+                                        with open(version_path, 'r', encoding='utf-8') as vf:
+                                            content = vf.read().strip()
+                                            if version_file_rel.endswith(".json"):
+                                                v_data = json.loads(content)
+                                                plugin_version = v_data.get("min_app_version", "?")
+                                            else:
+                                                plugin_version = content
+                                    except Exception as e:
+                                        print(f"Error parsing version file: {e}")
                             
                             # Read icon
                             icon_file_rel = data.get("icon")

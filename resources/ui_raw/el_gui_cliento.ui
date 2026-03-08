@@ -26,7 +26,7 @@
    <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>el_gui_cliento v0.0.2.4</string>
+   <string>el_gui_cliento  v.0.0.1.6</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
@@ -212,10 +212,13 @@
                    </size>
                   </property>
                   <property name="frameShape">
-                   <enum>QFrame::Shape::Panel</enum>
+                   <enum>QFrame::Shape::Box</enum>
                   </property>
                   <property name="frameShadow">
                    <enum>QFrame::Shadow::Raised</enum>
+                  </property>
+                  <property name="lineWidth">
+                   <number>2</number>
                   </property>
                   <property name="smallDecimalPoint">
                    <bool>false</bool>
@@ -224,7 +227,7 @@
                    <number>2</number>
                   </property>
                   <property name="mode">
-                   <enum>QLCDNumber::Mode::Dec</enum>
+                   <enum>QLCDNumber::Mode::Hex</enum>
                   </property>
                   <property name="segmentStyle">
                    <enum>QLCDNumber::SegmentStyle::Filled</enum>
@@ -250,10 +253,13 @@
                    </size>
                   </property>
                   <property name="frameShape">
-                   <enum>QFrame::Shape::Panel</enum>
+                   <enum>QFrame::Shape::Box</enum>
                   </property>
                   <property name="frameShadow">
                    <enum>QFrame::Shadow::Raised</enum>
+                  </property>
+                  <property name="lineWidth">
+                   <number>2</number>
                   </property>
                   <property name="smallDecimalPoint">
                    <bool>false</bool>
@@ -262,7 +268,7 @@
                    <number>2</number>
                   </property>
                   <property name="mode">
-                   <enum>QLCDNumber::Mode::Dec</enum>
+                   <enum>QLCDNumber::Mode::Hex</enum>
                   </property>
                   <property name="segmentStyle">
                    <enum>QLCDNumber::SegmentStyle::Filled</enum>

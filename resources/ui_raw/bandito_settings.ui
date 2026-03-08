@@ -10,19 +10,19 @@
     <x>0</x>
     <y>0</y>
     <width>370</width>
-    <height>320</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>370</width>
-    <height>320</height>
+    <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>372</width>
-    <height>320</height>
+    <height>400</height>
    </size>
   </property>
   <property name="contextMenuPolicy">
@@ -31,7 +31,7 @@
   <property name="windowTitle">
    <string>Settings</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="0" columnstretch="0">
+  <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
     <number>5</number>
    </property>
@@ -47,19 +47,13 @@
    <property name="spacing">
     <number>5</number>
    </property>
-   <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignTop">
+   <item row="0" column="0">
     <widget class="QFrame" name="settings_qFrame">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>310</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>310</height>
-      </size>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="frameShape">
       <enum>QFrame::Shape::StyledPanel</enum>
@@ -358,13 +352,13 @@
          <widget class="QToolButton" name="connect_toolB">
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
@@ -377,18 +371,37 @@
          <widget class="QToolButton" name="disconnect_toolB">
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
           <property name="text">
-           <string>Disconnect</string>
+           <string>Discon</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="ping_toolB">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Ping</string>
           </property>
          </widget>
         </item>
@@ -396,13 +409,13 @@
          <widget class="QToolButton" name="save_toolB">
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
@@ -412,23 +425,132 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="ping_toolB">
+         <widget class="QToolButton" name="cancel_toolB">
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
           <property name="text">
-           <string>Ping</string>
+           <string>Cancel</string>
           </property>
          </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="sound">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>25</number>
+          </property>
+          <property name="rightMargin">
+           <number>25</number>
+          </property>
+          <item alignment="Qt::AlignmentFlag::AlignLeft">
+           <widget class="QLabel" name="sound_label">
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>110</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Sound Cliento:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="sound_checkB">
+            <property name="minimumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="sound_bandito">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>25</number>
+          </property>
+          <property name="rightMargin">
+           <number>25</number>
+          </property>
+          <item alignment="Qt::AlignmentFlag::AlignLeft">
+           <widget class="QLabel" name="sound_bandito_label">
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>110</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Sound Bandito:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="sound_bandito_checkB">
+            <property name="minimumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>

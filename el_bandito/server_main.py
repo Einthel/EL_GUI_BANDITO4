@@ -99,18 +99,25 @@ async def websocket_endpoint(websocket: WebSocket):
                 command = json_data.get("command")
                 
                 if command == "UPDATE_GET_VER":
-                    ver_path = os.path.join("el_cliento", "ver_cliento")
-                    if os.path.exists(ver_path):
-                        with open(ver_path, "r", encoding="utf-8") as f:
-                            version = f.read().strip()
-                        await manager.send_personal_message(json.dumps({
-                            "type": "UPDATE_RESPONSE_VER",
-                            "version": version
-                        }), websocket)
+                    manifest_path = os.path.join("el_cliento", "cliento_manifest.json")
+                    if os.path.exists(manifest_path):
+                        try:
+                            with open(manifest_path, "r", encoding="utf-8") as f:
+                                manifest = json.load(f)
+                                version = manifest.get("min_app_version", "0.0.0")
+                            await manager.send_personal_message(json.dumps({
+                                "type": "UPDATE_RESPONSE_VER",
+                                "version": version
+                            }), websocket)
+                        except Exception as e:
+                            await manager.send_personal_message(json.dumps({
+                                "type": "error",
+                                "message": f"Error reading manifest on server: {str(e)}"
+                            }), websocket)
                     else:
                         await manager.send_personal_message(json.dumps({
                             "type": "error",
-                            "message": "Version file not found on server"
+                            "message": "Manifest file not found on server"
                         }), websocket)
                     continue
 
@@ -122,12 +129,38 @@ async def websocket_endpoint(websocket: WebSocket):
                         
                         # Calculate MD5 for each file in the manifest
                         if "files_map" in manifest:
+                            new_files_map = []
                             for file_info in manifest["files_map"]:
                                 remote_path = file_info.get("remote_path")
-                                full_path = os.path.join(os.getcwd(), remote_path)
                                 
+                                # Обработка директорий (как в PLUGIN_UPDATE_GET_MANIFEST)
+                                if file_info.get("is_directory"):
+                                    full_dir_path = os.path.join(os.getcwd(), remote_path)
+                                    local_dir_base = file_info.get("local_dir")
+                                    
+                                    if os.path.exists(full_dir_path) and os.path.isdir(full_dir_path):
+                                        for root, dirs, files in os.walk(full_dir_path):
+                                            for filename in files:
+                                                abs_file_path = os.path.join(root, filename)
+                                                rel_path_from_dir = os.path.relpath(abs_file_path, full_dir_path)
+                                                
+                                                final_remote_path = os.path.join(remote_path, rel_path_from_dir).replace("\\", "/")
+                                                md5 = calculate_file_md5(abs_file_path)
+                                                
+                                                new_files_map.append({
+                                                    "remote_path": final_remote_path,
+                                                    "local_dir": local_dir_base,
+                                                    "md5": md5
+                                                })
+                                    continue # Пропускаем саму запись директории
+                                
+                                # Обычный файл
+                                full_path = os.path.join(os.getcwd(), remote_path)
                                 md5 = calculate_file_md5(full_path)
                                 file_info["md5"] = md5
+                                new_files_map.append(file_info)
+
+                            manifest["files_map"] = new_files_map
 
                         await manager.send_personal_message(json.dumps({
                             "type": "UPDATE_RESPONSE_MANIFEST",
@@ -168,24 +201,30 @@ async def websocket_endpoint(websocket: WebSocket):
                         }), websocket)
                         continue
 
-                    # Try ver_<plugin_id> first, then fallback to ver
-                    ver_path = os.path.join("plugins", plugin_id, f"ver_{plugin_id}")
-                    if not os.path.exists(ver_path):
-                        ver_path = os.path.join("plugins", plugin_id, "ver")
+                    # Стандартизированное имя манифеста: {plugin_id}_manifest.json
+                    manifest_name = f"{plugin_id}_manifest.json"
+                    manifest_path = os.path.join("plugins", plugin_id, manifest_name)
 
-                    if os.path.exists(ver_path):
-                        with open(ver_path, "r", encoding="utf-8") as f:
-                            version = f.read().strip()
-                        await manager.send_personal_message(json.dumps({
-                            "type": "UPDATE_RESPONSE_VER",
-                            "version": version,
-                            "plugin_id": plugin_id
-                        }), websocket)
+                    if os.path.exists(manifest_path):
+                        try:
+                            with open(manifest_path, "r", encoding="utf-8") as f:
+                                manifest = json.load(f)
+                                version = manifest.get("min_app_version", "0.0.0")
+                            await manager.send_personal_message(json.dumps({
+                                "type": "UPDATE_RESPONSE_VER",
+                                "version": version,
+                                "plugin_id": plugin_id
+                            }), websocket)
+                        except Exception as e:
+                            await manager.send_personal_message(json.dumps({
+                                "type": "error",
+                                "message": f"Error reading plugin manifest on server: {str(e)}"
+                            }), websocket)
                     else:
                         await manager.send_personal_message(json.dumps({
                             "type": "error",
                             "status": "error",
-                            "message": f"Version file not found for plugin: {plugin_id}"
+                            "message": f"Manifest file not found for plugin: {plugin_id}"
                         }), websocket)
                     continue
 
@@ -308,6 +347,14 @@ async def websocket_endpoint(websocket: WebSocket):
                          
                     full_path = os.path.join(os.getcwd(), file_path)
                     
+                    # Если путь является директорией, мы не можем его скачать как один файл
+                    if os.path.isdir(full_path):
+                         await manager.send_personal_message(json.dumps({
+                            "type": "error",
+                            "message": f"Path is a directory, not a file: {file_path}"
+                        }), websocket)
+                         continue
+
                     if os.path.exists(full_path) and os.path.isfile(full_path):
                         try:
                             with open(full_path, "rb") as f:

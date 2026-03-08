@@ -1,8 +1,6 @@
 import sys
 import os
 import json
-import faulthandler # Добавляем для отлова крашей
-faulthandler.enable() # Включаем дамп трейса при падении
 import importlib.util
 import urllib.request
 
@@ -17,8 +15,7 @@ project_root = os.path.dirname(current_dir)
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-# Также добавляем текущую директорию (el_bandito) в sys.path явно, 
-# хотя она обычно там есть, но для надежности импортов
+# Также добавляем текущую директорию (el_bandito) в sys.path явно
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
@@ -31,17 +28,16 @@ except ImportError as e:
     print(f"Ошибка импорта ConfigManager: {e}")
     ConfigManager = None
 
-# --- Импорты логики сервера ---
+# --- Импорт ElCore (Оркестратор) ---
 try:
-    from server_thread import ServerThread
+    from el_core.el_core import ElCore
 except ImportError as e:
-    print(f"Ошибка импорта серверных модулей: {e}")
-    ServerThread = None
+    print(f"Ошибка импорта ElCore: {e}")
+    ElCore = None
 
 # --- Импорты UI ---
 try:
     from resources.ui_done.ui_bandito.ui_el_gui_bandito import Ui_El_GUI_BANDITO
-    # Импортируем наш новый класс настроек (напрямую, так как мы в одной папке)
     from el_bandito_setting import BanditoSettings
     from src.manager_plugin import PluginManagerWindow
     from src.plugin_list import PluginListWindow
@@ -58,119 +54,121 @@ class BanMainWindow(QMainWindow):
         self.settings_window = None
         self.plugin_manager_window = None
         self.plugin_list_window = None
-        self.server_thread = None
-        self.current_active_slot = None # Stores the index of the currently active plugin slot
+        
         self.config_manager = ConfigManager(os.path.join(project_root, "configs", "el_bandito_config.json"))
-        self.plugin_config_manager = ConfigManager(os.path.join(project_root, "configs", "el_plugin_config.json"))
-
-        # Запускаем сервер автоматически при старте
-        self.start_server()
-
-    def start_server(self):
-        """Запускает FastAPI сервер в отдельном потоке."""
-        if not ServerThread:
-            print("ServerThread класс не найден, сервер не запущен.")
-            return
-
-        # Читаем настройки
-        config = self.config_manager.load_config()
-        port = int(config.get("port", 8000))
-        # Можно добавить настройку ip_source, но сервер лучше слушать на 0.0.0.0
         
-        self.server_thread = ServerThread(host="0.0.0.0", port=port)
-        self.server_thread.server_signal.connect(self._handle_server_log)
-        self.server_thread.start()
-
-    def handle_client_command(self, cmd_data):
-        """Обработка команд от клиента (JSON)."""
-        command = cmd_data.get("command")
-        payload = cmd_data.get("payload") or cmd_data.get("data") or {}
-
-        # 1. Сначала даем активному плагину обработать команду
-        if self.current_active_slot:
-            if hasattr(self, 'current_plugin_widget') and self.current_plugin_widget:
-                if hasattr(self.current_plugin_widget, 'handle_client_message'):
-                    self.current_plugin_widget.handle_client_message(cmd_data)
-
-        # 2. Общая логика сервера
-        if command == "SOUND_SELECT_DEVICE":
-            device_name = payload.get("device_name")
-            if device_name:
-                from plugins.sound.sound_save_load import update_selected_device
-                update_selected_device(os.path.join("plugins", "sound"), device_name)
-        
-        # Обновляем статус в UI сервера, если есть такая возможность
-        if hasattr(self.ui, 'network_stat_line'):
-             self.ui.network_stat_line.setText(f"CMD: {command if command else '?'}")
-
-        if command == "PLUGIN_BUTTON_PRESS":
-            # Payload: {"id": "1:butt_toolB_01"}
-            payload = cmd_data.get("payload", {})
-            btn_id_full = payload.get("id")
+        # Инициализация Core
+        self.core = None
+        if ElCore:
+            plugin_config_path = os.path.join(project_root, "configs", "el_plugin_config.json")
+            self.core = ElCore(plugin_config_path, project_root)
             
-            # Мы знаем текущий активный слот self.current_active_slot
-            # Можем делегировать обработку активному плагину
-            if self.current_active_slot:
-                self.handle_plugin_action(self.current_active_slot, btn_id_full)
+            # Подключение сигналов Core
+            self.core.log_message.connect(self.on_log)
+            self.core.slot_config_updated.connect(self.update_slot_ui)
+            self.core.active_slot_changed.connect(self.on_core_active_slot_changed)
+            self.core.plugin_view_loaded.connect(self.show_plugin_view)
+            
+            # Подключение сетевых статусов
+            self.core.com.client_connected.connect(lambda data: self.on_log("info", f"Client connected: {data.get('ip')}"))
+            self.core.com.client_disconnected.connect(self.on_client_disconnected)
 
-    def handle_plugin_action(self, slot_index, btn_id_full):
-        """Делегирует выполнение действия плагину."""
-        # ... existing code ...
-        pass
+    def _enrich_slot_data_from_manifest(self, slot_index):
+        """Возвращает plugin_data с гарантированными name и version (из манифеста при отсутствии)."""
+        data = self.core.state.get_slot(slot_index) if self.core else None
+        if not data or not isinstance(data, dict):
+            return data
+        path = data.get("path") or data.get("id")
+        if not path:
+            return data
+        name = data.get("name")
+        version = data.get("version")
+        if name and version:
+            return data
+        plugins_dir = os.path.join(project_root, "plugins")
+        manifest_path = os.path.join(plugins_dir, path)
+        try:
+            for f in os.listdir(manifest_path):
+                if f.endswith("_manifest.json"):
+                    manifest_path = os.path.join(manifest_path, f)
+                    break
+            else:
+                return data
+            if not os.path.isfile(manifest_path):
+                return data
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                m = json.load(f)
+            out = dict(data)
+            if not name:
+                out["name"] = m.get("name", path)
+            if not version:
+                if manifest_path.endswith(".json"):
+                    out["version"] = m.get("min_app_version", "?")
+                else:
+                    out["version"] = "?"
+            return out
+        except Exception:
+            return data
 
-    def _handle_server_log(self, type_msg, data):
-        """Обработка логов от сервера."""
-        prefix = f"[{type_msg.upper()}] Server:"
-        print(f"{prefix} {data}")
+    def _init_ui_from_core(self):
+        """Заполняет UI на основе начального состояния Core."""
+        for i in range(1, 6):
+            data = self._enrich_slot_data_from_manifest(i)
+            self.update_slot_ui(i, data)
+
+        # Восстанавливаем активный слот из конфига
+        initial_slots = self.core.get_initial_config()
+        first_occupied = None
+        for i in range(1, 6):
+            if initial_slots.get(f"slot_{i}"):
+                first_occupied = i
+                break
         
-        if type_msg == "client_connected":
+        if first_occupied is not None:
+            # print(f"Auto-activating slot {first_occupied} on startup")  # DEBUG
+            # Используем QTimer, чтобы UI успел полностью инициализироваться
+            from PySide6.QtCore import QTimer
+            QTimer.singleShot(100, lambda: self.core.activate_slot(first_occupied))
+
+    def on_log(self, type_msg, msg):
+        """Обработка логов от Core."""
+        # print(f"[{type_msg.upper()}] Core: {msg}")  # DEBUG: полный вывод
+        if "Client connected" in msg:
+            ip = msg.split(": ")[-1] if ": " in msg else "?"
+            print(f"[Core] Client: {ip}")
+        elif "Client disconnected" in msg:
+            ip = msg.split(": ")[-1] if ": " in msg else "?"
+            print(f"[Core] Disconnect: {ip}")
+        else:
+            print(f"[Core] {msg}")
+
+        # Обновление статуса сети в UI
+        if "Client connected" in msg:
              if hasattr(self.ui, 'network_stat_line'):
-                self.ui.network_stat_line.setText(f"Client Connected: {data.get('ip')}")
+                self.ui.network_stat_line.setText(msg)
                 self.ui.network_stat_line.setStyleSheet(self.load_style("status_connected"))
-        
-        elif type_msg == "client_disconnected":
+        elif "Client disconnected" in msg:
              if hasattr(self.ui, 'network_stat_line'):
                 self.ui.network_stat_line.setText("Client Disconnected")
                 self.ui.network_stat_line.setStyleSheet(self.load_style("status_disconnected"))
 
-        elif type_msg == "client_switched_slot":
-            # Update server UI to reflect client's choice
-            index = data.get("index")
-            print(f"Client switched to slot {index}")
-            # We use set_slot_active to update UI (button state) and load plugin view
-            # Pass False to second arg to avoid re-broadcasting if we wanted to avoid loops, 
-            # but currently set_slot_active triggers switch_plugin_view which broadcasts.
-            # To avoid loop: Client -> Server(Broadcast) -> Client (Done)
-            # AND Client -> Server(GUI Update) -> Server(Broadcast) -> Client (Redundant)
-            
-            # Let's just update UI state without re-triggering logic if possible, or accept redundancy.
-            # The cleanest way is to just set the button state visually and load view.
-            
-            if index is not None:
-                self.set_slot_active(index, True)
-            else:
-                # If index is None, maybe clear?
-                pass
-
-        # Если это команда от клиента - обрабатываем
-        if type_msg == "command_received":
-            self.handle_client_command(data)
+    def on_client_disconnected(self, data):
+        """Обработка отключения клиента."""
+        ip = data.get("ip", "Unknown")
+        if hasattr(self.ui, 'network_stat_line'):
+            self.ui.network_stat_line.setText(f"Disconnected: {ip}")
+            self.ui.network_stat_line.setStyleSheet(self.load_style("status_disconnected"))
 
     def load_style(self, style_key):
         """Загружает стиль из JSON файла."""
         try:
-            import json
             style_path = os.path.join(project_root, "resources", "styles", "style_bandito.json")
             with open(style_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                
-                # Если запрашивается конкретный ключ
                 if style_key in data:
                     style_dict = data.get(style_key, {})
-                    css = "; ".join([f"{k}: {v}" for k, v in style_dict.items()])
-                    return css
+                    return "; ".join([f"{k}: {v}" for k, v in style_dict.items()])
                 
-                # Иначе возвращаем полный stylesheet
                 full_css = ""
                 for widget, styles in data.items():
                     if widget.startswith("status_"): continue
@@ -188,439 +186,201 @@ class BanMainWindow(QMainWindow):
             self.setStyleSheet(stylesheet)
 
     def closeEvent(self, event):
-        """При закрытии окна останавливаем сервер."""
-        if self.server_thread and self.server_thread.isRunning():
-            print("Остановка сервера...")
-            self.server_thread.stop()
-            self.server_thread.wait()
+        """При закрытии окна останавливаем Core."""
+        if self.core:
+            print("Остановка Core...")
+            self.core.stop()
         event.accept()
 
     def setup_logic(self):
         """Здесь подключаем сигналы и слоты после инициализации UI"""
-        # Кнопка настроек (settings_toolB)
+        # Кнопка настроек
         if hasattr(self.ui, 'settings_toolB'):
             self.ui.settings_toolB.clicked.connect(self.open_settings)
-        else:
-            print("Внимание: Кнопка 'settings_toolB' не найдена в UI")
 
-        # Кнопка менеджера плагинов (plugin_toolB)
+        # Кнопка менеджера плагинов
         if hasattr(self.ui, 'plugin_toolB'):
             self.ui.plugin_toolB.clicked.connect(self.open_plugin_manager)
-        else:
-            print("Внимание: Кнопка 'plugin_toolB' не найдена в UI")
 
-        # Подключение кнопок добавления плагинов (plugin_add_toolB_1-5)
+        # Подключение кнопок управления слотами
         for i in range(1, 6):
             # Add
             btn_add_name = f"plugin_add_toolB_{i}"
             if hasattr(self.ui, btn_add_name):
-                btn = getattr(self.ui, btn_add_name)
-                btn.clicked.connect(lambda checked=False, idx=i: self.open_plugin_list(idx))
+                getattr(self.ui, btn_add_name).clicked.connect(lambda checked=False, idx=i: self.open_plugin_list(idx))
             
             # Reload
             btn_reload_name = f"plugin_reload_toolB_{i}"
             if hasattr(self.ui, btn_reload_name):
-                btn = getattr(self.ui, btn_reload_name)
-                btn.clicked.connect(lambda checked=False, idx=i: self.reload_plugin_slot(idx))
+                getattr(self.ui, btn_reload_name).clicked.connect(lambda checked=False, idx=i: self.reload_plugin_slot(idx))
 
             # Delete
             btn_delete_name = f"plugin_delete_toolB_{i}"
             if hasattr(self.ui, btn_delete_name):
-                btn = getattr(self.ui, btn_delete_name)
-                btn.clicked.connect(lambda checked=False, idx=i: self.delete_plugin_slot(idx))
+                getattr(self.ui, btn_delete_name).clicked.connect(lambda checked=False, idx=i: self.delete_plugin_slot(idx))
             
             # Switch (Select to Show)
             btn_switch_name = f"switch_push_{i}"
             if hasattr(self.ui, btn_switch_name):
-                btn = getattr(self.ui, btn_switch_name)
-                # Pass checked state to handler
-                btn.clicked.connect(lambda checked, idx=i: self.switch_plugin_view(idx))
+                getattr(self.ui, btn_switch_name).clicked.connect(lambda checked, idx=i: self.switch_plugin_view(idx))
 
     def open_settings(self):
-        """Открывает окно настроек"""
         if self.settings_window is None:
-            self.settings_window = BanditoSettings()
-        
+            self.settings_window = BanditoSettings(self.core)
         self.settings_window.show()
         self.settings_window.raise_()
         self.settings_window.activateWindow()
 
     def open_plugin_manager(self):
-        """Открывает окно менеджера плагинов"""
         if self.plugin_manager_window is None:
             self.plugin_manager_window = PluginManagerWindow(self)
-        
         self.plugin_manager_window.show()
 
     def open_plugin_list(self, index):
-        """Открывает окно списка плагинов (модальное)."""
         print(f"Opening plugin list for slot {index}")
         if self.plugin_list_window is None:
             self.plugin_list_window = PluginListWindow()
-            # Подключаем сигнал выбора плагина
             self.plugin_list_window.plugin_selected.connect(self.on_plugin_assigned)
-        
         self.plugin_list_window.show_modal(index)
 
-    def update_slot_ui(self, slot_index, plugin_data):
-        """Обновляет UI слота информацией о плагине."""
-        led_name = f"plugin_led_{slot_index}"
-        if hasattr(self.ui, led_name):
-            led = getattr(self.ui, led_name)
-            if plugin_data:
-                display_text = f"{plugin_data.get('name')} v{plugin_data.get('version')}"
-                led.setText(display_text)
-            else:
-                led.setText("")
-
-    def broadcast_plugin_config(self):
-        """Отправляет текущую конфигурацию плагинов всем подключенным клиентам."""
-        config = self.plugin_config_manager.load_config()
-        # Ensure we send safe data
-        safe_config = {}
-        for k, v in config.items():
-            if v:
-                safe_config[k] = v
-            else:
-                safe_config[k] = None
-        
-        # Broadcast via HTTP to local server
-        # We need the port from config
-        server_config = self.config_manager.load_config()
-        port = int(server_config.get("port", 8000))
-        
-        try:
-            url = f"http://127.0.0.1:{port}/api/broadcast"
-            payload = json.dumps({"command": "UPDATE_PLUGIN_SLOTS", "data": safe_config}).encode('utf-8')
-            req = urllib.request.Request(url, data=payload, headers={'Content-Type': 'application/json'})
-            with urllib.request.urlopen(req) as response:
-                pass
-            print("Plugin config broadcasted.")
-        except Exception as e:
-            print(f"Broadcast failed: {e}")
-
     def on_plugin_assigned(self, slot_index, plugin_data):
-        """Обработчик выбора плагина."""
-        print(f"Assigning plugin to slot {slot_index}: {plugin_data}")
-        
-        # 1. Обновляем UI
-        self.update_slot_ui(slot_index, plugin_data)
-            
-        # 2. Сохраняем в конфиг
-        config = self.plugin_config_manager.load_config()
-        slot_key = f"slot_{slot_index}"
-        config[slot_key] = plugin_data
-        self.plugin_config_manager.save_config(config)
+        """Callback от списка плагинов -> Core."""
+        if self.core:
+            self.core.assign_plugin(slot_index, plugin_data)
 
-        # 3. Automatically turn ON the newly assigned plugin
-        self.set_slot_active(slot_index, True)
+    def delete_plugin_slot(self, index):
+        """Удаление плагина -> Core."""
+        if self.core:
+            self.core.remove_plugin(index)
+
+    def switch_plugin_view(self, index):
+        """Переключение вида (кнопка нажата пользователем)."""
+        btn_switch_name = f"switch_push_{index}"
+        if not hasattr(self.ui, btn_switch_name): return
+
+        is_checked = getattr(self.ui, btn_switch_name).isChecked()
         
-        # 4. Broadcast changes
-        self.broadcast_plugin_config()
+        if self.core:
+            if is_checked:
+                self.core.activate_slot(index)
+            else:
+                # Если отжали кнопку активного слота -> деактивация
+                # Но нужно проверить, был ли он активен
+                if self.core.state.get_active_slot() == index:
+                    self.core.activate_slot(None)
 
     def reload_plugin_slot(self, index):
-        """Перезагружает метаданные плагина в слоте."""
-        print(f"Reloading plugin in slot {index}...")
+        """Перезагрузка метаданных (UI Logic -> Core Update)."""
+        # Логика чтения манифеста оставлена в UI слое для простоты, 
+        # но обновление состояния идет через Core.
+        if not self.core: return
         
-        config = self.plugin_config_manager.load_config()
-        slot_key = f"slot_{index}"
-        plugin_data = config.get(slot_key)
-        
-        if not plugin_data:
-            print(f"Slot {index} is empty.")
-            return
+        plugin_data = self.core.state.get_slot(index)
+        if not plugin_data: return
 
         plugin_dir_name = plugin_data.get("path") or plugin_data.get("id")
-        
         plugins_dir = os.path.join(project_root, "plugins")
         plugin_path = os.path.join(plugins_dir, plugin_dir_name)
         
-        if not os.path.exists(plugin_path):
-            print(f"Plugin directory not found: {plugin_path}")
-            return
-
-        # Re-read manifest
         manifest_path = None
         try:
              for f in os.listdir(plugin_path):
                 if f.endswith("_manifest.json"):
                     manifest_path = os.path.join(plugin_path, f)
                     break
-        except Exception as e:
-            print(f"Error searching manifest: {e}")
-            return
+        except Exception: pass
 
         if manifest_path:
             try:
                 with open(manifest_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    
-                    # Update name
                     plugin_data['name'] = data.get("name", plugin_dir_name)
                     
-                    # Update version
+                    # Read version
                     version_file_rel = data.get("version_file")
                     new_version = "?"
                     if version_file_rel:
                         version_path = os.path.join(project_root, version_file_rel)
                         if os.path.exists(version_path):
-                            with open(version_path, 'r', encoding='utf-8') as vf:
-                                new_version = vf.read().strip()
+                            try:
+                                with open(version_path, 'r', encoding='utf-8') as vf:
+                                    content = vf.read().strip()
+                                    if version_file_rel.endswith(".json"):
+                                        v_data = json.loads(content)
+                                        new_version = v_data.get("min_app_version", "?")
+                                    else:
+                                        new_version = content
+                            except Exception as e:
+                                print(f"Error parsing version file: {e}")
                     plugin_data['version'] = new_version
                     
-                    # Save back to config
-                    config[slot_key] = plugin_data
-                    self.plugin_config_manager.save_config(config)
-                    
-                    # Update UI
-                    self.update_slot_ui(index, plugin_data)
-                    print(f"Plugin '{plugin_data['name']}' reloaded. Version: {plugin_data['version']}")
-
+                    # Update via Core
+                    self.core.assign_plugin(index, plugin_data)
+                    print(f"Plugin reloaded: {plugin_data['name']} v{plugin_data['version']}")
             except Exception as e:
-                print(f"Error reloading plugin manifest: {e}")
+                print(f"Error reloading manifest: {e}")
 
-    def delete_plugin_slot(self, index):
-        """Удаляет плагин из слота (UI и Config)."""
-        print(f"Deleting plugin from slot {index}...")
-        
-        # 1. Update Config
-        config = self.plugin_config_manager.load_config()
-        slot_key = f"slot_{index}"
-        if slot_key in config:
-            config[slot_key] = None
-            self.plugin_config_manager.save_config(config)
-            print(f"Slot {index} cleared in config.")
-            
-        # 2. Update UI
-        self.update_slot_ui(index, None)
-        
-        # 3. Disable the slot button
-        btn_switch_name = f"switch_push_{index}"
-        if hasattr(self.ui, btn_switch_name):
-            getattr(self.ui, btn_switch_name).setChecked(False)
+    # --- UI Update Slots (Called by Core Signals) ---
 
-        # 4. Clear Right Frame if this slot was active
-        if self.current_active_slot == index:
-            self.clear_right_frame()
-            self.current_active_slot = None
-            
-        # 5. Broadcast changes
-        self.broadcast_plugin_config()
-
-    def broadcast_active_slot(self, index):
-        """Отправляет команду переключения активного слота всем клиентам."""
-        # Broadcast via HTTP to local server
-        server_config = self.config_manager.load_config()
-        port = int(server_config.get("port", 8000))
-        
-        try:
-            url = f"http://127.0.0.1:{port}/api/broadcast"
-            # index can be None
-            payload = json.dumps({
-                "command": "SET_ACTIVE_SLOT", 
-                "data": {"index": index}
-            }).encode('utf-8')
-            
-            req = urllib.request.Request(url, data=payload, headers={'Content-Type': 'application/json'})
-            with urllib.request.urlopen(req) as response:
-                pass
-            print(f"Active slot {index} broadcasted.")
-        except Exception as e:
-            print(f"Broadcast active slot failed: {e}")
-
-    def switch_plugin_view(self, index):
-        """Переключает видимость плагина в right_frame."""
-        import gc
-        gc.disable() # Только отключаем, НЕ вызываем collect()
-        try:
-            btn_switch_name = f"switch_push_{index}"
-            if not hasattr(self.ui, btn_switch_name):
-                return
-
-            is_checked = getattr(self.ui, btn_switch_name).isChecked()
-            print(f"Switching plugin slot {index}. Checked: {is_checked}")
-
-            if is_checked:
-                # Turn ON: Load Plugin
-                # Uncheck others (Exclusive behavior)
-                for i in range(1, 6):
-                    if i != index:
-                         other_btn_name = f"switch_push_{i}"
-                         if hasattr(self.ui, other_btn_name):
-                             getattr(self.ui, other_btn_name).setChecked(False)
-                
-                self.load_plugin_ui(index)
-                self.current_active_slot = index
-                self.broadcast_active_slot(index)
+    def update_slot_ui(self, slot_index, plugin_data):
+        """Обновляет текст на LED индикаторах (название и версия плагина)."""
+        if not getattr(self, "ui", None):
+            return
+        if plugin_data and isinstance(plugin_data, dict) and (not plugin_data.get("name") or not plugin_data.get("version")):
+            plugin_data = self._enrich_slot_data_from_manifest(slot_index) or plugin_data
+        led_name = f"plugin_led_{slot_index}"
+        if hasattr(self.ui, led_name):
+            led = getattr(self.ui, led_name)
+            if plugin_data and isinstance(plugin_data, dict):
+                name = plugin_data.get("name") or "?"
+                version = plugin_data.get("version") or "?"
+                led.setText(f"{name} v{version}")
             else:
-                # Turn OFF: Unload Plugin if it matches current active
-                if self.current_active_slot == index:
-                    self.clear_right_frame()
-                    self.current_active_slot = None
-                    self.broadcast_active_slot(None)
-        finally:
-            gc.enable() # Включаем GC обратно
-
-    def set_slot_active(self, index, active=True):
-        """Helper to programmatically set slot state."""
-        from PySide6.QtCore import QCoreApplication
-        QCoreApplication.processEvents() # Даем Qt завершить отрисовку и удаление
+                led.setText("")
         
-        btn_switch_name = f"switch_push_{index}"
-        if hasattr(self.ui, btn_switch_name):
-            btn = getattr(self.ui, btn_switch_name)
-            if btn.isChecked() != active:
-                btn.setChecked(active)
-                # Manually trigger logic since setChecked doesn't emit clicked
-                self.switch_plugin_view(index)
-
-    def load_plugin_ui(self, index):
-        """Загружает UI плагина в right_frame (внутренняя логика)."""
-        
-        # 1. Get plugin data
-        config = self.plugin_config_manager.load_config()
-        slot_key = f"slot_{index}"
-        plugin_data = config.get(slot_key)
-        
+        # Если плагин удален, отжимаем кнопку
         if not plugin_data:
-            print(f"Slot {index} is empty. Cannot load.")
-            self.clear_right_frame()
-            # Also uncheck the button since we failed
-            btn_switch_name = f"switch_push_{index}"
+            btn_switch_name = f"switch_push_{slot_index}"
             if hasattr(self.ui, btn_switch_name):
                 getattr(self.ui, btn_switch_name).setChecked(False)
-            return
-            
-        plugin_dir_name = plugin_data.get("path") or plugin_data.get("id")
-        plugins_dir = os.path.join(project_root, "plugins")
-        plugin_path = os.path.join(plugins_dir, plugin_dir_name)
+
+    def on_core_active_slot_changed(self, active_index):
+        """Обновляет состояние кнопок переключения (вызывается сигналом Core)."""
+        print(f"[UI] Active slot changed to: {active_index}")
+        # Сбрасываем все кнопки
+        for i in range(1, 6):
+            btn_name = f"switch_push_{i}"
+            if hasattr(self.ui, btn_name):
+                btn = getattr(self.ui, btn_name)
+                # Блокируем сигналы, чтобы не вызвать рекурсию switch_plugin_view
+                btn.blockSignals(True)
+                btn.setChecked(i == active_index)
+                btn.blockSignals(False)
         
-        # 2. Find UI file
-        ui_module_path = None
-        try:
-            ui_done_path = os.path.join(plugin_path, "resources", "ui_done")
-            for f in os.listdir(ui_done_path):
-                if f.startswith("ui_") and f.endswith("_bandito.py"):
-                    ui_module_path = os.path.join(ui_done_path, f)
-                    break
-        except Exception as e:
-            print(f"Error searching UI file: {e}")
-            return
-
-        if not ui_module_path:
-            print(f"UI module not found in {plugin_path}/resources/ui_done")
-            return
-            
-        # 3. Dynamic Import
-        try:
-            module_name = f"plugin_ui_{plugin_dir_name}"
-            spec = importlib.util.spec_from_file_location(module_name, ui_module_path)
-            module = importlib.util.module_from_spec(spec)
-            sys.modules[module_name] = module
-            spec.loader.exec_module(module)
-            
-            # --- NEW LOGIC for Server Plugin Class ---
-            # Try to load logic file first to find a custom widget class
-            logic_file_name = f"{plugin_dir_name}_bandito.py"
-            logic_module_path = os.path.join(plugin_path, logic_file_name)
-            
-            plugin_class = None
-            
-            if os.path.exists(logic_module_path):
-                try:
-                    # Ensure plugin dir is in sys.path
-                    if plugin_path not in sys.path:
-                        sys.path.insert(0, plugin_path)
-                        
-                    logic_mod_name = f"server_plugin_class_{plugin_dir_name}"
-                    spec_logic = importlib.util.spec_from_file_location(logic_mod_name, logic_module_path)
-                    mod_logic = importlib.util.module_from_spec(spec_logic)
-                    sys.modules[logic_mod_name] = mod_logic
-                    spec_logic.loader.exec_module(mod_logic)
-                    
-                    # Search for class inheriting from QWidget
-                    for attr_name in dir(mod_logic):
-                        attr = getattr(mod_logic, attr_name)
-                        if isinstance(attr, type) and issubclass(attr, QWidget) and attr.__module__ == mod_logic.__name__:
-                            # Found it! e.g. ShortcutBanditoPlugin
-                            plugin_class = attr
-                            print(f"Found Server Plugin Class: {plugin_class.__name__}")
-                            break
-                except Exception as e:
-                    print(f"Error loading server plugin logic class: {e}")
-
-            # 5. Load into right_frame
+        if active_index is None:
             self.clear_right_frame()
-            
-            if plugin_class:
-                # Instantiate custom class with plugin_path
-                # Assuming constructor is __init__(self, plugin_path)
-                try:
-                    self.current_plugin_widget = plugin_class(plugin_path)
-                except TypeError:
-                     # Fallback if no argument expected
-                     self.current_plugin_widget = plugin_class()
-            else:
-                # Fallback to old "pure UI" method
-                ui_class = None
-                for attr_name in dir(module):
-                    attr = getattr(module, attr_name)
-                    if isinstance(attr, type) and hasattr(attr, 'setupUi') and attr_name.startswith("Ui_"):
-                         ui_class = attr
-                         break
-                
-                if not ui_class: return
-                
-                self.current_plugin_widget = QWidget()
-                self.ui_plugin = ui_class()
-                self.ui_plugin.setupUi(self.current_plugin_widget)
-            
-            if not self.ui.right_frame.layout():
-                layout = QVBoxLayout(self.ui.right_frame)
-                layout.setContentsMargins(0, 0, 0, 0)
-                self.ui.right_frame.setLayout(layout)
-            
-            self.ui.right_frame.layout().addWidget(self.current_plugin_widget)
-            print(f"Loaded Plugin UI from {plugin_dir_name}")
 
-        except Exception as e:
-            print(f"Error loading plugin UI: {e}")
+    def show_plugin_view(self, widget):
+        """Отображает виджет плагина в right_frame через QStackedWidget."""
+        if not self.ui.right_frame.layout():
+            from PySide6.QtWidgets import QStackedWidget
+            layout = QVBoxLayout(self.ui.right_frame)
+            layout.setContentsMargins(0, 0, 0, 0)
+            self.stack = QStackedWidget()
+            layout.addWidget(self.stack)
+            # Добавляем пустой виджет как заглушку (индекс 0)
+            self.stack.addWidget(QWidget())
+        
+        # Если виджета еще нет в стеке - добавляем
+        if self.stack.indexOf(widget) == -1:
+            self.stack.addWidget(widget)
+        
+        self.stack.setCurrentWidget(widget)
 
     def clear_right_frame(self):
-        """Очищает содержимое right_frame."""
-        if self.ui.right_frame.layout():
-            # Remove all items
-            while self.ui.right_frame.layout().count():
-                item = self.ui.right_frame.layout().takeAt(0)
-                widget = item.widget()
-                if widget:
-                    widget.deleteLater()
-
-    def load_plugin_config(self):
-        """Загружает сохраненные плагины в слоты при старте."""
-        config = self.plugin_config_manager.load_config()
-        if not config:
-            return
-
-        first_occupied_slot = None
-
-        for i in range(1, 6):
-            slot_key = f"slot_{i}"
-            plugin_data = config.get(slot_key)
-            if plugin_data:
-                self.update_slot_ui(i, plugin_data)
-                
-                if first_occupied_slot is None:
-                    first_occupied_slot = i
-        
-        # Auto-activate first occupied slot if no slot is active
-        if first_occupied_slot is not None and self.current_active_slot is None:
-            print(f"Auto-activating slot {first_occupied_slot} on startup")
-            # We use set_slot_active which handles button state and logic
-            self.set_slot_active(first_occupied_slot, True)
-
-
-        
+        """Переключает стек на пустой виджет (сохраняя плагины в памяти)."""
+        if hasattr(self, 'stack'):
+            self.stack.setCurrentIndex(0)
 
 def main():
     print("Запуск Server (Bandito)...")
@@ -630,18 +390,16 @@ def main():
     ui_done_dir = os.path.join(project_root, "resources", "ui_done")
     
     # Компиляция UI
-    print("Проверка UI файлов...")
     compile_ui_files(ui_raw_dir, ui_done_dir)
-
-    # Компиляция Плагинов
     plugins_dir = os.path.join(project_root, "plugins")
     compile_plugin_ui_files(plugins_dir)
+    print("Проверка UI файлов: ok")
     
     # Переимпортируем модули после компиляции
     modules_to_reload = [
         'resources.ui_done.ui_bandito.ui_el_gui_bandito',
         'resources.ui_done.ui_bandito.ui_bandito_settings',
-        'el_bandito_setting' # Модуль лежит рядом
+        'el_bandito_setting'
     ]
     for mod in modules_to_reload:
         if mod in sys.modules:
@@ -664,20 +422,26 @@ def main():
     # Инициализируем UI
     window.ui = Ui_El_GUI_BANDITO()
     window.ui.setupUi(window)
+    window._init_ui_from_core()
+
+    # Привязываем звуки к кнопкам основного интерфейса
+    if window.core and window.core.sound:
+        window.core.sound.bind_buttons(window, "ui_main")
     
     # Применяем глобальные стили
     window.apply_global_styles()
     
-    # Подключаем логику
+    # Подключаем логику UI
     window.setup_logic()
-    
-    # Загружаем конфигурацию плагинов
-    window.load_plugin_config()
     
     window.show()
     
-    print("Сервер запущен.")
-    sys.exit(app.exec())
+    print("Server: Online")
+    try:
+        sys.exit(app.exec())
+    except Exception as e:
+        print(f"Server: Error — {e}")
+        raise
 
 if __name__ == "__main__":
     main()

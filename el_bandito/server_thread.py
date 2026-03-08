@@ -32,10 +32,11 @@ class ServerThread(QThread):
     def run(self):
         """Запуск сервера."""
         # uvicorn.run блокирует этот поток, пока сервер работает
-        # log_level="warning" чтобы не спамить в консоль стандартными логами, мы будем слать свои
         try:
-            self.server_signal.emit("info", f"Starting server on {self.host}:{self.port}")
-            uvicorn.run(app, host=self.host, port=self.port, log_level="info")
+            self.server_signal.emit("info", f"Server: {self.host}:{self.port}")
+            # log_level="warning" + access_log=False — убирает 4 строки Uvicorn и лог каждого POST
+            # uvicorn.run(app, host=self.host, port=self.port, log_level="info")  # DEBUG: полный вывод
+            uvicorn.run(app, host=self.host, port=self.port, log_level="warning", access_log=False)
         except Exception as e:
             self.server_signal.emit("error", f"Server failed to start: {e}")
         finally:

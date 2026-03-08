@@ -1,17 +1,17 @@
 {
   "id": "music",
   "name": "Music Panel",
-  "version_file": "plugins/music/ver_music",
+  "version_file": "plugins/music/music_manifest.json",
   "description": "Панель для управления яндекс музыкой",
   "icon": "plugins/music/resources/ico/ico_music.png",
   "author": "einthel",
   "license": "MIT",
-  "min_app_version": "0.0.1",
+  "min_app_version": "0.0.1.2",
   "directories_to_ensure": [
     "plugins/music",
     "plugins/music/resources",
-	  "plugins/music/resources/ui_done",
-	  "plugins/music/config",
+    "plugins/music/resources/ui_done",
+    "plugins/music/config",
     "plugins/music/resources/ico"
   ],
   "files_map": [
@@ -24,7 +24,7 @@
       "local_dir": "plugins/music/resources/ui_done"
     },
     {
-      "remote_path": "plugins/music/ver_music",
+      "remote_path": "plugins/music/music_manifest.json",
       "local_dir": "plugins/music"
     },
     {

@@ -43,35 +43,33 @@ class PluginUpdater(Updater):
             return []
 
     def get_local_plugin_version(self, plugin_id):
-        """Читает версию конкретного плагина. Ищет ver_<plugin_id> или fallback на ver."""
-        # 1. Try ver_<plugin_id>
-        ver_file_specific = os.path.join(self.plugins_dir, plugin_id, f"ver_{plugin_id}")
-        if os.path.exists(ver_file_specific):
-            try:
-                with open(ver_file_specific, 'r', encoding='utf-8') as f:
-                    return f.read().strip()
-            except:
-                pass
+        """Читает версию из манифеста плагина {plugin_id}_manifest.json."""
+        manifest_name = f"{plugin_id}_manifest.json"
+        manifest_path = os.path.join(self.plugins_dir, plugin_id, manifest_name)
         
-        # 2. Fallback to 'ver'
-        ver_file = os.path.join(self.plugins_dir, plugin_id, "ver")
-        if os.path.exists(ver_file):
+        if os.path.exists(manifest_path):
             try:
-                with open(ver_file, 'r', encoding='utf-8') as f:
-                    return f.read().strip()
-            except:
-                pass
+                with open(manifest_path, 'r', encoding='utf-8') as f:
+                    manifest = json.load(f)
+                    return manifest.get("min_app_version", "0.0.0")
+            except Exception as e:
+                logger.error(f"[{plugin_id}] Failed to read manifest for version: {e}")
         return "0.0.0"
 
-    def update_local_plugin_version(self, plugin_id, version):
-        """Обновляет файл версии плагина (ver_<plugin_id>)."""
-        ver_file = os.path.join(self.plugins_dir, plugin_id, f"ver_{plugin_id}")
+    def save_plugin_manifest(self, plugin_id, manifest):
+        """Сохраняет манифест плагина локально."""
+        manifest_name = f"{plugin_id}_manifest.json"
+        manifest_path = os.path.join(self.plugins_dir, plugin_id, manifest_name)
+        
+        # Убеждаемся, что папка плагина существует
+        os.makedirs(os.path.dirname(manifest_path), exist_ok=True)
+        
         try:
-            with open(ver_file, 'w', encoding='utf-8') as f:
-                f.write(version)
-            logger.info(f"[{plugin_id}] Local version updated to {version}")
+            with open(manifest_path, 'w', encoding='utf-8') as f:
+                json.dump(manifest, f, indent=2, ensure_ascii=False)
+            logger.info(f"[{plugin_id}] Manifest saved to {manifest_path}")
         except Exception as e:
-            logger.error(f"[{plugin_id}] Failed to write version file: {e}")
+            logger.error(f"[{plugin_id}] Failed to save manifest: {e}")
 
     def update_single_plugin(self, websocket, plugin_id):
         """
@@ -80,7 +78,7 @@ class PluginUpdater(Updater):
         """
         try:
             # 1. Запрашиваем версию плагина на сервере
-            logger.info(f"[{plugin_id}] Checking version...")
+            logger.debug(f"[{plugin_id}] Checking version...")
             websocket.send(json.dumps({
                 "command": "PLUGIN_UPDATE_GET_VER",
                 "plugin_id": plugin_id
@@ -99,13 +97,11 @@ class PluginUpdater(Updater):
             server_version = response.get("version")
             local_version = self.get_local_plugin_version(plugin_id)
 
-            logger.info(f"[{plugin_id}] Local: {local_version}, Server: {server_version}")
-
             if server_version == local_version and not self.dev_mode:
-                logger.info(f"[{plugin_id}] Up to date.")
                 return False
 
-            logger.info(f"[{plugin_id}] Update required. Fetching manifest...")
+            logger.info(f"[{plugin_id}] Update required: {local_version} -> {server_version}")
+            logger.info(f"[{plugin_id}] Fetching manifest...")
 
             # 2. Запрашиваем манифест плагина
             websocket.send(json.dumps({
@@ -122,7 +118,10 @@ class PluginUpdater(Updater):
             if not manifest:
                 return False
 
-            # 3. Обработка манифеста (аналогично основному апдейтеру)
+            # 3. Сохраняем манифест плагина (обновляем локальную версию)
+            self.save_plugin_manifest(plugin_id, manifest)
+
+            # 4. Обработка манифеста (аналогично основному апдейтеру)
             # Создаем папки
             for directory in manifest.get("directories_to_ensure", []):
                 dir_path = os.path.join(ROOT_DIR, directory)
@@ -132,6 +131,8 @@ class PluginUpdater(Updater):
             total_files = len(files_map)
             files_updated = False
 
+            manifest_filename = f"{plugin_id}_manifest.json"
+
             for index, file_info in enumerate(files_map):
                 remote_path = file_info["remote_path"]
                 local_dir_rel = file_info["local_dir"]
@@ -140,13 +141,17 @@ class PluginUpdater(Updater):
                 filename = os.path.basename(remote_path)
                 local_path = os.path.join(ROOT_DIR, local_dir_rel, filename)
 
+                # Пропускаем сам манифест, так как мы его уже сохранили
+                if filename == manifest_filename:
+                    continue
+
                 # Проверка MD5 (Incremental Update)
                 if os.path.exists(local_path) and remote_md5:
                     local_md5 = self.calculate_file_md5(local_path)
                     if local_md5 == remote_md5:
                         continue
 
-                logger.info(f"[{plugin_id}] Downloading {filename} ({index+1}/{total_files})...")
+                # logger.info(f"[{plugin_id}] Downloading {filename} ({index+1}/{total_files})...")
 
                 # Скачиваем файл (используем стандартную команду загрузки файлов, так как пути полные)
                 # Важно: сервер должен разрешать скачивание файлов из папки plugins/
@@ -175,10 +180,8 @@ class PluginUpdater(Updater):
                     logger.error(f"[{plugin_id}] Failed to download {filename}")
                     return False
 
-            # 4. Обновляем версию после успешной загрузки
-            self.update_local_plugin_version(plugin_id, server_version)
-            
             if files_updated or server_version != local_version:
+                logger.info(f"[{plugin_id}] Updated {total_files} files.")
                 return True
             
             return False

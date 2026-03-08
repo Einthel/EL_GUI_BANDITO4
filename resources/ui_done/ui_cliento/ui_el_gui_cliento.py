@@ -80,11 +80,12 @@ class Ui_El_GUI_CLIENTO(object):
         self.HH_lcdN.setObjectName(u"HH_lcdN")
         self.HH_lcdN.setMinimumSize(QSize(75, 75))
         self.HH_lcdN.setMaximumSize(QSize(75, 75))
-        self.HH_lcdN.setFrameShape(QFrame.Shape.Panel)
+        self.HH_lcdN.setFrameShape(QFrame.Shape.Box)
         self.HH_lcdN.setFrameShadow(QFrame.Shadow.Raised)
+        self.HH_lcdN.setLineWidth(2)
         self.HH_lcdN.setSmallDecimalPoint(False)
         self.HH_lcdN.setDigitCount(2)
-        self.HH_lcdN.setMode(QLCDNumber.Mode.Dec)
+        self.HH_lcdN.setMode(QLCDNumber.Mode.Hex)
         self.HH_lcdN.setSegmentStyle(QLCDNumber.SegmentStyle.Filled)
 
         self.HH.addWidget(self.HH_lcdN)
@@ -98,11 +99,12 @@ class Ui_El_GUI_CLIENTO(object):
         self.MM_lcdN.setObjectName(u"MM_lcdN")
         self.MM_lcdN.setMinimumSize(QSize(75, 75))
         self.MM_lcdN.setMaximumSize(QSize(75, 75))
-        self.MM_lcdN.setFrameShape(QFrame.Shape.Panel)
+        self.MM_lcdN.setFrameShape(QFrame.Shape.Box)
         self.MM_lcdN.setFrameShadow(QFrame.Shadow.Raised)
+        self.MM_lcdN.setLineWidth(2)
         self.MM_lcdN.setSmallDecimalPoint(False)
         self.MM_lcdN.setDigitCount(2)
-        self.MM_lcdN.setMode(QLCDNumber.Mode.Dec)
+        self.MM_lcdN.setMode(QLCDNumber.Mode.Hex)
         self.MM_lcdN.setSegmentStyle(QLCDNumber.SegmentStyle.Filled)
 
         self.MM.addWidget(self.MM_lcdN)
@@ -313,7 +315,7 @@ class Ui_El_GUI_CLIENTO(object):
     # setupUi
 
     def retranslateUi(self, El_GUI_CLIENTO):
-        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento v0.0.2.4", None))
+        El_GUI_CLIENTO.setWindowTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento  v.0.0.1.6", None))
         self.main_groupB.setTitle(QCoreApplication.translate("El_GUI_CLIENTO", u"el_gui_cliento", None))
         self.time_groupB.setTitle("")
         self.plugin_toolB_1.setText(QCoreApplication.translate("El_GUI_CLIENTO", u"plugin_name", None))

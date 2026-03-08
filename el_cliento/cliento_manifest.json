@@ -1,19 +1,27 @@
 {
   "project_name": "EL_GUI_CLIENTO",
   "author": "einthel",
-  "version_file": "el_cliento/ver_cliento",
+  "version_file": "el_cliento/cliento_manifest.json",
+  "min_app_version": "0.0.1.6",
   "directories_to_ensure": [
     "el_cliento",
     "src",
     "plugins",
     "resources/styles",
+    "resources/styles",
+    "resources/sounds",
+    "el_core",
     "resources/ui_done/ui_cliento",
-    "resources/icons"
+    "resources/icons",
+    "configs"
   ],
   "files_map": [
     {
       "remote_path": "el_cliento/el_cliento.py",
       "local_dir": "el_cliento"
+    },
+    {"remote_path": "configs/el_cliento_config.json",
+      "local_dir": "configs"
     },
     {
       "remote_path": "el_cliento/cliento_socket.py",
@@ -32,8 +40,13 @@
       "local_dir": "el_cliento"
     },
     {
-      "remote_path": "el_cliento/ver_cliento",
+      "remote_path": "el_cliento/cliento_manifest.json",
       "local_dir": "el_cliento"
+    },
+    {
+      "remote_path": "resources/sounds",
+      "local_dir": "resources/sounds",
+      "is_directory": true
     },
     {
       "remote_path": "src/utilts.py",
@@ -54,6 +67,14 @@
     {
       "remote_path": "resources/styles/style_cliento.json",
       "local_dir": "resources/styles"
+    },
+    {
+      "remote_path": "el_core/el_sound_manager.py",
+      "local_dir": "el_core"
+    },
+    {
+      "remote_path": "configs/el_sound_config.json",
+      "local_dir": "configs"
     }
   ]
 }

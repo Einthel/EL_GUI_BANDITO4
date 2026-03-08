@@ -94,11 +94,7 @@ def compile_plugin_ui_files(plugins_dir):
     2. Сложная структура: plugin_dir/resources/ui_raw/name.ui -> plugin_dir/resources/ui_done/ui_name.py
     """
     if not os.path.isdir(plugins_dir):
-        # Если папки плагинов нет - это не критическая ошибка, просто нечего компилировать
-        # print(f"Директория плагинов не найдена: {plugins_dir}")
         return
-
-    print(f"Проверка UI файлов плагинов в '{plugins_dir}'...")
 
     for root, _, files in os.walk(plugins_dir):
         for ui_file in files:

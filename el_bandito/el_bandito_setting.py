@@ -25,17 +25,21 @@ except ImportError:
     Ui_Setting_bandito_widget = object
 
 class BanditoSettings(QWidget):
-    def __init__(self):
+    def __init__(self, core=None):
         super(BanditoSettings, self).__init__()
+        self.core = core
         self.ui = Ui_Setting_bandito_widget()
         self.ui.setupUi(self)
         
         # Модальное окно (блокирует родителя)
         self.setWindowModality(Qt.ApplicationModal)
 
-        # Config Manager
+        # Config Managers
         config_path = os.path.join(project_root, "configs", "el_bandito_config.json")
         self.config_manager = ConfigManager(config_path)
+        
+        cliento_config_path = os.path.join(project_root, "configs", "el_cliento_config.json")
+        self.cliento_config_manager = ConfigManager(cliento_config_path)
 
         # 1. IP Source (Manual Entry)
         self.ui.ip_source_lineE.setReadOnly(False)
@@ -52,7 +56,14 @@ class BanditoSettings(QWidget):
         self.ui.connect_toolB.clicked.connect(self.on_connect)
         self.ui.disconnect_toolB.clicked.connect(self.on_disconnect)
         self.ui.save_toolB.clicked.connect(self.on_save)
+        self.ui.cancel_toolB.clicked.connect(self.on_cancel)
         self.ui.ping_toolB.clicked.connect(self.on_ping)
+
+        # 4.1 Sound Real-time sync (via Core)
+        if self.core:
+            self.ui.sound_checkB.toggled.connect(self.core.set_sound_enabled)
+            if hasattr(self.ui, 'sound_bandito_checkB'):
+                self.ui.sound_bandito_checkB.toggled.connect(self.core.set_server_sound_enabled)
 
         # 5. Load Settings
         self.load_settings_to_ui()
@@ -108,9 +119,25 @@ class BanditoSettings(QWidget):
         if "password_encrypted" in data:
             decrypted_pass = self.config_manager.decrypt_password(data["password_encrypted"])
             self.ui.pass_lineE.setText(decrypted_pass)
+        
+        if "sound_enabled" in data:
+            # Для серверного звука берем из bandito_config
+            if hasattr(self.ui, 'sound_bandito_checkB'):
+                self.ui.sound_bandito_checkB.setChecked(data["sound_enabled"])
+            
+            # Для клиентского звука берем из cliento_config
+            cliento_data = self.cliento_config_manager.load_config()
+            if cliento_data and "sound_enabled" in cliento_data:
+                self.ui.sound_checkB.setChecked(cliento_data["sound_enabled"])
+        else:
+            # Fallback
+            cliento_data = self.cliento_config_manager.load_config()
+            if cliento_data and "sound_enabled" in cliento_data:
+                self.ui.sound_checkB.setChecked(cliento_data["sound_enabled"])
 
     def on_save(self):
         """Собирает данные из UI и сохраняет в JSON."""
+        sound_state = self.ui.sound_checkB.isChecked()
         data = {
             "ip_source": self.ui.ip_source_lineE.text(),
             "ip_destination": self.ui.ip_destination_lineE.text(),
@@ -119,13 +146,28 @@ class BanditoSettings(QWidget):
             "password_encrypted": self.config_manager.encrypt_password(self.ui.pass_lineE.text())
         }
 
+        # Save to bandito config
         success, msg = self.config_manager.save_config(data)
+        
+        # Note: sound_enabled is handled in real-time via self.core.set_sound_enabled
+        # which is connected to sound_checkB.toggled signal.
+
         if success:
             self.log_status("Settings saved successfully")
             QMessageBox.information(self, "Success", "Settings saved!")
         else:
             self.log_status(f"Save error: {msg}")
             QMessageBox.critical(self, "Error", f"Failed to save settings:\n{msg}")
+
+    def on_cancel(self):
+        """Сброс изменений и закрытие окна."""
+        self.load_settings_to_ui()
+        self.close()
+
+    def closeEvent(self, event):
+        """Сброс изменений при закрытии на крестик."""
+        self.load_settings_to_ui()
+        event.accept()
 
     def on_connect(self):
         print("Connect clicked")

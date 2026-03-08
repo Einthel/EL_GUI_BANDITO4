@@ -6,14 +6,14 @@ import logging
 import hashlib
 from websockets.sync.client import connect
 
-# Настройка логирования
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - UPDATER - %(levelname)s - %(message)s')
+# Настройка логирования (WARNING — меньше шума в консоли)
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("Updater")
 
 # Пути
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) # папка el_cliento
 ROOT_DIR = os.path.dirname(BASE_DIR) # Корневая папка проекта (где лежит el_cliento/)
-VER_FILE = os.path.join(BASE_DIR, "ver_cliento")
+MANIFEST_FILE = os.path.join(BASE_DIR, "cliento_manifest.json")
 CONFIG_FILE = os.path.join(ROOT_DIR, "configs", "el_cliento_config.json")
 
 # Fallback для конфига, если структура папок отличается (например на RPi)
@@ -52,21 +52,24 @@ class Updater:
         logger.info(f"Server URL set to: {self.server_url}, Dev Mode: {self.dev_mode}")
 
     def get_local_version(self):
-        if os.path.exists(VER_FILE):
+        """Читает версию из манифеста."""
+        if os.path.exists(MANIFEST_FILE):
             try:
-                with open(VER_FILE, 'r', encoding='utf-8') as f:
-                    return f.read().strip()
-            except:
-                pass
+                with open(MANIFEST_FILE, 'r', encoding='utf-8') as f:
+                    manifest = json.load(f)
+                    return manifest.get("min_app_version", "0.0.0")
+            except Exception as e:
+                logger.error(f"Failed to read manifest for version: {e}")
         return "0.0.0"
 
-    def update_local_version(self, version):
+    def save_manifest(self, manifest):
+        """Сохраняет манифест локально."""
         try:
-            with open(VER_FILE, 'w', encoding='utf-8') as f:
-                f.write(version)
-            logger.info(f"Local version updated to {version}")
+            with open(MANIFEST_FILE, 'w', encoding='utf-8') as f:
+                json.dump(manifest, f, indent=2, ensure_ascii=False)
+            logger.info(f"Manifest saved to {MANIFEST_FILE}")
         except Exception as e:
-            logger.error(f"Failed to write version file: {e}")
+            logger.error(f"Failed to save manifest: {e}")
 
     def calculate_file_md5(self, filepath):
         """Считает MD5 локального файла."""
@@ -112,7 +115,6 @@ class Updater:
                     if self.dev_mode:
                         logger.info("Dev Mode enabled: Forcing manifest check despite version match.")
                     else:
-                        logger.info("Client is up to date.")
                         return False
                 
                 logger.info("Update required. Fetching manifest...")
@@ -130,7 +132,10 @@ class Updater:
                     logger.error("Empty manifest received")
                     return False
 
-                # 3. Обработка манифеста
+                # 3. Сохраняем манифест (обновляем локальную версию)
+                self.save_manifest(manifest)
+
+                # 4. Обработка манифеста
                 # Создаем папки
                 for directory in manifest.get("directories_to_ensure", []):
                     dir_path = os.path.join(ROOT_DIR, directory)
@@ -150,14 +155,17 @@ class Updater:
                     filename = os.path.basename(remote_path)
                     local_path = os.path.join(ROOT_DIR, local_dir_rel, filename)
                     
+                    # Пропускаем сам манифест, так как мы его уже сохранили
+                    if local_path == MANIFEST_FILE:
+                        continue
+
                     # 1. Проверка: нужно ли качать?
                     if os.path.exists(local_path) and remote_md5:
                         local_md5 = self.calculate_file_md5(local_path)
                         if local_md5 == remote_md5:
-                            logger.info(f"[{index+1}/{total_files}] {filename} is up to date (MD5 match). Skipping.")
                             continue
 
-                    logger.info(f"Downloading [{index+1}/{total_files}]: {filename}...")
+                    # logger.info(f"Downloading [{index+1}/{total_files}]: {filename}...")
                     
                     websocket.send(json.dumps({
                         "command": "UPDATE_DOWNLOAD_FILE", 
@@ -185,8 +193,6 @@ class Updater:
                         logger.error(f"Failed to download {filename}: {file_response.get('message')}")
                         return False
                 
-                # 4. Обновляем версию локально после успешной загрузки всех файлов
-                self.update_local_version(server_version)
                 logger.info("Update check completed.")
                 
                 # Решаем, нужен ли перезапуск
