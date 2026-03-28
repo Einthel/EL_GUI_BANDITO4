@@ -16,10 +16,10 @@
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/0b7d40b2-e226-4e7c-83a8-56d1e009a337" width="450" alt="Server Shortcut UI" />
+      <img src="https://github.com/user-attachments/assets/e3561994-178d-440f-ad2d-c51d03104edb" width="450" alt="Server Shortcut UI" />
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/9186f61e-3cb2-4ae0-a550-d46aa8105ed5" width="450" alt="Client Shortcut UI" />
+      <img src="https://github.com/user-attachments/assets/e2561388-f7b4-4139-8790-993b9836f72b" width="450" alt="Client Shortcut UI" />
     </td>
   </tr>
   <tr>
@@ -32,10 +32,10 @@
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/6bc7a159-e8fd-4b03-9fee-c5a625234ea0" width="450" alt="Server Tune UI" />
+      <img src="https://github.com/user-attachments/assets/211d3ca5-dda5-4b1c-b559-cd0d3c8b7daa" width="450" alt="Server Tune UI" />
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/8d313b9e-1864-467e-8288-780c869522a5" width="450" alt="Client Tune UI" />
+      <img src="https://github.com/user-attachments/assets/45f7f9fa-3f9e-43d7-b14c-9403f7abf749" width="450" alt="Client Tune UI" />
     </td>
   </tr>
     <tr>
