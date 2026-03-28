@@ -2,7 +2,7 @@
   "project_name": "EL_GUI_CLIENTO",
   "author": "einthel",
   "version_file": "el_cliento/cliento_manifest.json",
-  "min_app_version": "0.0.1.6",
+  "min_app_version": "0.0.1.9.1",
   "directories_to_ensure": [
     "el_cliento",
     "src",
@@ -24,19 +24,19 @@
       "local_dir": "configs"
     },
     {
-      "remote_path": "el_cliento/cliento_socket.py",
+      "remote_path": "el_cliento/cl_socket.py",
       "local_dir": "el_cliento"
     },
     {
-      "remote_path": "el_cliento/cliento_setting.py",
+      "remote_path": "el_cliento/cl_setting.py",
       "local_dir": "el_cliento"
     },
     {
-      "remote_path": "el_cliento/cliento_updater.py",
+      "remote_path": "el_cliento/cl_update.py",
       "local_dir": "el_cliento"
     },
     {
-      "remote_path": "el_cliento/cliento_plugin_updater.py",
+      "remote_path": "el_cliento/cl_plug_update.py",
       "local_dir": "el_cliento"
     },
     {
@@ -66,6 +66,10 @@
     },
     {
       "remote_path": "resources/styles/style_cliento.json",
+      "local_dir": "resources/styles"
+    },
+    {
+      "remote_path": "resources/styles/style_cl_material.json",
       "local_dir": "resources/styles"
     },
     {

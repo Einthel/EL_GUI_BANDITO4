@@ -197,6 +197,42 @@
                 "type": "program",
                 "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\SecureCRT 9.3\\SecureCRT 9.3.lnk"
             }
+        },
+        "win+R": {
+            "name": "win+R",
+            "icon_path": "resources/ico/bell.svg",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "win+R"
+            }
+        },
+        "Дисп": {
+            "name": "Дисп",
+            "icon_path": "resources/ico/ico_shortcut.png",
+            "icon_size": 70,
+            "action": {
+                "type": "shortcut",
+                "value": "Ctrl+Shift+ESC"
+            }
+        },
+        "find_image": {
+            "name": "find_image",
+            "icon_path": "resources/ico/find_image.png",
+            "icon_size": 70,
+            "action": {
+                "type": "system",
+                "value": "yandex_search_clipboard"
+            }
+        },
+        "HyperHDR": {
+            "name": "HyperHDR",
+            "icon_path": "resources/ico/69086569.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\HyperHDR\\HyperHDR.lnk"
+            }
         }
     }
 }

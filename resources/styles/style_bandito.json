@@ -76,5 +76,23 @@
     },
     "QToolButton#plugin_reload_toolB_1, QToolButton#plugin_reload_toolB_2, QToolButton#plugin_reload_toolB_3, QToolButton#plugin_reload_toolB_4, QToolButton#plugin_reload_toolB_5": {
         "qproperty-icon": "url(resources/ico/ico_reload.png)"
+    },
+    "QToolButton#add_page_toolB": {
+        "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_add.png)"
+    },
+    "QToolButton#remove_page_toolB": {
+        "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_rem.png)"
+    },
+    "QToolButton#back_page_toolB": {
+        "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_pageL.png)"
+    },
+    "QToolButton#next_page_toolB": {
+        "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_pageR.png)"
+    },
+    "QToolButton#Browse_ico_lib_toolB": {
+        "qproperty-icon": "url(plugins/shortcut/resources/sys/select_ico_b.png)"
+    },
+    "QToolButton#Browse_ico_diy_toolB": {
+        "qproperty-icon": "url(plugins/shortcut/resources/sys/select_ico_f.png)"
     }
 }

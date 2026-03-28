@@ -127,6 +127,71 @@
                 "type": "system",
                 "value": "page_next"
             }
+        },
+        "butt_toolB_01": {
+            "name": "find_image",
+            "icon_path": "resources/ico/find_image.png",
+            "icon_size": 70,
+            "action": {
+                "type": "system",
+                "value": "yandex_search_clipboard"
+            }
+        },
+        "butt_toolB_02": {
+            "name": "HyperHDR",
+            "icon_path": "resources/ico/69086569.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\HyperHDR\\HyperHDR.lnk"
+            }
+        },
+        "butt_toolB_05": {
+            "name": "PuTTY",
+            "icon_path": "resources/ico/putty.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PuTTY (64-bit)\\PuTTY.lnk"
+            }
+        },
+        "butt_toolB_06": {
+            "name": "Firefox",
+            "icon_path": "resources/ico/internet.png",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Firefox.lnk"
+            }
+        },
+        "butt_toolB_07": {
+            "name": "7-Zip File Manager",
+            "icon_path": "resources/ico/bell.svg",
+            "icon_size": 70,
+            "action": {
+                "type": "program",
+                "value": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\7-Zip\\7-Zip File Manager.lnk"
+            }
+        }
+    },
+    "page_3": {
+        "butt_toolB_09": {
+            "name": "Prev page",
+            "icon_path": "resources/ico/arrow-left-circle.svg",
+            "icon_size": 70,
+            "action": {
+                "type": "system",
+                "value": "page_prev"
+            }
+        },
+        "butt_toolB_12": {
+            "name": "Next page",
+            "icon_path": "resources/ico/arrow-right-circle.svg",
+            "icon_size": 70,
+            "action": {
+                "type": "system",
+                "value": "page_next"
+            }
         }
     }
 }

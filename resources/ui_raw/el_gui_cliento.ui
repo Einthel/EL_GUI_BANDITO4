@@ -65,6 +65,9 @@
       <height>600</height>
      </size>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
       <number>5</number>
@@ -105,7 +108,10 @@
         <enum>QFrame::Shape::StyledPanel</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Shadow::Raised</enum>
+        <enum>QFrame::Shadow::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <property name="spacing">
@@ -138,7 +144,7 @@
            </size>
           </property>
           <property name="title">
-           <string>el_gui_cliento</string>
+           <string>EL GUI CLIENTO</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -151,7 +157,7 @@
             <number>5</number>
            </property>
            <property name="topMargin">
-            <number>0</number>
+            <number>5</number>
            </property>
            <property name="rightMargin">
             <number>5</number>
@@ -160,7 +166,7 @@
             <number>5</number>
            </property>
            <item alignment="Qt::AlignmentFlag::AlignHCenter">
-            <widget class="QGroupBox" name="time_groupB">
+            <widget class="QFrame" name="time_qFrame">
              <property name="minimumSize">
               <size>
                <width>170</width>
@@ -173,27 +179,21 @@
                <height>90</height>
               </size>
              </property>
-             <property name="title">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignCenter</set>
-             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
               <property name="spacing">
                <number>5</number>
               </property>
               <property name="leftMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <property name="topMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <property name="rightMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <property name="bottomMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <item>
                <layout class="QHBoxLayout" name="HH">
@@ -287,6 +287,12 @@
              </property>
              <item>
               <widget class="QLineEdit" name="plugin_led_lineE_1">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>25</width>
@@ -338,6 +344,12 @@
              </property>
              <item>
               <widget class="QLineEdit" name="plugin_led_lineE_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>25</width>
@@ -389,6 +401,12 @@
              </property>
              <item>
               <widget class="QLineEdit" name="plugin_led_lineE_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>25</width>
@@ -440,6 +458,12 @@
              </property>
              <item>
               <widget class="QLineEdit" name="plugin_led_lineE_4">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>25</width>
@@ -491,6 +515,12 @@
              </property>
              <item>
               <widget class="QLineEdit" name="plugin_led_lineE_5">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>25</width>
@@ -558,9 +588,6 @@
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
           <property name="checkable">
            <bool>false</bool>
           </property>
@@ -581,31 +608,6 @@
             <number>5</number>
            </property>
            <item row="2" column="0">
-            <widget class="QToolButton" name="settings_toolB">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>170</width>
-               <height>35</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>170</width>
-               <height>35</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Settings</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
             <widget class="QLineEdit" name="network_stat_line">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -616,13 +618,13 @@
              <property name="minimumSize">
               <size>
                <width>170</width>
-               <height>35</height>
+               <height>30</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>170</width>
-               <height>35</height>
+               <height>30</height>
               </size>
              </property>
              <property name="frame">
@@ -633,7 +635,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="0" column="0">
             <widget class="QToolButton" name="full_screen_toolB">
              <property name="enabled">
               <bool>true</bool>
@@ -661,11 +663,8 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QToolButton" name="null_toolB_2">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
+           <item row="1" column="0">
+            <widget class="QToolButton" name="settings_toolB">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -675,17 +674,17 @@
              <property name="minimumSize">
               <size>
                <width>170</width>
-               <height>25</height>
+               <height>35</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>170</width>
-               <height>25</height>
+               <height>35</height>
               </size>
              </property>
              <property name="text">
-              <string>Bull</string>
+              <string>Settings</string>
              </property>
             </widget>
            </item>
@@ -709,11 +708,20 @@
          <height>580</height>
         </size>
        </property>
+       <property name="maximumSize">
+        <size>
+         <width>800</width>
+         <height>580</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::Shape::StyledPanel</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Shadow::Raised</enum>
+        <enum>QFrame::Shadow::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <property name="spacing">

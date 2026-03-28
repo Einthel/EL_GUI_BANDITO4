@@ -86,7 +86,7 @@
 ## 📂 Структура проекта
 *   `el_core/` — ядро: `el_core.py` (ElCore, оркестратор), `el_state_manager.py`, `el_com_manager.py`, `el_sound_manager.py`.
 *   `el_cliento/` — исходный код клиента (Raspberry Pi).
-    *   `cliento_updater.py` — автообновление ядра; `cliento_plugin_updater.py` — обновление плагинов.
+    *   `cl_update.py` — автообновление ядра; `cl_plug_update.py` — обновление плагинов.
     *   `cliento_manifest.json` — манифест и версия (`min_app_version`) для синхронизации.
 *   `el_bandito/` — исходный код сервера (Windows).
 *   `src/manager_plugin.py` — логика управления плагинами (UI: `plugin_manager.ui`).

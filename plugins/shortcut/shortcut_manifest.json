@@ -6,7 +6,7 @@
   "icon": "plugins/shortcut/resources/ico/ico_shortcut.png",
   "author": "einthel",
   "license": "MIT",
-  "min_app_version": "0.0.1.18",
+  "min_app_version": "0.0.1.3.4",
   "directories_to_ensure": [
     "plugins/shortcut",
     "plugins/shortcut/src",
@@ -42,6 +42,10 @@
     },
     {
       "remote_path": "plugins/shortcut/config/style_shortcut_cliento.json",
+      "local_dir": "plugins/shortcut/config"
+    },
+    {
+      "remote_path": "plugins/shortcut/config/style_sh_bn_material.json",
       "local_dir": "plugins/shortcut/config"
     },
     {

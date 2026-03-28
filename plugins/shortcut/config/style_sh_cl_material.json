@@ -1,0 +1,40 @@
+{
+  "#stream_cliento": {
+    "background-color": "#121212",
+    "color": "#FFFFFF"
+  },
+  "#Button_stackedWidget": {
+    "background": "transparent"
+  },
+  "QFrame": {
+    "background": "transparent",
+    "border": "none"
+  },
+  "QFrame[objectName^=\"Button_frame_\"]": {
+    "background-color": "#1E1E1E",
+    "border": "1px solid #333333",
+    "border-radius": "16px"
+  },
+  "QToolButton": {
+    "background-color": "#2C2C2C",
+    "border": "1px solid #454545",
+    "border-bottom": "2px solid #1F1A1A",
+    "border-right": "2px solid #1F1A1A",
+    "border-radius": "12px",
+    "color": "#FFFFFF",
+    "padding": "8px"
+  },
+  "QToolButton:hover": {
+    "background-color": "#3D3D3D",
+    "border-bottom": "2px solid #FF9800"
+  },
+  "QToolButton:pressed": {
+    "background-color": "#FF9800",
+    "color": "#000000"
+  },
+  "animation": {
+    "duration": 150,
+    "scale_factor": 0.92,
+    "easing_curve": "OutCubic"
+  }
+}

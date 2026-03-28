@@ -1,0 +1,100 @@
+{
+    "__comment_info": {
+        "style": "Material 2 Dark (Cliento)",
+        "accent": "#FF9800",
+        "target": "Raspberry Pi Touchscreen"
+    },
+    "QMainWindow": {
+        "background-color": "#121212",
+        "color": "#FFFFFF",
+        "font-family": "Roboto, sans-serif"
+    },
+    "QWidget#centralwidget, QWidget#Main_widget": {
+        "background-color": "#121212",
+        "border": "none"
+    },
+    "QFrame#left_frame": {
+        "background-color": "#1E1E1E",
+        "border-radius": "16px",
+        "margin": "5px"
+    },
+    "QFrame#right_frame": {
+        "background-color": "#1E1E1E",
+        "border-radius": "16px",
+        "margin": "5px"
+    },
+    "QGroupBox": {
+        "background-color": "#242424",
+        "border": "1px solid #3D3D3D",
+        "border-radius": "16px",
+        "margin-top": "20px",
+        "color": "#FF9800",
+        "font-weight": "bold"
+    },
+    "QGroupBox::title": {
+        "subcontrol-origin": "margin",
+        "subcontrol-position": "top center",
+        "padding": "0 20px",
+        "background-color": "#242424"
+    },
+    "QLCDNumber": {
+        "background-color": "#000000",
+        "border": "1px solid #FF9800",
+        "border-radius": "12px",
+        "color": "#FF9800"
+    },
+    "QToolButton": {
+        "background-color": "#333333",
+        "border": "1px solid #454545",
+        "border-bottom": "3px solid #1F1A1A",
+        "border-right": "2px solid #1F1A1A",
+        "border-radius": "12px",
+        "color": "#FFFFFF",
+        "padding": "10px"
+    },
+    "QToolButton:hover": {
+        "background-color": "#444444",
+        "border-bottom": "3px solid #FF9800"
+    },
+    "QToolButton:pressed": {
+        "background-color": "#FF9800",
+        "color": "#000000",
+        "border-bottom": "1px solid #FF9800"
+    },
+    "QLineEdit": {
+        "background-color": "#242424",
+        "border": "none",
+        "border-bottom": "2px solid #FF9800",
+        "color": "#FFFFFF",
+        "padding": "8px",
+        "border-radius": "4px"
+    },
+    "QLineEdit[objectName^=\"plugin_led_lineE_\"]": {
+        "background-color": "#121212",
+        "border": "2px solid #333333",
+        "border-radius": "12px"
+    },
+    "plugin_active": {
+        "background-color": "#FF9800",
+        "border": "2px solid #FFFFFF"
+    },
+    "plugin_inactive": {
+        "background-color": "#242424",
+        "border": "2px solid #3D3D3D"
+    },
+    "status_connected": {
+        "background-color": "#2E7D32",
+        "color": "#FFFFFF",
+        "border": "none"
+    },
+    "status_disconnected": {
+        "background-color": "#C62828",
+        "color": "#FFFFFF",
+        "border": "none"
+    },
+    "animation": {
+        "duration": 150,
+        "scale_factor": 0.92,
+        "easing_curve": "OutCubic"
+    }
+}

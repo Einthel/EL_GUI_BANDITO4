@@ -6,7 +6,7 @@
   "icon": "plugins/tune/resources/ico/ico_tune.png",
   "author": "einthel",
   "license": "MIT",
-  "min_app_version": "0.0.0.6",
+  "min_app_version": "0.0.0.9",
   "directories_to_ensure": [
     "plugins/tune/resources/ui_done/",
     "plugins/tune/resources/ico",
@@ -41,6 +41,10 @@
       "remote_path": "plugins/tune/resources/sys",
       "local_dir": "plugins/tune/resources/sys",
       "is_directory": true
+    },
+    {
+      "remote_path": "plugins/tune/config/style_tune_material.json",
+      "local_dir": "plugins/tune/config"
     },
     {
       "remote_path": "plugins/tune/config/config_tune.json",

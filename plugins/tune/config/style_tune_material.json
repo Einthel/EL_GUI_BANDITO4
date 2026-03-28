@@ -1,0 +1,203 @@
+{
+    "QWidget#tune_cliento, QWidget#tune_bandito": {
+        "background-color": "#121212",
+        "color": "#E1E1E1"
+    },
+    "QWidget": {
+        "background-color": "#121212",
+        "color": "#E1E1E1",
+        "font-family": "Roboto, Segoe UI, sans-serif",
+        "font-size": "13px"
+    },
+    "QFrame#tune_frame": {
+        "background-color": "#1E1E1E",
+        "border": "none",
+        "border-radius": "8px"
+    },
+    "QFrame#volume_frame, QFrame#eq_frame, QFrame#audio_device_frame": {
+        "background-color": "#2C2C2C",
+        "border": "1px solid #383838",
+        "border-radius": "12px"
+    },
+    "QFrame#mic_frame, QFrame#sound_frame_2, QFrame#other_frame": {
+        "background-color": "transparent",
+        "border": "none"
+    },
+    "QFrame#mic_top_frame, QFrame#mic_bottom_frame, QFrame#sound_top_frame, QFrame#sound_bottom_frame, QFrame#other_top_frame, QFrame#other_bottom_frame": {
+        "background-color": "#333333",
+        "border-radius": "8px"
+    },
+    "QLabel": {
+        "color": "#B0B0B0",
+        "font-weight": "500",
+        "background": "transparent"
+    },
+    "QLabel#mic_lable, QLabel#sound_lable, QLabel#other_lable": {
+        "background-color": "#BB86FC",
+        "color": "#000000",
+        "border": "none",
+        "border-radius": "4px",
+        "padding": "2px 8px",
+        "font-weight": "bold",
+        "text-transform": "uppercase"
+    },
+    "QProgressBar": {
+        "border": "none",
+        "border-radius": "3px",
+        "background-color": "#383838",
+        "text-align": "center",
+        "color": "#FFFFFF",
+        "font-size": "10px",
+        "font-weight": "bold"
+    },
+    "QProgressBar:vertical": {
+        "width": "12px"
+    },
+    "QProgressBar::chunk": {
+        "background-color": "#BB86FC",
+        "border-radius": "3px"
+    },
+    "QProgressBar#mic_level_pBar::chunk, QProgressBar#sound_level_01_pBar::chunk, QProgressBar#sound_level_02_pBar::chunk": {
+        "background-color": "#03DAC6"
+    },
+    "QSlider::groove:vertical": {
+        "background": "#383838",
+        "width": "40px",
+        "margin": "0 10px"
+    },
+    "QSlider::handle:vertical": {
+        "background": "#BB86FC",
+        "border": "none",
+        "height": "40px",
+        "width": "40px",
+        "margin": "-5 -20px",
+        "border-radius": "10px"
+    },
+    "QSlider::handle:vertical:hover": {
+        "background": "#D7B7FD",
+        "border": "2px solid #BB86FC"
+    },
+    "QToolButton#mic_mute_toolB": {
+        "qproperty-icon": "url(plugins/tune/resources/sys/ico_mic_on.png)",
+        "qproperty-iconSize": "70px 70px"
+    },
+    "QToolButton#mic_mute_toolB:checked": {
+        "qproperty-icon": "url(plugins/tune/resources/sys/ico_mic_off.png)",
+        "qproperty-iconSize": "70px 70px"
+    },
+    "QToolButton#sound_mute_toolB": {
+        "qproperty-icon": "url(plugins/tune/resources/sys/ico_vol_on.png)",
+        "qproperty-iconSize": "70px 70px"
+    },
+    "QToolButton#sound_mute_toolB:checked": {
+        "qproperty-icon": "url(plugins/tune/resources/sys/ico_vol_off.png)"
+    },
+    "QToolButton#mic_toolB": {
+        "qproperty-icon": "url(plugins/tune/resources/sys/ico_mic_on.png)"
+    },
+    "QToolButton#mic_toolB:checked": {
+        "qproperty-icon": "url(plugins/tune/resources/sys/ico_mic_off.png)"
+    },
+    "QToolButton": {
+        "background-color": "transparent",
+        "border": "none",
+        "border-radius": "8px",
+        "padding": "8px",
+        "color": "#BB86FC"
+    },
+    "QToolButton:hover": {
+        "background-color": "rgba(187, 134, 252, 0.12)"
+    },
+    "QToolButton:pressed": {
+        "background-color": "rgba(187, 134, 252, 0.24)"
+    },
+    "QToolButton:checked": {
+        "background-color": "rgba(187, 134, 252, 0.18)",
+        "border-bottom": "2px solid #BB86FC",
+        "border-radius": "0px"
+    },
+    "QLineEdit": {
+        "background-color": "#333333",
+        "border": "none",
+        "border-bottom": "1px solid #666666",
+        "color": "#FFFFFF",
+        "padding": "6px",
+        "border-top-left-radius": "4px",
+        "border-top-right-radius": "4px"
+    },
+    "QLineEdit:focus": {
+        "border-bottom": "2px solid #BB86FC",
+        "background-color": "#3d3d3d"
+    },
+    "QLineEdit[selectedDevice=\"true\"]": {
+        "background-color": "rgba(3, 218, 198, 0.12)",
+        "border-bottom": "2px solid #03DAC6"
+    },
+    "QComboBox": {
+        "background-color": "#333333",
+        "border": "none",
+        "border-bottom": "1px solid #666666",
+        "border-radius": "4px",
+        "padding": "6px 24px 6px 12px",
+        "color": "#FFFFFF"
+    },
+    "QComboBox:hover": {
+        "background-color": "#3d3d3d"
+    },
+    "QComboBox:focus": {
+        "border-bottom": "2px solid #BB86FC"
+    },
+    "QComboBox::drop-down": {
+        "subcontrol-origin": "padding",
+        "subcontrol-position": "top right",
+        "width": "24px",
+        "border-left": "none"
+    },
+    "QComboBox QAbstractItemView": {
+        "background-color": "#2C2C2C",
+        "color": "#E1E1E1",
+        "selection-background-color": "#383838",
+        "selection-color": "#BB86FC",
+        "border": "1px solid #383838",
+        "outline": "none"
+    },
+    "QGroupBox": {
+        "border": "1px solid #383838",
+        "border-radius": "8px",
+        "margin-top": "20px",
+        "padding-top": "10px",
+        "font-weight": "bold",
+        "color": "#BB86FC"
+    },
+    "QGroupBox#audio_device_01_groupB, QGroupBox#audio_device_02_groupB, QGroupBox#bluetooth_device_groupB, QGroupBox#mic_01_groupB": {
+        "border": "1px solid #444444",
+        "margin-top": "15px",
+        "color": "#E1E1E1",
+        "font-size": "11px"
+    },
+    "QGroupBox::title": {
+        "subcontrol-origin": "margin",
+        "subcontrol-position": "top left",
+        "left": "12px",
+        "padding": "0 4px"
+    },
+    "QToolButton#outpu_device_save_toolB": {
+        "background-color": "#BB86FC",
+        "color": "#000000",
+        "border-radius": "4px",
+        "font-weight": "bold",
+        "padding": "8px 16px",
+        "text-transform": "uppercase"
+    },
+    "QToolButton#outpu_device_save_toolB:hover": {
+        "background-color": "#D7B7FD"
+    },
+    "QToolButton#audiD_01_toolB, QToolButton#audiD_02_toolB, QToolButton#bt_audiD_toolB": {
+        "background-color": "#333333",
+        "border": "1px solid #444444",
+        "border-radius": "4px"
+    },
+    "QToolButton#audiD_01_toolB:hover, QToolButton#audiD_02_toolB:hover, QToolButton#bt_audiD_toolB:hover": {
+        "background-color": "#444444"
+    }
+}

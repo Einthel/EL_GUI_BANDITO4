@@ -64,9 +64,9 @@ def compile_ui_files(ui_dir, output_dir):
             ui_path = os.path.join(root, ui_file)
             
             # Логика распределения по папкам (сохранена из старого utilts.py)
-            if "bandito" in ui_file:
+            if "bandito" in ui_file or "bn_" in ui_file:
                 target_subdir = os.path.join(output_dir, "ui_bandito")
-            elif "cliento" in ui_file:
+            elif "cliento" in ui_file or "cl_" in ui_file:
                 target_subdir = os.path.join(output_dir, "ui_cliento")
             else:
                 target_subdir = output_dir

@@ -1,0 +1,65 @@
+{
+  "QToolButton": {
+    "background-color": "#2C2C2C",
+    "border": "1px solid #454545",
+    "border-radius": "8px",
+    "color": "#FFFFFF",
+    "padding": "5px"
+  },
+  "QFrame[objectName^=\"Button_frame_\"]": {
+    "background-color": "#1E1E1E",
+    "border": "1px solid #333333",
+    "border-radius": "12px"
+  },
+  "QToolButton:checked": {
+    "background-color": "#FF9800",
+    "color": "#000000",
+    "border": "1px solid #FFFFFF"
+  },
+  "QToolButton:hover": {
+    "background-color": "#3D3D3D"
+  },
+  "QToolButton:pressed": {
+    "background-color": "#E68900"
+  },
+  "QToolButton#Browse_ico_lib_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/select_ico_b.png)",
+    "border": "none",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#Browse_ico_diy_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/select_ico_f.png)",
+    "border": "none",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#add_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_add.png)",
+    "border": "none",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#add_page_toolB:hover, QToolButton#remove_page_toolB:hover, QToolButton#back_page_toolB:hover, QToolButton#next_page_toolB:hover": {
+    "background-color": "#404040",
+    "border-radius": "4px"
+  },
+  "QToolButton#remove_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_rem.png)",
+    "border": "none",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#back_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_pageL.png)",
+    "border": "none",
+    "background": "transparent",
+    "padding": "2px"
+  },
+  "QToolButton#next_page_toolB": {
+    "qproperty-icon": "url(plugins/shortcut/resources/sys/ico_pageR.png)",
+    "border": "none",
+    "background": "transparent",
+    "padding": "2px"
+  }
+}

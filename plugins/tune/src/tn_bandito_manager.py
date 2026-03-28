@@ -25,7 +25,7 @@ class TuneClientoManager(QObject):
 
     def load_initial_data(self):
         """Загрузка начальных данных при запуске."""
-        style_path = os.path.join(self.plugin_path, "config", "style_tune_cliento.json")
+        style_path = os.path.join(self.plugin_path, "config", "style_tune_material.json")
         style_data = self.service.load_json_config(style_path)
         if style_data:
             css = self.service.json_to_css(style_data)

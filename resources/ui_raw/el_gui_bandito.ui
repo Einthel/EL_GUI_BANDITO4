@@ -90,7 +90,7 @@
              </size>
             </property>
             <property name="title">
-             <string>el_gui_bandito</string>
+             <string>EL GUI BANDITO</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>

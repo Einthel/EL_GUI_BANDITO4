@@ -23,12 +23,12 @@ if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
 # Импорт апдейтера
-import cliento_updater
+import cl_update
 
 # --- Импорты логики ---
 try:
     from src.manager_save_load import ConfigManager
-    from cliento_socket import BanditoClient
+    from cl_socket import BanditoClient
     from el_core.el_sound_manager import ElSoundManager
 except ImportError as e:
     print(f"Ошибка импорта логики клиента: {e}")
@@ -40,7 +40,7 @@ except ImportError as e:
 try:
     from resources.ui_done.ui_cliento.ui_el_gui_cliento import Ui_El_GUI_CLIENTO
     # Импортируем наш новый класс настроек
-    from cliento_setting import ClientoSettings
+    from cl_setting import ClientoSettings
 except ImportError:
     Ui_El_GUI_CLIENTO = object
     ClientoSettings = object
@@ -321,24 +321,27 @@ class CliMainWindow(QMainWindow):
             self.current_active_slot = None
 
     def load_style(self, style_key):
-        """Загружает стиль из JSON файла."""
+        """Loads style from JSON file (Material Design)."""
         try:
-            style_path = os.path.join(project_root, "resources", "styles", "style_cliento.json")
-            with open(style_path, 'r', encoding='utf-8') as f:
+            path = os.path.join(project_root, "resources", "styles", "style_cl_material.json")
+            with open(path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                if style_key in data:
-                    style_dict = data.get(style_key, {})
-                    css = "; ".join([f"{k}: {v}" for k, v in style_dict.items()])
-                    return css
+            
+            if style_key in data:
+                return "; ".join([f"{k}: {v}" for k, v in data[style_key].items()])
+            
+            # Construct global stylesheet
+            css = ""
+            for selector, props in data.items():
+                # Skip metadata and manual-only status styles
+                if selector.startswith(("__", "animation", "status_", "plugin_active", "plugin_inactive")): 
+                    continue
                 
-                full_css = ""
-                for widget, styles in data.items():
-                    if widget.startswith("status_"): continue
-                    props = "; ".join([f"{k}: {v}" for k, v in styles.items()])
-                    full_css += f"{widget} {{ {props} }} \n"
-                return full_css
+                props_str = "; ".join([f"{k}: {v}" for k, v in props.items()])
+                css += f"{selector} {{ {props_str} }}\n"
+            return css
         except Exception as e:
-            print(f"Error loading style: {e}")
+            print(f"Style Load Error: {e}")
             return ""
 
     def apply_global_styles(self):
@@ -403,10 +406,10 @@ class CliMainWindow(QMainWindow):
         return super().eventFilter(obj, event)
 
 def main():
-    core_updated = cliento_updater.check_and_update()
+    core_updated = cl_update.check_and_update()
     try:
-        import cliento_plugin_updater
-        plugins_updated = cliento_plugin_updater.check_and_update_plugins()
+        import cl_plug_update
+        plugins_updated = cl_plug_update.check_and_update_plugins()
     except Exception as e:
         print(f"Ошибка обновления плагинов: {e}")
         plugins_updated = False
@@ -419,7 +422,7 @@ def main():
     try:
         global Ui_El_GUI_CLIENTO, ClientoSettings
         from resources.ui_done.ui_cliento.ui_el_gui_cliento import Ui_El_GUI_CLIENTO
-        from cliento_setting import ClientoSettings
+        from cl_setting import ClientoSettings
     except ImportError as e:
         print(f"Критическая ошибка импорта UI: {e}")
         sys.exit(1)

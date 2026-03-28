@@ -1,4 +1,5 @@
 import os
+import json
 from PySide6.QtWidgets import QWidget, QToolButton, QGridLayout, QFrame, QGraphicsOpacityEffect
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QEvent, QRect, QSize
@@ -64,16 +65,47 @@ class ShortcutClientPlugin(QWidget, Ui_stream_cliento):
         # Настройка кнопок
         self.setup_buttons()
         
+        # Применяем эффекты Elevation
+        for btn in self.findChildren(QToolButton):
+            if btn.property("applyShadow"):
+                self.apply_elevation(btn)
+        
         # Подписка на сокет через менеджер
         if socket_client:
             socket_client.message_received.connect(self.manager.on_server_message)
 
     def apply_plugin_styles(self):
         """Загружает и применяет стили."""
-        style_data = load_style_data(self.plugin_path)
-        if style_data:
-            css = parse_style_to_css(style_data)
-            self.setStyleSheet(css)
+        # Новые стили Material 2
+        style_path = os.path.join(self.plugin_path, "config", "style_sh_cl_material.json")
+        
+        # Старые стили (закомментированы)
+        # style_path = os.path.join(self.plugin_path, "config", "style_shortcut_cliento.json")
+        
+        if os.path.exists(style_path):
+            try:
+                with open(style_path, 'r', encoding='utf-8') as f:
+                    style_data = json.load(f)
+                if style_data:
+                    css = parse_style_to_css(style_data)
+                    self.setStyleSheet(css)
+            except Exception as e:
+                print(f"[ShortcutCliento] Error loading style: {e}")
+
+    def apply_elevation(self, widget):
+        """Применяет эффект тени (Elevation) к виджету."""
+        if not widget.property("applyShadow"):
+            return
+            
+        from PySide6.QtWidgets import QGraphicsDropShadowEffect
+        from PySide6.QtGui import QColor
+        
+        shadow = QGraphicsDropShadowEffect(self)
+        shadow.setBlurRadius(15)
+        shadow.setXOffset(0)
+        shadow.setYOffset(4)
+        shadow.setColor(QColor(0, 0, 0, 150))
+        widget.setGraphicsEffect(shadow)
 
     def eventFilter(self, watched, event):
         """Анимация кнопок."""

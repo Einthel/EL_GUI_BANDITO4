@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>785</width>
-    <height>580</height>
+    <width>790</width>
+    <height>570</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,17 +18,35 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>785</width>
-    <height>580</height>
+    <width>790</width>
+    <height>570</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>785</width>
-    <height>580</height>
+    <width>790</width>
+    <height>570</height>
    </size>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QStackedWidget" name="Button_stackedWidget">
      <property name="enabled">
@@ -42,8 +60,14 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>760</width>
-       <height>560</height>
+       <width>790</width>
+       <height>570</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>790</width>
+       <height>570</height>
       </size>
      </property>
      <property name="baseSize">
@@ -69,17 +93,20 @@
      <property name="layoutDirection">
       <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="locale">
       <locale language="Russian" country="Russia"/>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::WinPanel</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="lineWidth">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="currentIndex">
       <number>0</number>
@@ -105,6 +132,9 @@
       </property>
       <property name="autoFillBackground">
        <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
        <property name="leftMargin">
@@ -133,6 +163,18 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>770</width>
+           <height>550</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>770</width>
+           <height>550</height>
+          </size>
+         </property>
          <property name="focusPolicy">
           <enum>Qt::FocusPolicy::TabFocus</enum>
          </property>
@@ -140,13 +182,13 @@
           <enum>Qt::LayoutDirection::LeftToRight</enum>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Shape::NoFrame</enum>
+          <enum>QFrame::Shape::Panel</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Shadow::Plain</enum>
          </property>
          <property name="lineWidth">
-          <number>2</number>
+          <number>1</number>
          </property>
          <property name="midLineWidth">
           <number>0</number>

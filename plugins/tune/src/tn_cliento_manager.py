@@ -25,7 +25,7 @@ class TuneClientoManager(QObject):
 
     def load_initial_data(self):
         """Загрузка начальных данных при запуске."""
-        style_path = os.path.join(self.plugin_path, "config", "style_tune_cliento.json")
+        style_path = os.path.join(self.plugin_path, "config", "style_tune_material.json")
         style_data = self.service.load_json_config(style_path)
         if style_data:
             css = self.service.json_to_css(style_data)
@@ -72,3 +72,12 @@ class TuneClientoManager(QObject):
                     "payload": {"id": button_id}
                 }
                 self.socket_client.send_message(data)
+
+    def send_volume_change(self, slider_id, value):
+        """
+        Отправка изменения уровня громкости на сервер.
+        Используется составной ID (id|value), так как текущая реализация Core 
+        может терять payload при широковещательной рассылке или определенных событиях.
+        """
+        composite_id = f"{slider_id}|{value}"
+        self.send_button_press(composite_id)

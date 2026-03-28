@@ -67,21 +67,21 @@
    <widget class="QFrame" name="audio_device_frame">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>257</y>
-      <width>320</width>
+      <x>530</x>
+      <y>280</y>
+      <width>360</width>
       <height>390</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>320</width>
+      <width>360</width>
       <height>390</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>320</width>
+      <width>360</width>
       <height>390</height>
      </size>
     </property>
@@ -92,7 +92,7 @@
      <enum>QFrame::Shadow::Raised</enum>
     </property>
     <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
+     <item row="0" column="0" colspan="2">
       <widget class="QGroupBox" name="audio_device_groupB">
        <property name="minimumSize">
         <size>
@@ -102,7 +102,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>300</width>
+         <width>340</width>
          <height>400</height>
         </size>
        </property>
@@ -115,7 +115,7 @@
         <string>Device Output</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -128,26 +128,26 @@
          <number>5</number>
         </property>
         <property name="leftMargin">
-         <number>5</number>
+         <number>10</number>
         </property>
         <property name="topMargin">
-         <number>5</number>
+         <number>10</number>
         </property>
         <property name="rightMargin">
-         <number>5</number>
+         <number>10</number>
         </property>
         <property name="bottomMargin">
-         <number>5</number>
+         <number>10</number>
         </property>
         <item>
          <widget class="QGroupBox" name="audio_device_01_groupB">
           <property name="title">
-           <string>Audio device #1</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
            <property name="spacing">
             <number>5</number>
            </property>
@@ -164,6 +164,13 @@
             <number>10</number>
            </property>
            <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Audio #1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QComboBox" name="audiD_01_comboB">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -174,7 +181,13 @@
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>250</width>
+               <height>16777215</height>
               </size>
              </property>
              <property name="font">
@@ -190,12 +203,12 @@
         <item>
          <widget class="QGroupBox" name="audio_device_02_groupB">
           <property name="title">
-           <string>Audio device #2</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
            <property name="spacing">
             <number>5</number>
            </property>
@@ -212,6 +225,13 @@
             <number>10</number>
            </property>
            <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Audio #2</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QComboBox" name="audiD_02_comboB">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -222,7 +242,13 @@
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>250</width>
+               <height>16777215</height>
               </size>
              </property>
              <property name="font">
@@ -238,12 +264,12 @@
         <item>
          <widget class="QGroupBox" name="bluetooth_device_groupB">
           <property name="title">
-           <string>Bluetooch device</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
            <property name="spacing">
             <number>5</number>
            </property>
@@ -260,6 +286,13 @@
             <number>10</number>
            </property>
            <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>BT Audio</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QComboBox" name="bt_audiD_comboB">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -270,7 +303,13 @@
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>250</width>
+               <height>16777215</height>
               </size>
              </property>
              <property name="font">
@@ -286,12 +325,12 @@
         <item>
          <widget class="QGroupBox" name="mic_01_groupB">
           <property name="title">
-           <string>Mic #1</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
            <property name="spacing">
             <number>5</number>
            </property>
@@ -308,6 +347,13 @@
             <number>10</number>
            </property>
            <item>
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Mic #1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QComboBox" name="mic_01_comboB">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -318,7 +364,13 @@
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>250</width>
+               <height>16777215</height>
               </size>
              </property>
              <property name="font">
@@ -342,13 +394,13 @@
           <property name="minimumSize">
            <size>
             <width>50</width>
-            <height>50</height>
+            <height>30</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>50</height>
+            <height>30</height>
            </size>
           </property>
           <property name="text">
@@ -360,6 +412,58 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QToolButton" name="test_mute_toolB">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>570</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mute</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="test_mute_sound_toolB">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>570</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>off_sound</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="test_vol_plus_toolB">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>480</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="test_vol_minus_toolB">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>480</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
    </widget>
   </widget>
  </widget>

@@ -5,7 +5,7 @@ import base64
 from websockets.sync.client import connect
 
 # Импортируем родительский класс Updater
-from cliento_updater import Updater, ROOT_DIR
+from cl_update import Updater, ROOT_DIR
 
 # Настройка логирования для плагинов
 logger = logging.getLogger("PluginUpdater")

@@ -160,23 +160,27 @@ class BanMainWindow(QMainWindow):
             self.ui.network_stat_line.setStyleSheet(self.load_style("status_disconnected"))
 
     def load_style(self, style_key):
-        """Загружает стиль из JSON файла."""
+        """Loads style from JSON file (Material Design)."""
         try:
-            style_path = os.path.join(project_root, "resources", "styles", "style_bandito.json")
-            with open(style_path, 'r', encoding='utf-8') as f:
+            path = os.path.join(project_root, "resources", "styles", "style_bn_material.json")
+            with open(path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                if style_key in data:
-                    style_dict = data.get(style_key, {})
-                    return "; ".join([f"{k}: {v}" for k, v in style_dict.items()])
+            
+            if style_key in data:
+                return "; ".join([f"{k}: {v}" for k, v in data[style_key].items()])
+            
+            # Construct global stylesheet
+            css = ""
+            for selector, props in data.items():
+                # Skip metadata and manual-only status styles
+                if selector.startswith(("__", "animation", "status_", "plugin_active", "plugin_inactive")): 
+                    continue
                 
-                full_css = ""
-                for widget, styles in data.items():
-                    if widget.startswith("status_"): continue
-                    props = "; ".join([f"{k}: {v}" for k, v in styles.items()])
-                    full_css += f"{widget} {{ {props} }} \n"
-                return full_css
+                props_str = "; ".join([f"{k}: {v}" for k, v in props.items()])
+                css += f"{selector} {{ {props_str} }}\n"
+            return css
         except Exception as e:
-            print(f"Error loading style: {e}")
+            print(f"Style Load Error: {e}")
             return ""
 
     def apply_global_styles(self):

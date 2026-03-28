@@ -87,6 +87,30 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
         self.app_choice_toolB.clicked.connect(self.open_app_selector)
         self.save_new_pushB.clicked.connect(self.save_new_shortcut_preset)
 
+        # Синхронизация ручного ввода и виджета комбинаций
+        self.sh_hand_input_lineE.textChanged.connect(self.sync_manual_shortcut)
+        self.sh_hc1_keyEdit.keySequenceChanged.connect(self.sync_keyedit_to_manual)
+
+    def sync_manual_shortcut(self, text):
+        """Преобразование текста в QKeySequence и обновление KeyEdit с валидацией."""
+        seq = QKeySequence(text)
+        
+        # Визуальная индикация валидности
+        if text and seq.isEmpty():
+            self.sh_hand_input_lineE.setStyleSheet("border: 1px solid red;")
+        else:
+            self.sh_hand_input_lineE.setStyleSheet("")
+            
+        self.sh_hc1_keyEdit.blockSignals(True)
+        self.sh_hc1_keyEdit.setKeySequence(seq)
+        self.sh_hc1_keyEdit.blockSignals(False)
+
+    def sync_keyedit_to_manual(self, key_sequence):
+        """Обновление текстового поля при изменении KeySequenceEdit."""
+        self.sh_hand_input_lineE.blockSignals(True)
+        self.sh_hand_input_lineE.setText(key_sequence.toString(QKeySequence.SequenceFormat.NativeText))
+        self.sh_hand_input_lineE.blockSignals(False)
+
     def setup_tree_widget(self):
         """Настройка дерева префабов."""
         self.treeWidget.setDragEnabled(True)
@@ -103,7 +127,12 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
         self.funcrion_widget.setEnabled(enabled)
 
     def load_stylesheet(self):
-        style_path = os.path.join(self.plugin_path, "config", "style_shortcut_bandito.json")
+        # Новые стили Material 2
+        style_path = os.path.join(self.plugin_path, "config", "style_sh_bn_material.json")
+        
+        # Старые стили (закомментированы)
+        # style_path = os.path.join(self.plugin_path, "config", "style_shortcut_bandito.json")
+        
         style_data = load_json(style_path)
         if style_data:
             self.setStyleSheet(parse_style_to_css(style_data))
@@ -127,6 +156,17 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
                 btn.setAcceptDrops(True)
                 btn.dragEnterEvent = lambda e, b=btn: self.btn_dragEnterEvent(e, b)
                 btn.dropEvent = lambda e, b=btn: self.btn_dropEvent(e, b)
+                
+                # Эффект тени для кнопок в сетке
+                if btn.property("applyShadow"):
+                    from PySide6.QtWidgets import QGraphicsDropShadowEffect
+                    from PySide6.QtGui import QColor
+                    shadow = QGraphicsDropShadowEffect(self)
+                    shadow.setBlurRadius(10)
+                    shadow.setXOffset(0)
+                    shadow.setYOffset(2)
+                    shadow.setColor(QColor(0, 0, 0, 180))
+                    btn.setGraphicsEffect(shadow)
 
     def btn_dragEnterEvent(self, event, btn):
         if event.mimeData().hasFormat("application/x-qabstractitemmodeldatalist"):
@@ -207,7 +247,8 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
             action_value, action_type = self.app_path_lineE.text(), "program"
         elif current_tab == 1: # Shortcut
             name = self.sh_title_lineE.text() or "New Shortcut"
-            action_value = self.sh_hc1_keyEdit.keySequence().toString(QKeySequence.SequenceFormat.NativeText)
+            # Сохраняем значение из текстового поля (синхронизировано с KeyEdit)
+            action_value = self.sh_hand_input_lineE.text()
             action_type = "shortcut"
         elif current_tab == 2: # Action
             name = self.action_title_lineE.text() or "New Action"
@@ -323,7 +364,9 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
         act_type, act_val = action.get("type"), action.get("value")
         
         if act_type == "program": self.app_path_lineE.setText(act_val)
-        elif act_type == "shortcut": self.sh_hc1_keyEdit.setKeySequence(QKeySequence(act_val))
+        elif act_type == "shortcut": 
+            self.sh_hc1_keyEdit.setKeySequence(QKeySequence(act_val))
+            self.sh_hand_input_lineE.setText(act_val) # Заполнение поля ручного ввода
         elif act_type == "system":
             for i in range(self.action_comboB.count()):
                 if self.action_comboB.itemData(i).get("value") == act_val:
@@ -348,6 +391,7 @@ class ShortcutBanditoPlugin(QWidget, Ui_stream_bandito):
         self.action_title_lineE.clear()
         self.app_path_lineE.clear()
         self.sh_hc1_keyEdit.clear()
+        self.sh_hand_input_lineE.clear()
 
     def handle_button_press(self, *args, **kwargs):
         """Обработка нажатия кнопки от ядра сервера."""

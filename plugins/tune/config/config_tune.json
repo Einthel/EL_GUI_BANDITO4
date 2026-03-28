@@ -1,7 +1,21 @@
 {
-    "selected_device": "Headset Earphone (G435 Wireless Gaming Headset)",
-    "output_devices": [
+    "active_devices": [
         "Headset Earphone (G435 Wireless Gaming Headset)",
         "Динамики (Creative Stage SE)"
-    ]
+    ],
+    "input_devices": [
+        "Microphone (G435 Wireless Gaming Headset)"
+    ],
+    "input_devices_muted": false,
+    "input_devices_volume": 79,
+    "output_devices": [
+        "Динамики (Creative Stage SE)",
+        "Headset Earphone (G435 Wireless Gaming Headset)",
+        "Наушники (AirPods Pro (Einthel) - Find My)"
+    ],
+    "output_devices_muted": false,
+    "output_devices_volume": 86,
+    "selected_bt_device": "Наушники (AirPods Pro (Einthel) - Find My)",
+    "selected_device": "Headset Earphone (G435 Wireless Gaming Headset)",
+    "selected_mic": "Microphone (G435 Wireless Gaming Headset)"
 }
